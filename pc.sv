@@ -25,14 +25,14 @@ module pc #(parameter INITPC)(
            always_comb begin
             if (pcif.iready)
                 case(pcif.cuOP)
-                    JALR: next_pc = {pcif.rs1Read + (pcif.signExtend << 2)}&~1'b1;
-                    JAL: next_pc = PC + (pcif.signExtend << 2);
-                    BEQ: next_pc = (pcif.Zero? PC + 4 + {pcif.signExtend << 2} : PC + 4);
-                    BNE: next_pc = (~pcif.Zero? PC + 4 + {pcif.signExtend << 2} : PC + 4);
-                    BLT: next_pc = (pcif.ALUneg? PC + 4 + {pcif.signExtend << 2} : PC + 4);
-                    BGE: next_pc = (~pcif.ALUneg | pcif.Zero? PC + 4 + {pcif.signExtend << 2} : PC + 4);
-                    BLTU: next_pc = (pcif.ALUneg? PC + 4 + {pcif.signExtend << 2} : PC + 4);
-                    BGEU: next_pc = (~pcif.ALUneg | pcif.Zero? PC + 4 + {pcif.signExtend << 2} : PC + 4);
+                    JALR: next_pc = {pcif.rs1Read + pcif.signExtend}&~1'b1;
+                    JAL: next_pc = PC + pcif.signExtend;
+                    BEQ: next_pc = (pcif.Zero? PC + pcif.signExtend: PC + 4);
+                    BNE: next_pc = (~pcif.Zero? PC + pcif.signExtend : PC + 4);
+                    BLT: next_pc = (pcif.ALUneg? PC + pcif.signExtend : PC + 4);
+                    BGE: next_pc = (~pcif.ALUneg | pcif.Zero? PC + pcif.signExtend : PC + 4);
+                    BLTU: next_pc = (pcif.ALUneg? PC + pcif.signExtend : PC + 4);
+                    BGEU: next_pc = (~pcif.ALUneg | pcif.Zero? PC + pcif.signExtend : PC + 4);
                     default: next_pc = PC + 4;
                 endcase
                 else
