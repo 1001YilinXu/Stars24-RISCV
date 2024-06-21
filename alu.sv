@@ -1,10 +1,13 @@
+`include "source/cpu_types_pkg.vh"
+`include "source/alu_if.vh"
+
 module alu(
 input logic signed [31:0] inputA, inputB,
 input logic [3:0] ALUOp,
 output logic signed [31:0] ALUResult,
 output logic negative, zero
 );
-//aluop_t in package file
+//input A and B must be signed!
 logic [31:0] unsignedA, unsignedB;
 assign unsignedA = inputA;
 assign unsignedB = inputB;
