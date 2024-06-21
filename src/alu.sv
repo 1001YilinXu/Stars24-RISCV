@@ -37,7 +37,7 @@ always_comb begin
         else
             aluif.ALUResult = 32'd0;
     end 
-    ALU_SLTU, ALU_SLTU: begin
+    ALU_SLTU: begin
         if (aluif.unsignedA < aluif.unsignedB)
             aluif.ALUResult = 32'd1;
         else

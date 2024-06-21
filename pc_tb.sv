@@ -11,14 +11,16 @@ localparam CLK_PERIOD = 10;
 
 //all logic
 logic tb_clk;
-logic [31:0] tb_PC, tb_nextPC, tb_rs1Read, tb_signExtend;
+logic [31:0] tb_PC, tb_nextPC, tb_rs1Read, tb_signExtend. tb_out;
 logic [5:0] tb_op;
 logic tb_checking_outputs, tb_extendZeros, tb_zero, tb_negative, tb_iready, tb_nRST;
 
 //set up interface
 pc_if pcif ();
 //is this call right?
-pc DUT(pcif, .nRST(tb_nRST), .clk(tb_clk));
+pc DUT(
+    .pcif(pcif), 
+    .nRST(tb_nRST), .clk(tb_clk));
 
 task reset_dut;
     @(negedge tb_clk);
