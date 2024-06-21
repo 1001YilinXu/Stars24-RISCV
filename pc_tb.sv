@@ -84,27 +84,23 @@ initial begin
         tb_test_case = "Test Case 1: JAL operation";
         reset_dut;
         $display("\n\n%s", tb_test_case);
-        
+        pcif.signExtend = 0;
+        pcif.rs1Read = 0;
         pcif.CUOp= JAL;
-        pcif.signExtend = signExtendIn;
+        //change negative and zero values to ensure works properly for different values
         pcif.negative = 0;
         pcif.zero = 0;
         pcif.iready = 1;
         //loop through test cases
         for (integer i = 1; i < testCaseNum; i++) begin
             for (integer j = 1; j < testCaseNum; j++) begin
-            
-            pcif.rs1Read = 32'b0 + i;
+            pcif.signExtend = pcif.signExtend + j;
+            pcif.rs1Read = pcif.rs1Read + i;
+            @(negedge tb_clk);
+            checkOut(pcif.rs1Read + pcif.signExtend + 4);
             end 
         end
-        @(negedge tb_clk);
-        checkOut(signExtendIn + 4);
-        wait(CLK_PERIOD);
-        signExtendIn = 32'h1234;
-        checkOut(signExtendIn + 4);
-        wait(CLK_PERIOD);
-        signExtendIn = 32'h2222;
-        rs1ReadIn = 32'h1111;
+
 
 
 
