@@ -18,4 +18,4 @@ always_comb begin
 end
 assign read_data1 = register [read_index1];
 assign read_data2 = register [read_index2];
- endmodule
+endmodule
