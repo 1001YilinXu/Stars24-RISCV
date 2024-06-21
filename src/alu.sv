@@ -1,5 +1,5 @@
-`include "source/cpu_types_pkg.vh"
-`include "source/alu_if.vh"
+`include "src/cpu_pkg.vh"
+`include "src/alu_if.vh"
 
 module alu(
 alu_if.dut aluif
@@ -12,26 +12,26 @@ always_comb begin
     //will this zero cause an issue?
     aluif.zero = 0;
     case (aluif.op)
-    ALU_SLL, ALU_SLLI:
+    ALU_SLL:
         aluif.ALUResult = aluif.inputA << aluif.inputB[4:0];
-    ALU_SRA, ALU_SRAI:
+    ALU_SRA:
         aluif.ALUResult = aluif.inputA >>> aluif.inputB[4:0];
-    ALU_SRL, ALU_SRLI:
+    ALU_SRL:
         aluif.ALUResult = aluif.inputA >> aluif.inputB;
-    ALU_ADD, ALU_ADDI:
+    ALU_ADD:
         aluif.ALUResult = aluif.inputA + aluif.inputB;
     ALU_SUB: begin
         aluif.ALUResult = aluif.inputA - aluif.inputB;
         if (aluif.ALUResult == 0)
             aluif.zero = 1;
     end
-    ALU_OR, ALU_ORI: 
+    ALU_OR: 
         aluif.ALUResult = aluif.inputA | aluif.inputB;
-    ALU_XOR, ALU_XORI:
+    ALU_XOR:
         aluif.ALUResult = aluif.inputA ^ aluif.inputB;
-    ALU_AND, ALU_ANDI:
+    ALU_AND:
         aluif.ALUResult = aluif.inputA & aluif.inputB;
-    ALU_SLT, ALU_SLTI: begin
+    ALU_SLT: begin
         if (aluif.inputA < aluif.inputB)
             aluif.ALUResult = 32'd1;
         else

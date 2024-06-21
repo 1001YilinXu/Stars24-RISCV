@@ -1,5 +1,5 @@
-`include "source/cpu_types_pkg.vh"
-`include "source/signExtender_if.vh"
+`include "src/cpu_types_pkg.vh"
+`include "src/signExtender_if.vh"
 
 module signExtender (
 signExtender_if.dut signedExtif
