@@ -1,3 +1,7 @@
+`ifndef REGISTER_FILE_IF_VH
+`define REGISTER_FILE_IF_VH
+include "cpu_types_pkg.vh"
+
 interface register_file_if
     import cpu_types_pkg::*;
     logic reg_write; 
@@ -13,3 +17,4 @@ interface register_file_if
         output read_data1, read_data2
         );
 endinterface
+`endif

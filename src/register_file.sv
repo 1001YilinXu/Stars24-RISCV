@@ -5,6 +5,7 @@ import cpu_types_pkg::*;
     register_file_if.rf rfif
 );
 word_t [31:0] register, nxt_register;
+assign register[0] = 32'b0;
 always_ff@(posedge clk, negedge nRST) begin
     if (!nRST) begin
         register <= 0;
@@ -14,8 +15,11 @@ always_ff@(posedge clk, negedge nRST) begin
     end
 end
 always_comb begin
-    nxt_register [write_index]= write_data;
+    nxt_register = register;
+    if(rfif.reg_write & (rfif.write_data != 32'b0)) begin
+    nxt_register [rfif.write_index]= rfif.write_data;
+    end
 end
-assign read_data1 = register [read_index1];
-assign read_data2 = register [read_index2];
+assign rfif.read_data1 = register [rfif.read_index1];
+assign rfif.read_data2 = register [rfif.read_index2];
 endmodule

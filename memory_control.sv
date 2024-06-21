@@ -4,18 +4,21 @@ module memory_control
     input logic CLK, nRST,
     memory_control_if.rf mcif
 );
-logic i_wait, d_wait, i_ready, d_ready, Ren, Wen, 
-word_t ramstore, ramaddr, prev_dmmaddr, prev_dmmstore, prev_imemload, dmmload, imemload, ;
+logic i_ready, d_ready,
+word_t prev_dmmaddr, prev_dmmstore, prev_imemload, dmmload, imemload;
 
 always_ff@(posedge CLK, negedge nRST) begin
     if(!nRST) begin
-        prev_dmmaddr, prev_dmmstore, prev_immload <= 32'b0;
+        prev_dmmaddr <= 32'b0;
+        prev_dmmstore <= 32'b0;
+        prev_immload <= 32'b0;
     end
     else begin
         prev_dmmaddr <= mcif.dmmaddr; 
         prev_dmmstore <= mcif.dmmstore;
         prev_imemload <= mcif.imemload; 
     end
+end
 always_comb begin
     if(mcif.dmmRen) begin
         ramaddr = prev_dmmaddr;
@@ -36,7 +39,8 @@ always_comb begin
         i_wait = mcif.busy_o;
     end
     else begin
-        Ren, Wen = 1; 
+        Ren = 1;
+        Wen = 1; 
     end
 end
 end
