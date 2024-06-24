@@ -24,7 +24,7 @@ always_comb begin
         aluif.ALUResult = aluif.inputA - aluif.inputB;
         if (aluif.ALUResult == 0)
             aluif.zero = 1;
-    end
+            end
     ALU_OR: 
         aluif.ALUResult = aluif.inputA | aluif.inputB;
     ALU_XOR:
@@ -36,13 +36,13 @@ always_comb begin
             aluif.ALUResult = 32'd1;
         else
             aluif.ALUResult = 32'd0;
-    end 
+            end 
     ALU_SLTU: begin
         if (aluif.unsignedA < aluif.unsignedB)
             aluif.ALUResult = 32'd1;
         else
             aluif.ALUResult = 32'd0;
-    end
+             end
     //do I need a defualt case?
 
     endcase
