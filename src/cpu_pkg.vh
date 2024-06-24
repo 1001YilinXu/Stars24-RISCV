@@ -1,7 +1,7 @@
 `ifndef CPU_PKG_VH
 `define CPU_PKG_VH
 
-package risc_pkg;
+package cpu_pkg;
 	parameter WORD_W = 32;
 	parameter WORDBYTES = WORD_W/4;
 
@@ -13,6 +13,15 @@ package risc_pkg;
   parameter IMM_W = 20;
 
 	parameter ALUOP_W = 4;
+
+	typedef enum logic [5:0] {
+		CU_LUI, CU_AUIPC, CU_JAL, CU_JALR, 
+		CU_BEQ, CU_BNE, CU_BLT, CU_BGE, CU_BLTU, CU_BGEU, 
+		CU_LB, CU_LH, CU_LW, CU_LBU, CU_LHU, CU_SB, CU_SH, CU_SW, 
+		CU_ADDI, CU_SLTI, CU_SLTIU, CU_SLIU, CU_XORI, CU_ORI, CU_ANDI, CU_SLLI, CU_SRLI, CU_SRAI, 
+		CU_ADD, CU_SUB, CU_SLL, CU_SLT, CU_SLTU, CU_XOR, CU_SRL, CU_SRA, CU_OR, CU_AND,
+		CU_ERROR
+	} cuOPType;	
 
 	//op code def
 	typedef enum logic [OP_W - 1:0] {
@@ -36,7 +45,7 @@ package risc_pkg;
 		ALU_SLL = 5, 
 		ALU_SRA = 6, 
 		ALU_SLTU = 7, 
-		ALU_SLT = 8, 
+		ALU_SLT = 8,
 		ALU_SRL = 9
 	}aluCode_t;
 		
@@ -56,15 +65,15 @@ package risc_pkg;
 
 	//itype  def {inst[30], funct3}
 	typedef enum logic [FUNC3_W:0] {
-		ADDI = 4'bx000,
-		SLTI = 4'bx010,
-		SLTIU = 4'bx011,
-		XORI = 4'bx100,
+		ADDI = 4'b?000,
+		SLTI = 4'b?010,
+		SLTIU = 4'b?011,
+		XORI = 4'b?100,
 		SLLI = 4'b0001,
 		SRLI = 4'b0101,
 		SRAI = 4'b1101,
-		ORI = 4'bx110,
-		ANDI = 4'bx111
+		ORI = 4'b?110,
+		ANDI = 4'b?111
 	} ifunc_t;
 
 	//STORE def 
@@ -104,7 +113,7 @@ package risc_pkg;
 
 	//JALR, Load, and immediate(nonshift)
 	typedef struct packed {
-		logic [OP_W:0] imm;
+		logic [11:0] imm;
 		regBits r1;
 		logic [FUNC3_W-1:0] funct;
 		regBits rd;
@@ -113,7 +122,7 @@ package risc_pkg;
 	
 	//Btype and store
 	typedef struct packed {
-		logic [IMM_W - 9:0] imm_1;
+		logic [OP_W-1:0] imm_1;
 		regBits r2;
 		regBits r1;
 		logic [FUNC3_W-1:0] funct;
@@ -126,14 +135,14 @@ package risc_pkg;
 		logic [OP_W - 1:0] funct7;
 		logic [SHAM_W - 1:0] shamt;
 		regBits r1;
-		ifunc_t funct;
+		logic [FUNC3_W-1:0] funct;
 		regBits rd;
 		opCode_t opType;
 	} ishift_t;
 
 	//Rtype
 	typedef struct packed {
-		logic [OP_W:0] imm;
+		logic [OP_W-1:0] funct7;
 		regBits r2;
 		regBits r1;
 		logic [FUNC3_W-1:0] funct;
@@ -154,6 +163,6 @@ package risc_pkg;
 		logic valid;
 		word_t data;
 	} imem_t;
-endpackage
+endpackage : cpu_pkg
 
 `endif
