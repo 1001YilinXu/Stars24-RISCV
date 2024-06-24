@@ -1,9 +1,9 @@
-`include "pc_if.vh"
+`include "src/pc_if.vh"
 `include "src/cpu_pkg.vh"
 
 import cpu_pkg::*;
 
-module pc #(parameter INITPC)(
+module pc #(parameter INITPC = 0)(
     pc_if.pc pcif
 );
         //     input logic clk, nRST,
