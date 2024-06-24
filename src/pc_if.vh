@@ -1,8 +1,12 @@
 `ifndef PC_IF_VH
 `define PC_IF_VH
 
+`include "src/cpu_pkg.vh"
+
+import cpu_pkg::*;
+
 interface pc_if;
-    logic [5:0]cuOP;
+    cuOPType cuOP;
     logic [31:0] rs1Read, signExtend, PCaddr;
     logic ALUneg;
     logic Zero;
