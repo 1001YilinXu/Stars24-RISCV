@@ -18,8 +18,8 @@ output immOut
 );
 
 modport tb (
-input CUOp, imm,
-output immOut
+output CUOp, imm,
+input immOut
 );
 
 endinterface

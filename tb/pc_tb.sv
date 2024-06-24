@@ -1,7 +1,9 @@
 
 //make sure name of test bench is still correct
-`include "pc_if.vh"
-
+`include "src/pc_if.vh"
+`include "src/cpu_pkg.vh"
+`include "src/pc.sv"
+import cpu_pkg::*;
 
 `timescale 1ms / 100us
 
@@ -11,24 +13,6 @@ localparam CLK_PERIOD = 10;
 
 //all logic
 logic tb_clk;
-integer testCaseNum;
-
-//set up interface
-pc_if pcif ();
-
-test PROG(.pcuf, .tb_clk, .testCaseNum);
-
-//is this call right?
-pc DUT(pcif);
-
-task reset_dut;
-    @(negedge tb_clk);
-    tb_nRST = 1'b0;
-    @(negedge tb_clk);
-    @(negedge tb_clk);
-    tb_nRST = 1'b1;
-    @(posedge tb_clk);
-endtask
 
 // Clock generation block
 always begin
@@ -38,37 +22,57 @@ always begin
     #(CLK_PERIOD / 2.0); 
 end
 
-task checkOut;
-    input logic [31:0] exp_out;
-    @(negedge tb_clk);
-    tb_checking_outputs = 1'b1;
-    if(tb_out == exp_out)
-        $info("Correct address %0d.", exp_out);
-    else
-        $error("Incorrect address. Expected: %0d. Actual: %0d.", exp_out, tb_out); 
-    
-    #(1);
-    tb_checking_outputs = 1'b0;  
-endtask
-//make an operation to check the operation???
-    // task whichOp;
-    // input logic [5:0] operation;
-    // if operation
-    // endtask
-//do I need to set an inital value to PC?
+//set up interface
+pc_if pcif ();
+
+test PROG(.pcif(pcif), .tb_clk(tb_clk));
+
+//is this call right?
+pc DUT(pcif);
+
 
 endmodule
 
 program test (
     pc_if.tb pcif,
-    input tb_clk,
-    integer testCaseNum
+    input tb_clk
 );
+
+integer intermResult;
+integer testCaseNum;
+logic tb_checking_outputs;
+integer tb_test_num;
+string tb_test_case;
+
+
+task reset_dut;
+    @(negedge tb_clk);
+    pcif.nRST = 1'b0;
+    @(negedge tb_clk);
+    @(negedge tb_clk);
+    pcif.nRST = 1'b1;
+    @(posedge tb_clk);
+endtask
+
+task checkOut;
+    input logic [31:0] exp_out;
+    @(negedge tb_clk);
+    tb_checking_outputs = 1'b1;
+    if(pcif.PCaddr == exp_out)
+        $info("Correct address %0d.", exp_out);
+    else
+        $error("Incorrect address. Expected: %0d. Actual: %0d.", exp_out, pcif.PCaddr); 
+    
+    #(1);
+    tb_checking_outputs = 1'b0;  
+endtask
+
+
 initial begin
     $dumpfile("dump.vcd");
     $dumpvars;
     pcif.nRST = 1;
-    pcif.negative = 0;
+    pcif.ALUneg = 0;
     pcif.iready = 1;
     pcif.ALUneg = 0;
     pcif.cuOP = 5'b0;
@@ -87,11 +91,11 @@ initial begin
         tb_test_num += 1;
         tb_test_case = "Test Case 0: Power-on-Reset of the DUT";
         $display("\n\n%s", tb_test_case);
-        tb_nRST = 0;
+        pcif.nRST = 0;
         #2;
         checkOut(32'b0);
         @(negedge tb_clk);
-        tb_nRST = 1;
+        pcif.nRST = 1;
         #2;
         checkOut(32'b0);
     // ************************************************************************
@@ -105,11 +109,11 @@ initial begin
         //set initial values
         pcif.signExtend = 0;
         pcif.rs1Read = 0;
-        pcif.CUOp= JAL;
+        pcif.cuOP= JAL;
 
         //change negative and zero values to ensure works properly for different values
-        pcif.negative = 0;
-        pcif.zero = 0;
+        pcif.ALUneg = 0;
+        pcif.Zero = 0;
         pcif.iready = 1;
         //loop through test cases
         for (integer i = 1; i < testCaseNum; i++) begin
@@ -133,11 +137,11 @@ initial begin
         //set initial values
         pcif.signExtend = 0;
         pcif.rs1Read = 0;
-        pcif.CUOp = JALR;
+        pcif.cuOP = JALR;
 
         //change negative and zero values to ensure works properly for different values
-        pcif.negative = 0;
-        pcif.zero = 0;
+        pcif.ALUneg = 0;
+        pcif.Zero = 0;
         pcif.iready = 1;
         //loop through test cases
         for (integer i = 1; i < testCaseNum; i++) begin
@@ -160,11 +164,11 @@ initial begin
         //set initial values
         pcif.signExtend = 0;
         pcif.rs1Read = 0;
-        pcif.CUOp = BEQ;
+        pcif.cuOP = BEQ;
 
         //change negative and zero values to ensure works properly for different values
-        pcif.negative = 0;
-        pcif.zero = 0;
+        pcif.ALUneg = 0;
+        pcif.Zero = 0;
         pcif.iready = 1;
         //loop through test cases
         @(negedge tb_clk);
@@ -180,11 +184,11 @@ initial begin
         //set initial values
         pcif.signExtend = 0;
         pcif.rs1Read = 0;
-        pcif.CUOp = BNE;
+        pcif.cuOP = BNE;
 
         //change negative and zero values to ensure works properly for different values
-        pcif.negative = 0;
-        pcif.zero = 1;
+        pcif.ALUneg = 0;
+        pcif.Zero = 1;
         pcif.iready = 1;
         //loop through test cases
         @(negedge tb_clk);
@@ -200,11 +204,11 @@ initial begin
         //set initial values
         pcif.signExtend = 0;
         pcif.rs1Read = 0;
-        pcif.CUOp = BLT;
+        pcif.cuOP = BLT;
 
         //change negative and zero values to ensure works properly for different values
-        pcif.negative = 0;
-        pcif.zero = 1;
+        pcif.ALUneg = 0;
+        pcif.Zero = 1;
         pcif.iready = 1;
         //loop through test cases
         @(negedge tb_clk);
@@ -220,11 +224,11 @@ initial begin
         //set initial values
         pcif.signExtend = 0;
         pcif.rs1Read = 0;
-        pcif.CUOp = BLT;
+        pcif.cuOP = BLT;
 
         //change negative and zero values to ensure works properly for different values
-        pcif.negative = 0;
-        pcif.zero = 1;
+        pcif.ALUneg = 0;
+        pcif.Zero = 1;
         pcif.iready = 1;
         //loop through test cases
         @(negedge tb_clk);
@@ -240,11 +244,11 @@ initial begin
         //set initial values
         pcif.signExtend = 0;
         pcif.rs1Read = 0;
-        pcif.CUOp = BGEU;
+        pcif.cuOP = BGEU;
 
         //change negative and zero values to ensure works properly for different values
-        pcif.negative = 1;
-        pcif.zero = 1;
+        pcif.ALUneg = 1;
+        pcif.Zero = 1;
         pcif.iready = 1;
         //loop through test cases
         @(negedge tb_clk);
@@ -260,11 +264,11 @@ initial begin
         //set initial values
         pcif.signExtend = 0;
         pcif.rs1Read = 0;
-        pcif.CUOp = BEQ;
+        pcif.cuOP = BEQ;
 
         //change negative and zero values to ensure works properly for different values
-        pcif.negative = 1;
-        pcif.zero = 1;
+        pcif.ALUneg = 1;
+        pcif.Zero = 1;
         pcif.iready = 1;
         //loop through test cases
         @(negedge tb_clk);
@@ -280,11 +284,11 @@ initial begin
         //set initial values
         pcif.signExtend = 0;
         pcif.rs1Read = 0;
-        pcif.CUOp = BNE;
+        pcif.cuOP = BNE;
 
         //change negative and zero values to ensure works properly for different values
-        pcif.negative = 0;
-        pcif.zero = 0;
+        pcif.ALUneg = 0;
+        pcif.Zero = 0;
         pcif.iready = 1;
         //loop through test cases
         @(negedge tb_clk);
@@ -300,11 +304,11 @@ initial begin
         //set initial values
         pcif.signExtend = 0;
         pcif.rs1Read = 0;
-        pcif.CUOp = BLT;
+        pcif.cuOP = BLT;
 
         //change negative and zero values to ensure works properly for different values
-        pcif.negative = 1;
-        pcif.zero = 0;
+        pcif.ALUneg = 1;
+        pcif.Zero = 0;
         pcif.iready = 1;
         //loop through test cases
         @(negedge tb_clk);
@@ -320,11 +324,11 @@ initial begin
         //set initial values
         pcif.signExtend = 0;
         pcif.rs1Read = 0;
-        pcif.CUOp = BGE;
+        pcif.cuOP = BGE;
 
         //change negative and zero values to ensure works properly for different values
-        pcif.negative = 1;
-        pcif.zero = 1;
+        pcif.ALUneg = 1;
+        pcif.Zero = 1;
         pcif.iready = 1;
         //loop through test cases
         @(negedge tb_clk);
@@ -340,11 +344,11 @@ initial begin
         //set initial values
         pcif.signExtend = 0;
         pcif.rs1Read = 0;
-        pcif.CUOp = BGE;
+        pcif.cuOP = BGE;
 
         //change negative and zero values to ensure works properly for different values
-        pcif.negative = 0;
-        pcif.zero = 0;
+        pcif.ALUneg = 0;
+        pcif.Zero = 0;
         pcif.iready = 1;
         //loop through test cases
         @(negedge tb_clk);
@@ -361,11 +365,11 @@ initial begin
         //set initial values
         pcif.signExtend = 0;
         pcif.rs1Read = 0;
-        pcif.CUOp = BLTU;
+        pcif.cuOP = BLTU;
 
         //change negative and zero values to ensure works properly for different values
-        pcif.negative = 1;
-        pcif.zero = 0;
+        pcif.ALUneg = 1;
+        pcif.Zero = 0;
         pcif.iready = 1;
         //loop through test cases
         @(negedge tb_clk);
@@ -381,11 +385,11 @@ initial begin
         //set initial values
         pcif.signExtend = 0;
         pcif.rs1Read = 0;
-        pcif.CUOp = BGEU;
+        pcif.cuOP = BGEU;
 
         //change negative and zero values to ensure works properly for different values
-        pcif.negative = 0;
-        pcif.zero = 0;
+        pcif.ALUneg = 0;
+        pcif.Zero = 0;
         pcif.iready = 1;
         //loop through test cases
         @(negedge tb_clk);
@@ -401,11 +405,11 @@ initial begin
         //set initial values
         pcif.signExtend = 0;
         pcif.rs1Read = 0;
-        pcif.CUOp = BGEU;
+        pcif.cuOP = BGEU;
 
         //change negative and zero values to ensure works properly for different values
-        pcif.negative = 1;
-        pcif.zero = 1;
+        pcif.ALUneg = 1;
+        pcif.Zero = 1;
         pcif.iready = 1;
         //loop through test cases
         @(negedge tb_clk);
