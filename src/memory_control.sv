@@ -1,7 +1,7 @@
 `include "src/cpu_pkg.vh"
 `include "src/memory_control_if.vh"
 module memory_control
-    import risc_pkg::*;
+    import cpu_pkg::*;
 (
     input logic CLK, nRST,
     memory_control_if.rf mcif

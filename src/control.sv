@@ -47,7 +47,7 @@ always_comb begin : control
 			cuif.cuOP = JALR;
 			cuif.regWrite = 1;
 			cuif.memToReg = 1;
-			cuif.imm = {8'b0, jrli_t.imm};
+			cuif.imm = {8'b0, jrlJALi_t.imm};
 			cuif.regd = jrli_t.rd;
 		end
 		BTYPE: begin

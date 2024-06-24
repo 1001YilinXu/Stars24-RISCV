@@ -3,7 +3,7 @@
 `include "cpu_pkg.vh"
 
 interface request_unit_if;
- import risc_pkg::*;
+ import cpu_pkg::*;
  logic dmmWen, dmmRen, imemRen, i_ready, d_ready;
  bytoff d_fetch;
  word_t dmmstorei, dmmstoreo, dmmaddri,dmmaddro, imemaddri, imemaddro, imemloadi, imemloado, dmmloadi, dmmloado;

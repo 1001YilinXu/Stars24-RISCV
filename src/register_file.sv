@@ -1,12 +1,12 @@
-`include "src/cpu_pkg.vh"
-`include "src/register_file_if.vh"
+`include "cpu_pkg.vh"
+`include "register_file_if.vh"
 module register_file
-import risc_pkg::*;
+import cpu_pkg::*;
 (
-    input logic CLK, nRST,
+    input logic clk, nRST,
     register_file_if.rf rfif
 );
-word_t [31:0] register, nxt_register;
+word_t register, nxt_register;
 assign register[0] = 32'b0;
 always_ff@(posedge clk, negedge nRST) begin
     if (!nRST) begin

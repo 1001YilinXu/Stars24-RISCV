@@ -2,9 +2,8 @@
 `define MEMORY_CONTROL_IF_VH
 `include "cpu_pkg.vh"
 
-
 interface memory_control_if;
-import risc_pkg::*;
+import cpu_pkg::*;
 logic dmmRen, dmmWen, imemRen, i_ready, d_ready, Ren, Wen, busy_o;
 word_t imemaddr, dmmaddr, dmmstore, dmmload, imemload, ramaddr, ramstore, ramload; 
 modport mc(
