@@ -1,10 +1,12 @@
+`include "src/cpu_pkg.vh"
+`include "src/memory_control_if.vh"
 module memory_control
-    import cpu_types_pkg::*;
+    import risc_pkg::*;
 (
     input logic CLK, nRST,
     memory_control_if.rf mcif
 );
-logic i_ready, d_ready,
+logic i_ready, d_ready;
 word_t prev_dmmaddr, prev_dmmstore, prev_imemload, dmmload, imemload;
 
 always_ff@(posedge CLK, negedge nRST) begin

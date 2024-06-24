@@ -1,5 +1,7 @@
+`include "src/cpu_pkg.vh"
+`include "src/request_unit_if.vh"
 module request_unit
-    import cpu_types_pkg::*;
+    import risc_pkg::*;
 (
     input logic CLK, nRST,
     request_unit_if.ru ruif

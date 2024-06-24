@@ -1,5 +1,7 @@
- module register_file
-import cpu_types_pkg::*;
+`include "src/cpu_pkg.vh"
+`include "src/register_file_if.vh"
+module register_file
+import risc_pkg::*;
 (
     input logic CLK, nRST,
     register_file_if.rf rfif
