@@ -12,7 +12,7 @@ import cpu_pkg::*;
 logic negative, zero;
 //word_t inputA, inputB, ALUResult;
 logic signed [31:0] inputA, inputB, ALUResult;
-logic[3:0] ALUOp;
+aluCode_t ALUOp;
 
 
 
