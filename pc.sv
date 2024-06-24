@@ -1,7 +1,6 @@
 `include "pc_if.vh"
 
 module pc #(parameter INITPC)(
-    input logic clk, nRST,
     pc_if.pc pcif
 );
         //     input logic clk, nRST,
@@ -16,8 +15,8 @@ module pc #(parameter INITPC)(
             assign pcif.PCaddr = PC;
             
 
-            always_ff@(posedge clk, negedge nRST)
-                if (nRST == 0)
+            always_ff@(posedge pcif.clk, negedge pcif.nRST)
+                if (pcif.nRST == 0)
                     PC <= INITPC;
                 else
                     PC <= next_pc;

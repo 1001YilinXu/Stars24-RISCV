@@ -7,12 +7,19 @@ interface pc_if;
     logic ALUneg;
     logic Zero;
     logic iready;
+    logic clk;
+    logic nRST;
+
 
 modport pc (
-    input cuOP, rs1Read, signExtend, ALUneg, Zero, iready,
+    input cuOP, rs1Read, signExtend, ALUneg, Zero, iready, clk, nRST,
     output PCaddr
 );
 
+modport tb (
+    output cuOP, rs1Read, signExtend, ALUneg, Zero, iready, clk, nRST,
+    input PCaddr
+);
 
 endinterface
 `endif

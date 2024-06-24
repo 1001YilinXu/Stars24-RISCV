@@ -17,6 +17,11 @@ interface writeToRegis;
         output WriteData
     );
 
+    modport wtrTB(
+        output memload, PC, linkReg, aluOut, imm, ALUneg, cuOP,
+        input WriteData
+    );
+
     endinterface
 
 `endif
