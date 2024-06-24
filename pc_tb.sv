@@ -11,16 +11,15 @@ localparam CLK_PERIOD = 10;
 
 //all logic
 logic tb_clk;
-logic [31:0] tb_rs1Read, tb_signExtend, tb_out;
-logic [5:0] tb_op;
-logic tb_checking_outputs, tb_extendZeros, tb_zero, tb_negative, tb_iready, tb_nRST;
 integer testCaseNum;
+
 //set up interface
 pc_if pcif ();
+
+test PROG(.pcuf, .tb_clk, testCaseNum);
+
 //is this call right?
-pc DUT(
-    .pcif(pcif), 
-    .nRST(tb_nRST), .clk(tb_clk));
+pc DUT(pcif);
 
 task reset_dut;
     @(negedge tb_clk);
@@ -62,16 +61,17 @@ endmodule
 
 program test (
     pc_if.tb pcif,
-    input tb_clk
+    input tb_clk,
+    integer testCaseNum
 );
 initial begin
     $dumpfile("dump.vcd");
     $dumpvars;
-    tb_nRST = 1;
+    pcif.nRST = 1;
     pcif.negative = 0;
     pcif.iready = 1;
     pcif.ALUneg = 0;
-    pcif.cuOP = 0;
+    pcif.cuOP = 5'b0;
     
     testCaseNum = 100;
     tb_test_num = -1;
