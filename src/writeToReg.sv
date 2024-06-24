@@ -1,4 +1,7 @@
 `include "writeToReg_if.vh"
+`include "src/cpu_pkg.vh"
+
+import cpu_pkg::*;
 
 module writeToReg (
     writeToRegis.writeToReg wtr

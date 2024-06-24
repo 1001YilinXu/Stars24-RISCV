@@ -5,6 +5,9 @@
 
 `timescale 1ms / 100us
 
+`include "src/alu_if.vh"
+`include "src/cpu_pkg.vh"
+
 module ALU_tb ();
 
     // Testbench parameters
@@ -12,6 +15,8 @@ module ALU_tb ();
     logic CLK = 0;
 
     logic tb_checking_outputs; 
+    logic tb_check_neg_out;
+    logic tb_check_zero_out;
     integer tb_test_num;
 
     // DUT (design under test) ports
@@ -31,8 +36,34 @@ module ALU_tb ();
     end
     endtask
 
+    task check_neg;
+    input exp_neg; 
+    begin
+        tb_check_neg_out = 1'b1;
+        if(aluif.negative == exp_neg)
+            $info("Correct neg out: %0d.", exp_neg);
+        else
+            $error("Incorrect neg out. Expected: %0d. Actual: %0d.", exp_neg, aluif.negative); 
+        tb_check_neg_out = 1'b0;
+        #(WAIT);
+    end
+    endtask
+
+    task check_zero;
+    input exp_zero; 
+    begin
+        tb_check_zero_out = 1'b1;
+        if(aluif.zero == exp_zero)
+            $info("Correct zero out: %0d.", exp_zero);
+        else
+            $error("Incorrect zero out. Expected: %0d. Actual: %0d.", exp_zero, aluif.zero); 
+        tb_check_zero_out = 1'b0;
+        #(WAIT);
+    end
+    endtask
+
     alu_if aluif ();
-    test TB_prog (.aluif);
+    startTB TB_prog (.aluif);
     alu tb_alu(aluif);
 
 endmodule
@@ -43,276 +74,162 @@ program startTB(
     alu_if.tb aluif
 );
 initial begin
-    //SLL
+    // Signal dump
+    $dumpfile("dump.vcd");
+    $dumpvars; 
+
+    //SLL / SLLI
+    tb_test_num = 0; //test case unsigned
+    aluif.inputA = 32'd256;
+    aluif.inputB = 32'd3;;
+    aluif.ALUOp = ALU_SLL;
+    check_ALU_out(32'd2048);
+
+    tb_test_num = 0; //test case signed
+    aluif.inputA = -32'd256;
+    aluif.inputB = 32'd3;;
+    aluif.ALUOp = ALU_SLL;
+    check_ALU_out(-32'd2048);
+
+    //SRA/SRAI unsigned
+    tb_test_num += 1; //test case 
+    aluif.inputA = 32'd9984;
+    aluif.inputB = 32'd3;
+    aluif.ALUOp = ALU_SRL;
+    check_ALU_out(32'd1248);
+
+    tb_test_num += 1; //test case 
+    aluif.inputA = -32'd1000;
+    aluif.inputB = 32'd3;
+    aluif.ALUOp = ALU_SRL;
+    check_ALU_out(-32'd125);
+
+    //ADD/ADDI
+    ////////////////////////////////////
+    //pos plus pos
+    tb_test_num += 1; //test case 
+    aluif.inputA = 32'd40;
+    aluif.inputB = 32'd90;
+    aluif.ALUOp = ALU_ADD;
+    check_ALU_out(32'd130);
+    check_neg(0);
+
+    //negative plus negative
+    tb_test_num += 1; //test case 
+    aluif.inputA = -32'd8;
+    aluif.inputB = -32'd10;
+    aluif.ALUOp = ALU_ADD;
+    check_ALU_out(-32'd18);
+    check_neg(1);
+
+    //positve plus negative
+    tb_test_num += 1; //test case 
+    aluif.inputA = 32'd10;
+    aluif.inputB = -32'd8;
+    aluif.ALUOp = ALU_ADD;
+    check_ALU_out(32'd2);
+    check_neg(0);
+
+    //negative plus positive
+    tb_test_num += 1; //test case 
+    aluif.inputA = -32'd20;
+    aluif.inputB = 32'd4;
+    aluif.ALUOp = ALU_ADD;
+    check_ALU_out(-32'd16);
+    check_neg(1);
+
+    //check zero
+    tb_test_num += 1; //test case 
+    aluif.inputA = 32'd10;
+    aluif.inputB = 32'd10;
+    aluif.ALUOp = ALU_SUB;
+    check_zero(1);
+
+    /////////////////////////////////
+
+    //sub
+    /////////////////////////////////////////////////////////
+    //neg minus neg
+    tb_test_num += 1; //test case 
+    aluif.inputA = -32'd10;
+    aluif.inputB = -32'd5;
+    aluif.ALUOp = ALU_SUB;
+    check_ALU_out(-32'd5);
+    check_neg(1);
+
+    //pos minus pos
+    tb_test_num += 1; //test case 
+    aluif.inputA = 32'd15;
+    aluif.inputB = 32'd5;
+    aluif.ALUOp = ALU_SUB;
+    check_ALU_out(32'd10);
+
+    //pos - neg
+    tb_test_num += 1; //test case 
+    aluif.inputA = 32'd20;
+    aluif.inputB = -32'd5;
+    aluif.ALUOp = ALU_SUB;
+    check_ALU_out(32'd25);
+
+    //neg - pos
+    tb_test_num += 1; //test case 
+    aluif.inputA = -32'd20;
+    aluif.inputB = 32'd10;
+    aluif.ALUOp = ALU_SUB;
+    check_ALU_out(-32'd30);
+
+    //check zero
+    tb_test_num += 1; //test case 
+    aluif.inputA = 32'd10;
+    aluif.inputB = 32'd10;
+    aluif.ALUOp = ALU_SUB;
+    check_zero(1);
+
+    ////////////////////////////////////////////////////////////
+
+    //OR/ORI 
+    tb_test_num += 1; //test case 
+    aluif.inputA = 32'b0010;
+    aluif.inputB = 32'b1101;
+    aluif.ALUOp = ALU_OR;
+    check_ALU_out(32'b1111);
+
+    //XOR/XORI
+    tb_test_num += 1; //test case 
+    aluif.inputA = 32'b100011;
+    aluif.inputB = 32'b101010;
+    aluif.ALUOp = ALU_XOR;
+    check_ALU_out(32'b001001);
+
+    //AND/ANDI
+    tb_test_num += 1; //test case 
+    aluif.inputA = 32'b100110;
+    aluif.inputB = 32'b111100;
+    aluif.ALUOp = ALU_XOR;
+    check_ALU_out(32'b100100);
+
+    //SLT/SLTI
+    tb_test_num += 1; //test case 
+    aluif.inputA = -32'd15;
+    aluif.inputB = 32'd10;
+    aluif.ALUOp = ALU_SLT;
+    check_ALU_out(32'd1);
+
+    //SLTU
+    tb_test_num += 1; //test case 
+    aluif.inputA = 32'd8;
+    aluif.inputB = 32'd10;
+    aluif.ALUOp = ALU_SLTU;
+    check_ALU_out(32'd1);
+
+    //SRL
+    tb_test_num += 1; //test case 
     aluif.inputA = 
     aluif.inputB =
     aluif.ALUOp = 
     check_ALU_out(xxxx);
 
 
-
-
-
 $finish;
 end
-
-
 endprogram
-
-initial begin
-        $dumpfile("dump.vcd");
-        $dumpvars; 
-
-end
-        // Initialize test bench signals
-        aluif.inputA = '0;
-        aluif.inputB = '0;
-        aluif.op = 
-
-        // Wait some time before starting first test case
-        #(0.1);
-
-        // ************************************************************************
-        // Test Case 0: Power-on-Reset of the DUT
-        // ************************************************************************
-        tb_test_num += 1;
-        tb_test_case = "Test Case 0: Power-on-Reset of the DUT";
-        $display("\n\n%s", tb_test_case);
-
-        tb_button_i = 1'b1;  // press button
-        tb_nRst_i = 1'b0;  // activate reset
-
-        // Wait for a bit before checking for correct functionality
-        #(2);
-        check_mode_o(IDLE, "IDLE");
-        check_time_o('0);
-
-        // Check that the reset value is maintained during a clock cycle
-        @(negedge tb_clk);
-        check_mode_o(IDLE, "IDLE");
-        check_time_o('0);
-
-        // Release the reset away from a clock edge
-        @(negedge tb_clk);
-        tb_nRst_i  = 1'b1;   // Deactivate the chip reset
-        tb_nRst_i  = 1'b0;   // activate the chip reset
-        // Check that internal state was correctly keep after reset release
-        check_mode_o(IDLE, "IDLE");
-        check_time_o('0);
-
-        tb_button_i = 1'b0;  // release button
-
-$finish
-
-//////////////////////////////////////////////////////////below is for reference
-
-    // Main Test Bench Process
-    initial begin
-        // Signal dump
-        $dumpfile("dump.vcd");
-        $dumpvars; 
-
-        // Initialize test bench signals
-        tb_button_i = 1'b0; 
-        tb_nRst_i = 1'b1;
-        tb_checking_outputs = 1'b0;
-        tb_test_num = -1;
-        tb_test_case = "Initializing";
-
-        // Wait some time before starting first test case
-        #(0.1);
-
-        // ************************************************************************
-        // Test Case 0: Power-on-Reset of the DUT
-        // ************************************************************************
-        tb_test_num += 1;
-        tb_test_case = "Test Case 0: Power-on-Reset of the DUT";
-        $display("\n\n%s", tb_test_case);
-
-        tb_button_i = 1'b1;  // press button
-        tb_nRst_i = 1'b0;  // activate reset
-
-        // Wait for a bit before checking for correct functionality
-        #(2);
-        check_mode_o(IDLE, "IDLE");
-        check_time_o('0);
-
-        // Check that the reset value is maintained during a clock cycle
-        @(negedge tb_clk);
-        check_mode_o(IDLE, "IDLE");
-        check_time_o('0);
-
-        // Release the reset away from a clock edge
-        @(negedge tb_clk);
-        tb_nRst_i  = 1'b1;   // Deactivate the chip reset
-        tb_nRst_i  = 1'b0;   // activate the chip reset
-        // Check that internal state was correctly keep after reset release
-        check_mode_o(IDLE, "IDLE");
-        check_time_o('0);
-
-        tb_button_i = 1'b0;  // release button
-
-        // ************************************************************************
-        // Test Case 1: Iterating through the different modes
-        // ************************************************************************
-        tb_test_num += 1;
-        reset_dut;
-        tb_test_case = "Test Case 1: Iterating through the different modes";
-        $display("\n\n%s", tb_test_case);
-
-        // Initially, mode_o is IDLE
-        check_mode_o(IDLE, "IDLE"); 
-
-        // Press button (IDLE->CLEAR)
-        single_button_press(); 
-        #(CLK_PERIOD * 5); // allow for sync + edge det + FSM delay 
-        check_mode_o(CLEAR, "CLEAR"); 
-
-        // Press button (CLEAR->RUNNING)
-        single_button_press(); 
-        #(CLK_PERIOD * 5);
-        check_mode_o(RUNNING, "RUNNING"); 
-
-        // Press button (back to IDLE)
-        single_button_press(); 
-        #(CLK_PERIOD * 5);
-        check_mode_o(IDLE, "IDLE"); 
-
-        // ************************************************************************
-        // Test Case 2: Only Changes Modes during Rising edges
-        // ************************************************************************
-        tb_test_num += 1; 
-        reset_dut;
-        tb_test_case = "Test Case 2: Stop watch changes mode once for each button press";
-        $display("\n\n%s", tb_test_case);
-
-        @(negedge tb_clk); 
-        tb_button_i = 1'b1;  // press button
-
-        #(CLK_PERIOD * 20);  // keep button pressed a long time
-        check_mode_o(CLEAR, "CLEAR"); 
-
-
-        @(negedge tb_clk); 
-        tb_button_i = 1'b0;  // release button
-
-        // Keep adding to this test case!!
-
-        ////////////////////////////////
-        // ADD MORE TEST CASES HERE!! //
-        ////////////////////////////////
-
-
-        ////////////// running check
-
-        @(negedge tb_clk); 
-        tb_button_i = 1'b1;  // press button
-
-        #(CLK_PERIOD * 20);  // keep button pressed a long time
-        check_mode_o(RUNNING, "RUNNING"); 
-
-
-        @(negedge tb_clk); 
-        tb_button_i = 1'b0;  // release button
-
-        //////////// idle check
-
-                @(negedge tb_clk); 
-        tb_button_i = 1'b1;  // press button
-
-        #(CLK_PERIOD * 20);  // keep button pressed a long time
-        check_mode_o(IDLE, "IDLE"); 
-
-
-        @(negedge tb_clk); 
-        tb_button_i = 1'b0;  // release button
-
-        // ************************************************************************
-        // Test Case 3: When mode is RUNNING, verify time_o increments every second
-        // ************************************************************************
-        tb_test_num += 1; 
-        reset_dut;
-        tb_test_case = "Test Case 3: When mode is RUNNING, verify time_o increments every second";
-        $display("\n\n%s", tb_test_case);
-
-        single_button_press(); 
-        #(CLK_PERIOD * 5); // allow for sync + edge det + FSM delay  
-        //now clear
-
-        single_button_press(); 
-        #(CLK_PERIOD * 5); // allow for sync + edge det + FSM delay 
-        //now running
-
-        #1050;
-        check_time_o(5'b00001);
-
-        #1000;
-        check_time_o(5'b00010);
-
-        #5000;
-        check_time_o(5'b00111);
-
-        // ************************************************************************
-        // Test Case 4: Verify time_o stops changing after stop watch returns to IDLE
-        // ************************************************************************
-        tb_test_num += 1; 
-        reset_dut;
-        tb_test_case = "Test Case 4: Verify time_o stops changing after stop watch returns to IDLE";
-        $display("\n\n%s", tb_test_case);
-
-        single_button_press(); 
-        #(CLK_PERIOD * 5); // allow for sync + edge det + FSM delay  
-        //now clear
-
-        single_button_press(); 
-        #(CLK_PERIOD * 5); // allow for sync + edge det + FSM delay 
-        //now running
-
-        #1050;
-        check_time_o(5'b00001);
-
-        single_button_press(); 
-        #(CLK_PERIOD * 5); // allow for sync + edge det + FSM delay 
-        //now idle
-
-        check_time_o(5'b00001);
-
-        #4000;
-        check_time_o(5'b00001);
-
-        // ************************************************************************
-        // Test Case 5: Verify count clears when mode transitions to CLEAR
-        // ************************************************************************
-        tb_test_num += 1; 
-        reset_dut;
-        tb_test_case = "Test Case 5: Verify count clears when mode transitions to CLEAR";
-        $display("\n\n%s", tb_test_case);
-
-        single_button_press(); 
-        #(CLK_PERIOD * 5); // allow for sync + edge det + FSM delay  
-        //now clear
-
-        single_button_press(); 
-        #(CLK_PERIOD * 5); // allow for sync + edge det + FSM delay 
-        //now running
-
-        #3050;
-        check_time_o(5'b00011);
-
-        single_button_press(); 
-        #(CLK_PERIOD * 5); // allow for sync + edge det + FSM delay 
-        //now idle
-
-        single_button_press(); 
-        #(CLK_PERIOD * 5); // allow for sync + edge det + FSM delay 
-        //now clear
-
-        #1050;
-
-        check_time_o(5'b0);
-        check_mode_o(CLEAR, "CLEAR");
-
-        $finish; 
-    end
-
-endmodule 

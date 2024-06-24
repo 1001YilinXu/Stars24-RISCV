@@ -1,6 +1,9 @@
 `include "src/pc_if.vh"
+`include "src/cpu_pkg.vh"
 
-module pc #(parameter INITPC)(
+import cpu_pkg::*;
+
+module pc #(parameter INITPC = 0)(
     pc_if.pc pcif
 );
         //     input logic clk, nRST,
@@ -15,6 +18,7 @@ module pc #(parameter INITPC)(
             assign pcif.PCaddr = PC;
             
 
+ create mode 100644 src/register_file.sv
             always_ff@(posedge pcif.clk, negedge pcif.nRST)
                 if (pcif.nRST == 0)
                     PC <= INITPC;
