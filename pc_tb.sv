@@ -16,7 +16,7 @@ integer testCaseNum;
 //set up interface
 pc_if pcif ();
 
-test PROG(.pcuf, .tb_clk, testCaseNum);
+test PROG(.pcuf, .tb_clk, .testCaseNum);
 
 //is this call right?
 pc DUT(pcif);
@@ -72,11 +72,14 @@ initial begin
     pcif.iready = 1;
     pcif.ALUneg = 0;
     pcif.cuOP = 5'b0;
-    
+    pcif.Zero = 0;
+    pcif.clk = tb_clk;
+    pcif.rs1Read = 32'b0;
+    pcif.signExtend = 32'b0;
     testCaseNum = 100;
     tb_test_num = -1;
     tb_test_case = "Initializing";
-
+    intermResult = 0;
     // ************************************************************************
     // Test Case 0: Power-on-Reset of the DUT
     // ************************************************************************
@@ -98,9 +101,12 @@ initial begin
         tb_test_case = "Test Case 1: JAL operation";
         reset_dut;
         $display("\n\n%s", tb_test_case);
+
+        //set initial values
         pcif.signExtend = 0;
         pcif.rs1Read = 0;
         pcif.CUOp= JAL;
+
         //change negative and zero values to ensure works properly for different values
         pcif.negative = 0;
         pcif.zero = 0;
@@ -111,12 +117,299 @@ initial begin
             pcif.signExtend = pcif.signExtend + j;
             pcif.rs1Read = pcif.rs1Read + i;
             @(negedge tb_clk);
-            checkOut(pcif.rs1Read + pcif.signExtend + 4);
+
+            //check operation for JAL
+            checkOut(pcif.signExtend + 32'd4 + pcif.pc);
             end 
         end
+    // ************************************************************************
+    // Test Case 2: Testing JALR operation
+    // ************************************************************************
+        tb_test_num += 1;
+        tb_test_case = "Test Case 2: JALR operation";
+        reset_dut;
+        $display("\n\n%s", tb_test_case);
 
+        //set initial values
+        pcif.signExtend = 0;
+        pcif.rs1Read = 0;
+        pcif.CUOp = JALR;
 
+        //change negative and zero values to ensure works properly for different values
+        pcif.negative = 0;
+        pcif.zero = 0;
+        pcif.iready = 1;
+        //loop through test cases
+        for (integer i = 1; i < testCaseNum; i++) begin
+            for (integer j = 1; j < testCaseNum; j++) begin
+            pcif.signExtend = pcif.signExtend + j;
+            pcif.rs1Read = pcif.rs1Read + i;
+            @(negedge tb_clk);
+            intermResult = pcif.rs1Read + pcif.signExtend;
+            checkOut(32'd4 + {intermResult[31:1], 0});
+            end 
+        end
+    // ************************************************************************
+    // Test Case 3: Testing BEQ with failed zero condition
+    // ************************************************************************
+        tb_test_num += 1;
+        tb_test_case = "Test Case 3: Testing BEQ with failed zero condition";
+        reset_dut;
+        $display("\n\n%s", tb_test_case);
 
+        //set initial values
+        pcif.signExtend = 0;
+        pcif.rs1Read = 0;
+        pcif.CUOp = BEQ;
+
+        //change negative and zero values to ensure works properly for different values
+        pcif.negative = 0;
+        pcif.zero = 0;
+        pcif.iready = 1;
+        //loop through test cases
+        @(negedge tb_clk);
+        checkOut(pcif.pc + 32'd4);
+    // ************************************************************************
+    // Test Case 4: Testing BNE with failed zero condition
+    // ************************************************************************
+        tb_test_num += 1;
+        tb_test_case = "Test Case 4: Testing BNE with failed zero condition";
+        reset_dut;
+        $display("\n\n%s", tb_test_case);
+
+        //set initial values
+        pcif.signExtend = 0;
+        pcif.rs1Read = 0;
+        pcif.CUOp = BNE;
+
+        //change negative and zero values to ensure works properly for different values
+        pcif.negative = 0;
+        pcif.zero = 1;
+        pcif.iready = 1;
+        //loop through test cases
+        @(negedge tb_clk);
+        checkOut(32'd4 + pcif.pc);
+    // ************************************************************************
+    // Test Case 5: Testing BLT with failed zero condition
+    // ************************************************************************
+        tb_test_num += 1;
+        tb_test_case = "Test Case 5: Testing BLT with failed negative condition";
+        reset_dut;
+        $display("\n\n%s", tb_test_case);
+
+        //set initial values
+        pcif.signExtend = 0;
+        pcif.rs1Read = 0;
+        pcif.CUOp = BLT;
+
+        //change negative and zero values to ensure works properly for different values
+        pcif.negative = 0;
+        pcif.zero = 1;
+        pcif.iready = 1;
+        //loop through test cases
+        @(negedge tb_clk);
+        checkOut(32'd4 + pcif.pc);
+    // ************************************************************************
+    // Test Case 6: Testing BGE with failed zero condition
+    // ************************************************************************
+        tb_test_num += 1;
+        tb_test_case = "Test Case 6: Testing BGE with failed negative condition";
+        reset_dut;
+        $display("\n\n%s", tb_test_case);
+
+        //set initial values
+        pcif.signExtend = 0;
+        pcif.rs1Read = 0;
+        pcif.CUOp = BLT;
+
+        //change negative and zero values to ensure works properly for different values
+        pcif.negative = 0;
+        pcif.zero = 1;
+        pcif.iready = 1;
+        //loop through test cases
+        @(negedge tb_clk);
+        checkOut(32'd4 + pcif.pc);
+    // ************************************************************************
+    // Test Case 7: Testing BGEU with failed zero condition
+    // ************************************************************************
+        tb_test_num += 1;
+        tb_test_case = "Test Case 7: Testing BGEU with failed negative condition";
+        reset_dut;
+        $display("\n\n%s", tb_test_case);
+
+        //set initial values
+        pcif.signExtend = 0;
+        pcif.rs1Read = 0;
+        pcif.CUOp = BGEU;
+
+        //change negative and zero values to ensure works properly for different values
+        pcif.negative = 1;
+        pcif.zero = 1;
+        pcif.iready = 1;
+        //loop through test cases
+        @(negedge tb_clk);
+        checkOut(32'd4 + pcif.pc);
+    // ************************************************************************
+    // Test Case 8: Testing BEQ 
+    // ************************************************************************
+        tb_test_num += 1;
+        tb_test_case = "Test Case 8: Testing BEQ with passed condition";
+        reset_dut;
+        $display("\n\n%s", tb_test_case);
+
+        //set initial values
+        pcif.signExtend = 0;
+        pcif.rs1Read = 0;
+        pcif.CUOp = BEQ;
+
+        //change negative and zero values to ensure works properly for different values
+        pcif.negative = 1;
+        pcif.zero = 1;
+        pcif.iready = 1;
+        //loop through test cases
+        @(negedge tb_clk);
+        checkOut(pcif.pc + pcif.signExtend);
+    // ************************************************************************
+    // Test Case 9: Testing BNE with passed condition
+    // ************************************************************************
+        tb_test_num += 1;
+        tb_test_case = "Test Case 9: Testing BNE with passed condition";
+        reset_dut;
+        $display("\n\n%s", tb_test_case);
+
+        //set initial values
+        pcif.signExtend = 0;
+        pcif.rs1Read = 0;
+        pcif.CUOp = BNE;
+
+        //change negative and zero values to ensure works properly for different values
+        pcif.negative = 0;
+        pcif.zero = 0;
+        pcif.iready = 1;
+        //loop through test cases
+        @(negedge tb_clk);
+        checkOut(pcif.pc + pcif.signExtend);
+    // ************************************************************************
+    // Test Case 10: Testing BLT with passed condition
+    // ************************************************************************
+        tb_test_num += 1;
+        tb_test_case = "Test Case 10: Testing BLT with passed condition";
+        reset_dut;
+        $display("\n\n%s", tb_test_case);
+
+        //set initial values
+        pcif.signExtend = 0;
+        pcif.rs1Read = 0;
+        pcif.CUOp = BLT;
+
+        //change negative and zero values to ensure works properly for different values
+        pcif.negative = 1;
+        pcif.zero = 0;
+        pcif.iready = 1;
+        //loop through test cases
+        @(negedge tb_clk);
+        checkOut(pcif.pc + pcif.signExtend);
+    // ************************************************************************
+    // Test Case 11: Testing BGE with equal to condition
+    // ************************************************************************
+        tb_test_num += 1;
+        tb_test_case = "Test Case 11: Testing BGE with equal to condition";
+        reset_dut;
+        $display("\n\n%s", tb_test_case);
+
+        //set initial values
+        pcif.signExtend = 0;
+        pcif.rs1Read = 0;
+        pcif.CUOp = BGE;
+
+        //change negative and zero values to ensure works properly for different values
+        pcif.negative = 1;
+        pcif.zero = 1;
+        pcif.iready = 1;
+        //loop through test cases
+        @(negedge tb_clk);
+        checkOut(pcif.pc + pcif.signExtend);
+    // ************************************************************************
+    // Test Case 12: Testing BGE with negative = 0
+    // ************************************************************************
+        tb_test_num += 1;
+        tb_test_case = "Test Case 12: Testing BGE with negative = 0";
+        reset_dut;
+        $display("\n\n%s", tb_test_case);
+
+        //set initial values
+        pcif.signExtend = 0;
+        pcif.rs1Read = 0;
+        pcif.CUOp = BGE;
+
+        //change negative and zero values to ensure works properly for different values
+        pcif.negative = 0;
+        pcif.zero = 0;
+        pcif.iready = 1;
+        //loop through test cases
+        @(negedge tb_clk);
+        checkOut(pcif.pc + pcif.signExtend);
+
+    // ************************************************************************
+    // Test Case 13: Testing BLTU with negative = 1
+    // ************************************************************************
+        tb_test_num += 1;
+        tb_test_case = "Test Case 13: Testing BLTU with negative = 0";
+        reset_dut;
+        $display("\n\n%s", tb_test_case);
+
+        //set initial values
+        pcif.signExtend = 0;
+        pcif.rs1Read = 0;
+        pcif.CUOp = BLTU;
+
+        //change negative and zero values to ensure works properly for different values
+        pcif.negative = 1;
+        pcif.zero = 0;
+        pcif.iready = 1;
+        //loop through test cases
+        @(negedge tb_clk);
+        checkOut(pcif.pc + pcif.signExtend);
+    // ************************************************************************
+    // Test Case 14: Testing BGEU with negative = 0
+    // ************************************************************************
+        tb_test_num += 1;
+        tb_test_case = "Test Case 14: Testing BGEU with negative = 0";
+        reset_dut;
+        $display("\n\n%s", tb_test_case);
+
+        //set initial values
+        pcif.signExtend = 0;
+        pcif.rs1Read = 0;
+        pcif.CUOp = BGEU;
+
+        //change negative and zero values to ensure works properly for different values
+        pcif.negative = 0;
+        pcif.zero = 0;
+        pcif.iready = 1;
+        //loop through test cases
+        @(negedge tb_clk);
+        checkOut(pcif.pc + pcif.signExtend);
+    // ************************************************************************
+    // Test Case 15: Testing BGEU with zero = 1
+    // ************************************************************************
+        tb_test_num += 1;
+        tb_test_case = "Test Case 15: Testing BGEU with zero = 1";
+        reset_dut;
+        $display("\n\n%s", tb_test_case);
+
+        //set initial values
+        pcif.signExtend = 0;
+        pcif.rs1Read = 0;
+        pcif.CUOp = BGEU;
+
+        //change negative and zero values to ensure works properly for different values
+        pcif.negative = 1;
+        pcif.zero = 1;
+        pcif.iready = 1;
+        //loop through test cases
+        @(negedge tb_clk);
+        checkOut(pcif.pc + pcif.signExtend);
 
 
     #1;

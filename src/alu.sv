@@ -1,5 +1,5 @@
-`include "src/cpu_pkg.vh"
-`include "src/alu_if.vh"
+`include "cpu_pkg.vh"
+`include "alu_if.vh"
 
 module alu(
 alu_if.dut aluif

@@ -5,7 +5,7 @@
 `include "cpu_pkg.vh"
 
 interface alu_if;
-import cpu_types_pkg::*;
+//import cpu_pkg::*;
 
 //how do I make sure inputs A and B or signed?
 logic negative, zero;
