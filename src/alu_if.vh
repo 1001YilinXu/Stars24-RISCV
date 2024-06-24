@@ -5,13 +5,13 @@
 `include "cpu_pkg.vh"
 
 interface alu_if;
-//import cpu_pkg::*;
+import cpu_pkg::*;
 
 //how do I make sure inputs A and B or signed?
 logic negative, zero;
 //word_t inputA, inputB, ALUResult;
 logic signed [31:0] inputA, inputB, ALUResult;
-logic[3:0] ALUop;
+logic[3:0] ALUOp;
 
 
 

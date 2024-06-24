@@ -1,6 +1,8 @@
 `include "cpu_pkg.vh"
 `include "alu_if.vh"
 
+import cpu_pkg::*;
+
 module alu(
 alu_if.dut aluif
 );
@@ -11,7 +13,7 @@ assign unsignedB = aluif.inputB;
 always_comb begin
     //will this zero cause an issue?
     aluif.zero = 0;
-    case (aluif.op)
+    case (aluif.ALUOp)
     ALU_SLL:
         aluif.ALUResult = aluif.inputA << aluif.inputB[4:0];
     ALU_SRA:
@@ -38,13 +40,15 @@ always_comb begin
             aluif.ALUResult = 32'd0;
             end 
     ALU_SLTU: begin
-        if (aluif.unsignedA < aluif.unsignedB)
+        if (unsignedA < unsignedB)
             aluif.ALUResult = 32'd1;
         else
             aluif.ALUResult = 32'd0;
              end
     //do I need a defualt case?
-
+    default: begin
+            aluif.ALUResult = 32'b0;
+    end
     endcase
     aluif.negative = aluif.ALUResult[31];
 end

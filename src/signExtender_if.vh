@@ -3,9 +3,10 @@
 
 // all types
 `include "cpu_pkg.vh"
+import cpu_pkg::*;
 
 interface signExtender_if;
-import cpu_pkg::*;
+
 
 logic [19:0] imm;
 logic [x:x] CUOp;

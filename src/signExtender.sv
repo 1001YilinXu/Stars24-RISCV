@@ -1,4 +1,4 @@
-`include "cpu_types_pkg.vh"
+`include "cpu_pkg.vh"
 `include "signExtender_if.vh"
 
 import cpu_pkg::*;
