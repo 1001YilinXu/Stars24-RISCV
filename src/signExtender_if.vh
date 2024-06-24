@@ -2,10 +2,11 @@
 `define SIGNEXTENDER_IF_VH
 
 // all types
-`include "cpu_types_pkg.vh"
+`include "cpu_pkg.vh"
+import cpu_pkg::*;
 
 interface signExtender_if;
-import cpu_types_pkg::*;
+
 
 logic [19:0] imm;
 logic [x:x] CUOp;
@@ -17,8 +18,8 @@ output immOut
 );
 
 modport tb (
-input CUOp, imm,
-output immOut
+output CUOp, imm,
+input immOut
 );
 
 endinterface
