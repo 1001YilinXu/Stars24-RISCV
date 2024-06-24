@@ -11,7 +11,7 @@ always_ff@(posedge CLK, negedge nRST) begin
     if(!nRST) begin
         prev_dmmaddr <= 32'b0;
         prev_dmmstore <= 32'b0;
-        prev_immload <= 32'b0;
+        prev_imemload <= 32'b0;
     end
     else begin
         prev_dmmaddr <= mcif.dmmaddr; 
@@ -42,7 +42,6 @@ always_comb begin
         Ren = 1;
         Wen = 1; 
     end
-end
 end
 assign i_ready = immRen & ~i_wait; 
 assign d_ready = (dmmRen | dmmWen) & ~dwait;

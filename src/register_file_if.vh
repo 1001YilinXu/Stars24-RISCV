@@ -5,7 +5,7 @@ include "cpu_types_pkg.vh"
 interface register_file_if
     import cpu_types_pkg::*;
     logic reg_write; 
-    index_t read_index1, read_index2, write_index;
+    reg_w read_index1, read_index2, write_index;
     word_t write_data, read_data1, read_data2;
 
     modport rf(
