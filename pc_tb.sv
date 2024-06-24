@@ -11,10 +11,10 @@ localparam CLK_PERIOD = 10;
 
 //all logic
 logic tb_clk;
-logic [31:0] tb_PC, tb_nextPC, tb_rs1Read, tb_signExtend. tb_out;
+logic [31:0] tb_rs1Read, tb_signExtend, tb_out;
 logic [5:0] tb_op;
 logic tb_checking_outputs, tb_extendZeros, tb_zero, tb_negative, tb_iready, tb_nRST;
-
+integer testCaseNum;
 //set up interface
 pc_if pcif ();
 //is this call right?
@@ -57,14 +57,26 @@ endtask
     // if operation
     // endtask
 //do I need to set an inital value to PC?
-pc_if.tb pcif; 
 
+endmodule
+
+program test (
+    pc_if.tb pcif,
+    input tb_clk
+);
 initial begin
     $dumpfile("dump.vcd");
     $dumpvars;
-
+    tb_nRST = 1;
+    pcif.negative = 0;
+    pcif.iready = 1;
+    pcif.ALUneg = 0;
+    pcif.cuOP = 0;
+    
+    testCaseNum = 100;
     tb_test_num = -1;
     tb_test_case = "Initializing";
+
     // ************************************************************************
     // Test Case 0: Power-on-Reset of the DUT
     // ************************************************************************
@@ -110,5 +122,4 @@ initial begin
     #1;
     $finish;
 end
-
-endmodule
+endprogram
