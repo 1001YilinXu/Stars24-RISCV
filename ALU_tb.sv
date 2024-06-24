@@ -9,38 +9,102 @@ module ALU_tb ();
 
     // Testbench parameters
     parameter WAIT = 6;
-    logic CLK = 0, nRST;
-    always #(PERIOD/2) CLK++;
+    logic CLK = 0;
 
     logic tb_checking_outputs; 
     integer tb_test_num;
 
     // DUT (design under test) ports
-    logic tb_negative, tb_zero;
-    logic [31:0]tb_portA;
-    logic [31:0]portB;
-    logic [31:0]ALUOut;
-    logic[3:0] opCode;
+    //not needed because of interface !!
 
     // Task to check ALU output
     task check_ALU_out;
     input logic[31:0] exp_ALU_out; 
     begin
         tb_checking_outputs = 1'b1;
-        if(ALUOut == expectedALU)
+        if(aluif.ALUResult == expectedALU)
             $info("Correct ALU_o: %0d.", exp_ALU_o);
         else
             $error("Incorrect ALU_o. Expected: %0d. Actual: %0d.", ex[_ALU_out], ALUOut); 
-        
-        #(1);
         tb_checking_outputs = 1'b0;  
+        #(WAIT);
     end
     endtask
 
-    // DUT Portmap
-test PROG(.aluif, .CLK);
+    alu_if aluif ();
+    test TB_prog (.aluif);
+    alu tb_alu(aluif);
 
-program test(input CLK, alu_if.tb aluif);
+endmodule
+
+    // DUT Portmap
+
+program startTB(
+    alu_if.tb aluif
+);
+initial begin
+    //SLL
+    aluif.inputA = 
+    aluif.inputB =
+    aluif.ALUOp = 
+    check_ALU_out(xxxx);
+
+
+
+
+
+$finish;
+end
+
+
+endprogram
+
+initial begin
+        $dumpfile("dump.vcd");
+        $dumpvars; 
+
+end
+        // Initialize test bench signals
+        aluif.inputA = '0;
+        aluif.inputB = '0;
+        aluif.op = 
+
+        // Wait some time before starting first test case
+        #(0.1);
+
+        // ************************************************************************
+        // Test Case 0: Power-on-Reset of the DUT
+        // ************************************************************************
+        tb_test_num += 1;
+        tb_test_case = "Test Case 0: Power-on-Reset of the DUT";
+        $display("\n\n%s", tb_test_case);
+
+        tb_button_i = 1'b1;  // press button
+        tb_nRst_i = 1'b0;  // activate reset
+
+        // Wait for a bit before checking for correct functionality
+        #(2);
+        check_mode_o(IDLE, "IDLE");
+        check_time_o('0);
+
+        // Check that the reset value is maintained during a clock cycle
+        @(negedge tb_clk);
+        check_mode_o(IDLE, "IDLE");
+        check_time_o('0);
+
+        // Release the reset away from a clock edge
+        @(negedge tb_clk);
+        tb_nRst_i  = 1'b1;   // Deactivate the chip reset
+        tb_nRst_i  = 1'b0;   // activate the chip reset
+        // Check that internal state was correctly keep after reset release
+        check_mode_o(IDLE, "IDLE");
+        check_time_o('0);
+
+        tb_button_i = 1'b0;  // release button
+
+$finish
+
+//////////////////////////////////////////////////////////below is for reference
 
     // Main Test Bench Process
     initial begin
