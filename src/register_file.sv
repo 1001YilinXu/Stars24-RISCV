@@ -12,7 +12,7 @@ always_ff@(posedge clk, negedge nRST) begin
     if (!nRST) begin
         register <= 0;
     end
-    else if(reg_write) begin
+    else if(rfif.reg_write) begin
         register <= nxt_register;
     end
 end
