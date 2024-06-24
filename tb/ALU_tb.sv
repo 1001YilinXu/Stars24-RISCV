@@ -32,7 +32,7 @@ module ALU_tb ();
     endtask
 
     alu_if aluif ();
-    test TB_prog (.aluif);
+    startTB TB_prog (.aluif);
     alu tb_alu(aluif);
 
 endmodule
@@ -43,20 +43,67 @@ program startTB(
     alu_if.tb aluif
 );
 initial begin
-    //SLL
+    // Signal dump
+    $dumpfile("dump.vcd");
+    $dumpvars; 
+
+    //SLL / SLLI
+    aluif.inputA = 32'd8;
+    aluif.inputB = 32'd3;
+    aluif.ALUOp = 
+    check_ALU_out(xxxx);
+
+    //SRA/SRAI
+    aluif.inputA = 
+    aluif.inputB =
+    aluif.ALUOp = 
+    check_ALU_out(xxxx);
+
+    //ADD/ADDI
+    aluif.inputA = 
+    aluif.inputB =
+    aluif.ALUOp = 
+    check_ALU_out(xxxx);
+
+    //sub
+    aluif.inputA = 
+    aluif.inputB =
+    aluif.ALUOp = 
+    check_ALU_out(xxxx);
+
+    //OR/ORI
+    aluif.inputA = 
+    aluif.inputB =
+    aluif.ALUOp = 
+    check_ALU_out(xxxx);
+
+    //XOR/XORI
+    aluif.inputA = 
+    aluif.inputB =
+    aluif.ALUOp = 
+    check_ALU_out(xxxx);
+
+    //AND/ANDI
+    aluif.inputA = 
+    aluif.inputB =
+    aluif.ALUOp = 
+    check_ALU_out(xxxx);
+
+    //SLT/SLTI
+    aluif.inputA = 
+    aluif.inputB =
+    aluif.ALUOp = 
+    check_ALU_out(xxxx);
+
+    //SLTU
     aluif.inputA = 
     aluif.inputB =
     aluif.ALUOp = 
     check_ALU_out(xxxx);
 
 
-
-
-
 $finish;
 end
-
-
 endprogram
 
 initial begin

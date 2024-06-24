@@ -1,4 +1,7 @@
 `include "pc_if.vh"
+`include "src/cpu_pkg.vh"
+
+import cpu_pkg::*;
 
 module pc #(parameter INITPC)(
     pc_if.pc pcif
