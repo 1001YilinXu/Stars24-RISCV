@@ -1,10 +1,17 @@
-`include "src/cpu_pkg.vh"
-`include "src/control_if.vh"
+`include "cpu_pkg.vh"
+`include "control_if.vh"
 
 module control
+import cpu_pkg::*;
 (
 	control_if.cu cuif	
 );
+
+r_t rt;
+ishift_t ishift;
+j_t jt;
+jrli_t jrli;
+bst_t bst;
 
 always_comb begin : control
 	cuif.regWrite = 0;
@@ -17,51 +24,48 @@ always_comb begin : control
 	cuif.reg1 = 0;
 	cuif.reg2 = 0;
 	cuif.regd = 0;
-	r_t = cuif.instr;
-	ishift_t = cuif.instr;
-	j_t = cuif.instr;
-	jrli_t = cuif.instr;
-	bst_t = cuif.instr;
+	rt = cuif.instr;
+	ishift = cuif.instr;
+	jt = cuif.instr;
+	jrli = cuif.instr;
+	bst = cuif.instr;
 
-	casez(r_t.opType)
+	casez(rt.opType)
 		LUI: begin
-			cuif.cuOP = LUI;
+			cuif.cuOP = CU_LUI;
 			cuif.regWrite = 1;
-			cuif.memToReg = 1;
-			cuif.imm = j_t.imm;
+			cuif.imm = jt.imm;
 		end
 		AUIPC: begin
-			cuif.cuOP = AUIPC;
+			cuif.cuOP = CU_AUIPC;
 			cuif.regWrite = 1;
-			cuif.memToReg = 1;
-			cuif.imm = j_t.imm;
+			cuif.imm = jt.imm;
 		end
 		JAL: begin 
-			cuif.cuOP = JAL;
+			cuif.cuOP = CU_JAL;
 			cuif.regWrite = 1;
-			cuif.memToReg = 1;
-			cuif.imm = j_t.imm;
+			cuif.imm = jt.imm;
 		end
 		JALR:begin
-			cuif.cuOP = JALR;
+			cuif.cuOP = CU_JALR;
 			cuif.regWrite = 1;
-			cuif.memToReg = 1;
-			cuif.imm = {8'b0, jrli_t.imm};
-			cuif.regd = jrli_t.rd;
+			cuif.imm = {8'b0, jrli.imm};
+			cuif.regd = jrli.rd;
 		end
 		BTYPE: begin
 			cuif.branch = 1;
 			cuif.aluOP = ALU_SUB;
-			cuif.reg1 = bst_t.r1;
-			cuif.reg2 = bst_t.r2;
-			cuif.imm = {8'b0, bst_t.imm_1, bst_t.imm_2};
-			casez(bst_t.funct)
-				BEQ: cuif.cuOP = BEQ;
-				BNE: cuif.cuOP = BNE;
-				BLT: cuif.cuOP = BLT;
-				BGE: cuif.cuOP = BGE;
-				BLTU: cuif.cuOP = BLTU;
-				BGEU: cuif.cuOP = BGEU;
+			cuif.reg1 = bst.r1;
+			cuif.reg2 = bst.r2;
+			cuif.imm = {8'b0, bst.imm_1, bst.imm_2};
+			casez(bst.funct)
+				BEQ: cuif.cuOP = CU_BEQ;
+				BNE: cuif.cuOP = CU_BNE;
+				BLT: cuif.cuOP = CU_BLT;
+				BGE: cuif.cuOP = CU_BGE;
+				BLTU: cuif.cuOP = CU_BLTU;
+				BGEU: cuif.cuOP = CU_BGEU;
+				default: cuif.cuOP = CU_ERROR;
 			endcase
 		end
 		LOAD: begin
@@ -69,62 +73,124 @@ always_comb begin : control
 			cuif.aluSrc = 1;
 			cuif.memRead = 1;
 			cuif.aluOP = ALU_ADD;
-			cuif.reg1 = jrli_t.r1;
-			cuif.regd = jrli_t.rd;
-			cuif.imm = {8'b0, jrli_t.imm};
-			casez(jrli_t.funct)
-				LB: cuif.cuOP = LB;
-				LH: cuif.cuOP = LH;
-				LW: cuif.cuOP = LW;
-				LBU: cuif.cuOP = LBU;
-				LHU: cuif.cuOP = LHU;
+			cuif.reg1 = jrli.r1;
+			cuif.regd = jrli.rd;
+			cuif.imm = {8'b0, jrli.imm};
+			casez(jrli.funct)
+				LB: cuif.cuOP = CU_LB;
+				LH: cuif.cuOP = CU_LH;
+				LW: cuif.cuOP = CU_LW;
+				LBU: cuif.cuOP = CU_LBU;
+				LHU: cuif.cuOP = CU_LHU;
+				default: cuif.cuOP = CU_ERROR;
 			endcase
 		end
 		STORE: begin
 			cuif.memWrite = 1;
 			cuif.aluSrc = 1;
 			cuif.aluOP = ALU_ADD;
-			cuif.reg1 = bst_t.r1;
-			cuif.reg2 = bst_t.r2;
-			cuif.imm = {8'b0, bst_t.imm_1, bst_t.imm_2};
-			case(bst_t.funct)
-				SW: cuif.cuOP = SW;
-				SH: cuif.cuOP = SH;
-				SB: cuif.cuOP = SB;
+			cuif.reg1 = bst.r1;
+			cuif.reg2 = bst.r2;
+			cuif.imm = {8'b0, bst.imm_1, bst.imm_2};
+			casez(bst.funct)
+				SW: cuif.cuOP = CU_SW;
+				SH: cuif.cuOP = CU_SH;
+				SB: cuif.cuOP = CU_SB;
+				default: cuif.cuOP = CU_ERROR;
 			endcase
 		end
 		ITYPE: begin
 			cuif.memWrite = 1;
 			cuif.aluSrc = 1;
-			cuif.reg1 = jrli_t.r1;
-			cuif.regd = jrli_t.rd;
-			cuif.imm = {8'b0, jrli_t.imm};
-			case({|(jrli_t.funct), jrli_t.funct3})
-				ADDI: cuif.aluOP = ALU_ADD;
-				SLTI: cuif.aluOP = ALU_SLT;
-				SLTIU: cuif.aluOP = ALU_SLTU;
-				XORI: cuif.aluOP = ALU_XOR;
-				ORI: cuif.aluOP = ALU_OR;
-				ANDI: cuif.aluOP = ALU_AND;
-				SLLI: cuif.aluOP = ALU_SLL;
-				SRLI: cuif.aluOP = ALU_SRL;
-				SRAI: cuif.aluOP = ALU_SRA;
+			cuif.reg1 = jrli.r1;
+			cuif.regd = jrli.rd;
+			cuif.imm = {8'b0, jrli.imm};
+			casez({|(jrli.imm), jrli.funct})
+				ADDI: begin
+					cuif.aluOP = ALU_ADD;
+					cuif.cuOP = CU_ADDI;
+				end
+				SLTI: begin
+					cuif.aluOP = ALU_SLT;
+					cuif.cuOP = CU_SLTI;
+				end
+				SLTIU: begin
+					cuif.aluOP = ALU_SLTU;
+					cuif.cuOP = CU_SLTIU;
+				end 
+				XORI: begin
+					cuif.aluOP = ALU_XOR;
+					cuif.cuOP = CU_XORI;
+				end 
+				ORI: begin
+					cuif.aluOP = ALU_OR;
+					cuif.cuOP = CU_ORI;
+				end 
+				ANDI: begin
+					cuif.aluOP = ALU_AND;
+					cuif.cuOP = CU_ANDI;
+				end 
+				SLLI: begin
+					cuif.aluOP = ALU_SLL;
+					cuif.cuOP = CU_SLLI;
+				end 
+				SRLI: begin
+					cuif.aluOP = ALU_SRL;
+					cuif.cuOP = CU_SRLI;
+				end 
+				SRAI: begin
+					cuif.aluOP = ALU_SRA;
+					cuif.cuOP = CU_SRAI;
+				end 
+				default: cuif.cuOP = CU_ERROR;
 			endcase
 		end
 		RTYPE: begin
-				case({|(r_t.funct), r_t.funct3})
-				ADD: cuif.aluOP = ALU_ADD;
-				SUB: cuif.aluOP = ALU_SUB;
-				SLT: cuif.aluOP = ALU_SLT;
-				SLTU: cuif.aluOP = ALU_SLTU;
-				XOR: cuif.aluOP = ALU_XOR;
-				OR: cuif.aluOP = ALU_OR;
-				AND: cuif.aluOP = ALU_AND;
-				SLL: cuif.aluOP = ALU_SLL;
-				SRL: cuif.aluOP = ALU_SRL;
-				SRA: cuif.aluOP = ALU_SRA;
+				casez({|(rt.funct), rt.funct})
+				ADD: begin
+					cuif.aluOP = ALU_ADD;
+					cuif.cuOP = CU_ADD;
+				end
+				SUB: begin
+					cuif.aluOP = ALU_SUB;
+					cuif.cuOP = CU_SUB;
+				end
+				SLT: begin
+					cuif.aluOP = ALU_SLT;
+					cuif.cuOP = CU_SLT;
+				end
+				SLTU: begin
+					cuif.aluOP = ALU_SLTU;
+					cuif.cuOP = CU_SLTU;
+				end 
+				XOR: begin
+					cuif.aluOP = ALU_XOR;
+					cuif.cuOP = CU_XOR;
+				end 
+				OR: begin
+					cuif.aluOP = ALU_OR;
+					cuif.cuOP = CU_OR;
+				end 
+				AND: begin
+					cuif.aluOP = ALU_AND;
+					cuif.cuOP = CU_AND;
+				end 
+				SLL: begin
+					cuif.aluOP = ALU_SLL;
+					cuif.cuOP = CU_SLL;
+				end 
+				SRL: begin
+					cuif.aluOP = ALU_SRL;
+					cuif.cuOP = CU_SRL;
+				end 
+				SRA: begin
+					cuif.aluOP = ALU_SRA;
+					cuif.cuOP = CU_SRA;
+				end 
+				default: cuif.cuOP = CU_ERROR;
 			endcase
 		end
+		default: cuif.cuOP = CU_ERROR;
 	endcase
 end
 endmodule

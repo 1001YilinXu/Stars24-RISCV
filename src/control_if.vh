@@ -4,28 +4,22 @@
 `include "cpu_pkg.vh"
 
 interface control_if;
-	//import cpu_pkg::*;
+	import cpu_pkg::*;
 
-	logic [3:0] ALUop;
+	aluCode_t aluOP;
 	logic [19:0] imm;
 	logic [4:0] reg1, reg2, regd;
 	logic regWrite, memWrite, memRead, aluSrc, branch, sign; 
-	typedef enum logic [5:0] {
-		LUI, AUIPC, JAL, JALR, 
-		BEQ, BNE, BLT, BGE, BLTU, BGEU, 
-		LB, LH, LW, LBU, LHU, SB, SH, SW, 
-		ADDI, SLTI, SLIU, XORI, ORI, ANDI, SLLI, SRLI, SRAI, 
-		ADD, SUB, SLL, SLT, SLTU, XOR, SRL, SEA, OR, AND
-	} cuOP;	
+	cuOPType cuOP;
 	word_t instr;
 
 	modport cu(
 		input instr,
-		output cuOPType, ALUop, regWrite, memWrite, memRead, aluSrc, branch, sign, imm, reg1, reg2, regd
+		output cuOP, aluOP, regWrite, memWrite, memRead, aluSrc, branch, sign, imm, reg1, reg2, regd
 	);
 	modport tb(
 		output instr,
-		input cuOPType, ALUop, regWrite, memWrite, memRead, aluSrc, branch, sign, imm, reg1, reg2, regd
+		input cuOP, aluOP, regWrite, memWrite, memRead, aluSrc, branch, sign, imm, reg1, reg2, regd
 	);
 
 endinterface
