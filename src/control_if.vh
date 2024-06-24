@@ -4,7 +4,7 @@
 `include "cpu_pkg.vh"
 
 interface control_if;
-	import cpu_pkg::*;
+	//import cpu_pkg::*;
 
 	logic [3:0] ALUop;
 	logic [19:0] imm;

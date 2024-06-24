@@ -2,7 +2,6 @@
 `include "src/control_if.vh"
 
 module control
-import cpu_pkg::*;
 (
 	control_if.cu cuif	
 );
@@ -88,7 +87,7 @@ always_comb begin : control
 			cuif.reg1 = bst_t.r1;
 			cuif.reg2 = bst_t.r2;
 			cuif.imm = {8'b0, bst_t.imm_1, bst_t.imm_2};
-			case(bst_t.funct):
+			case(bst_t.funct)
 				SW: cuif.cuOP = SW;
 				SH: cuif.cuOP = SH;
 				SB: cuif.cuOP = SB;
