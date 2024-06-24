@@ -38,7 +38,7 @@ program test (
     input tb_clk
 );
 
-integer intermResult;
+logic [31:0] intermResult;
 integer testCaseNum;
 logic tb_checking_outputs;
 integer tb_test_num;
