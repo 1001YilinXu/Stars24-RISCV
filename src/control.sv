@@ -105,7 +105,12 @@ always_comb begin : control
 			cuif.reg1 = jrli.r1;
 			cuif.regd = jrli.rd;
 			cuif.imm = {8'b0, jrli.imm};
-			casez({|(jrli.imm), jrli.funct})
+			if(|ishift.funct7) begin
+				cuif.aluOP = ALU_SRA;
+				cuif.cuOP = CU_SRAI;
+			end	
+			else begin
+			casez({jrli.funct})
 				ADDI: begin
 					cuif.aluOP = ALU_ADD;
 					cuif.cuOP = CU_ADDI;
@@ -138,15 +143,13 @@ always_comb begin : control
 					cuif.aluOP = ALU_SRL;
 					cuif.cuOP = CU_SRLI;
 				end 
-				SRAI: begin
-					cuif.aluOP = ALU_SRA;
-					cuif.cuOP = CU_SRAI;
-				end 
+				
 				default: cuif.cuOP = CU_ERROR;
-			endcase
+				endcase
+			end 
 		end
 		RTYPE: begin
-				casez({|(rt.funct), rt.funct})
+				casez({|(rt.funct7), rt.funct})
 				ADD: begin
 					cuif.aluOP = ALU_ADD;
 					cuif.cuOP = CU_ADD;

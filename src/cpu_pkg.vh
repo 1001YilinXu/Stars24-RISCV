@@ -64,16 +64,15 @@ package cpu_pkg;
 	} rfunc_t;
 
 	//itype  def {inst[30], funct3}
-	typedef enum logic [FUNC3_W:0] {
-		ADDI = 4'b?000,
-		SLTI = 4'b?010,
-		SLTIU = 4'b?011,
-		XORI = 4'b?100,
-		SLLI = 4'b0001,
-		SRLI = 4'b0101,
-		SRAI = 4'b1101,
-		ORI = 4'b?110,
-		ANDI = 4'b?111
+	typedef enum logic [FUNC3_W-1:0] {
+		ADDI = 3'b000,
+		SLTI = 3'b010,
+		SLTIU = 3'b011,
+		XORI = 3'b100,
+		SLLI = 3'b001,
+		SRLI = 3'b101,
+		ORI = 3'b110,
+		ANDI = 3'b111
 	} ifunc_t;
 
 	//STORE def 

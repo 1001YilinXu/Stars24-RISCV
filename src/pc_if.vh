@@ -1,7 +1,7 @@
 `ifndef PC_IF_VH
 `define PC_IF_VH
 
-`include "src/cpu_pkg.vh"
+`include "cpu_pkg.vh"
 
 import cpu_pkg::*;
 
