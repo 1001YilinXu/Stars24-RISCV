@@ -14,8 +14,7 @@ interface request_unit_if;
     output dmmstoreo, dmmaddro, imemaddro, imemRen, dmmWen, dmmRen,
     // from datapath
     input  dmmstorei, dmmaddri, imemaddri, d_fetch, 
-    output imemloado, dmmloado,
-    
- );
+    output imemloado, dmmloado
+    );
 endinterface
 `endif

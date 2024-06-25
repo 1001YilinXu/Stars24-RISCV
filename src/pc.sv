@@ -1,4 +1,4 @@
-`include "src/pc_if.vh"
+`include "pc_if.vh"
 
 module pc #(parameter INITPC)(
     pc_if.pc pcif
