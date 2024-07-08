@@ -23,14 +23,13 @@ output logic FPGAEnable, writeFPGA, CPUEnable, nrstFPGA
     logic [7:0] data, nextData;
     logic [4:0] halfData;
     logic keyStrobe;
-    
+    logic [13:0] dataInTemp, nextdataInTemp;
     assign CPUEnable = currCPUEnable;
     assign writeFPGA = currFPGAWrite;
     assign FPGAEnable = currFPGAEnable;
 
 
 edgeDetector edg(.clk(clk), .nRst_i(nrst), .button_i(keyStrobe), .button_p(en));
-
 //always ff to change logic to next
 always_ff@(posedge clk, negedge nrst) begin
     if (!nrst) begin
@@ -38,6 +37,7 @@ always_ff@(posedge clk, negedge nrst) begin
     end
     else if (en | instructionTrue) begin
         state <= nextState;
+        dataInTemp <= nextdataInTemp;
     end
 end
 
@@ -62,6 +62,9 @@ always_comb begin
         instructionTrue = 1;
     else 
         instructionTrue = 0;
+
+ 
+
 
     casez ({state, buttons[12], keyStrobe})
     {NUM1, 2'b11}: nextState = OPSEL;
@@ -88,10 +91,10 @@ ssdec f7 (.in(data[7:4]), .enable(state == NUM1), .out(ss6[6:0]));
 ssdec f8 (.in(data[3:0]), .enable(state == NUM1), .out(ss5[6:0]));
 ssdec f9 (.in(dataIn[7:4]), .enable(state == DISPLAY), .out(ss8[6:0]));
 ssdec f10 (.in(dataIn[3:0]), .enable(state == DISPLAY), .out(ss7[6:0]));
-assign right = instruction[7:0];
+// assign right = instruction[7:0];
 
-assign left[2:0] = state;
-assign left[4] = instructionTrue;
+assign left = nextdataInTemp[7:0];
+assign right = dataInTemp[7:0];
 // assign left[2:0] = state;
 // assign left[7] = CPUEnable;
 // assign left[6] = writeFPGA;
@@ -101,13 +104,18 @@ always_comb begin
     currFPGAEnable = 1;
     currFPGAWrite = 1;
     nrstFPGA = 1;
+    nextdataInTemp = 14'b0;
     casez(state)
         NUM1: begin
             if(|buttons[9:0]) begin
                 nextData = {data[3:0], halfData[3:0]};
                 //need to fix
                 address = 32'd220;
-            end else begin
+            end else if (buttons[10]) begin
+                nextData = dataInTemp[7:0];
+                address = 32'd220;
+            end
+            else begin
                 nextData = data;
                 address = 32'd320;
             end
@@ -145,6 +153,7 @@ always_comb begin
             nextData = dataIn[7:0];
             currFPGAWrite = 0;
             nrstFPGA = 0;
+            nextdataInTemp = dataIn[13:0];
 
         end
         default: begin

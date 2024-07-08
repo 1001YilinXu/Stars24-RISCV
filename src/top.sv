@@ -4,7 +4,7 @@
 
 module top (
   // I/O ports
-  input  logic hz100, reset,
+  input  logic hwclk, reset,
   input  logic [20:0] pb,
   output logic [7:0] left, right,
   ss7, ss6, ss5, ss4, ss3, ss2, ss1, ss0,
@@ -17,7 +17,7 @@ module top (
   input  logic txready, rxready
 );
 
-top1 f1 (.clk(hz100), .nrst(!reset), .pb(pb), .ss7(ss7), .ss6(ss6), .ss5(ss5), .ss4(ss4), .ss3(ss3), .ss2(ss2), .ss1(ss1), .ss0(ss0), .right(right), .left(left));
+top1 f1 (.clk(hwclk), .nrst(!reset), .pb(pb), .ss7(ss7), .ss6(ss6), .ss5(ss5), .ss4(ss4), .ss3(ss3), .ss2(ss2), .ss1(ss1), .ss0(ss0), .right(right), .left(left));
 
 // ///////////////////////FPGA connection
 // logic muxxedMemEnable, fpgaMemEnable;
