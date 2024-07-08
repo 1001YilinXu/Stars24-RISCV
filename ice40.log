@@ -1285,8 +1285,8 @@ Optimizing module ice40hx8k.
 
 22.8. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \ice40hx8k..
-Removed 156 unused cells and 1042 unused wires.
-<suppressed ~187 debug messages>
+Removed 157 unused cells and 1042 unused wires.
+<suppressed ~188 debug messages>
 
 22.9. Executing CHECK pass (checking for obvious problems).
 Checking module ice40hx8k...
@@ -1299,8 +1299,6 @@ Warning: Wire ice40hx8k.\ss2 [7] is used but has no driver.
 Warning: Wire ice40hx8k.\ss1 [7] is used but has no driver.
 Warning: Wire ice40hx8k.\ss0 [7] is used but has no driver.
 Warning: Wire ice40hx8k.\red is used but has no driver.
-Warning: Wire ice40hx8k.\left [4] is used but has no driver.
-Warning: Wire ice40hx8k.\left [3] is used but has no driver.
 Warning: Wire ice40hx8k.\green is used but has no driver.
 Warning: Wire ice40hx8k.\blue is used but has no driver.
 Warning: Wire ice40hx8k.\txclk is used but has no driver.
@@ -1312,7 +1310,7 @@ Warning: Wire ice40hx8k.\uart_inst.uart_tx_inst.input_axis_tdata [3] is used but
 Warning: Wire ice40hx8k.\uart_inst.uart_tx_inst.input_axis_tdata [2] is used but has no driver.
 Warning: Wire ice40hx8k.\uart_inst.uart_tx_inst.input_axis_tdata [1] is used but has no driver.
 Warning: Wire ice40hx8k.\uart_inst.uart_tx_inst.input_axis_tdata [0] is used but has no driver.
-Found and reported 22 problems.
+Found and reported 20 problems.
 
 22.10. Executing OPT pass (performing simple optimizations).
 
@@ -1330,6 +1328,7 @@ Running muxtree optimizer on module \ice40hx8k..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
     dead port 2/2 on $mux $flatten\top_inst.\f1.\DUT.$procmux$1791.
+    dead port 2/3 on $pmux $flatten\top_inst.\f1.\a1.$procmux$2942.
     dead port 2/2 on $mux $flatten\top_inst.\f1.\a1.$procmux$2958.
     dead port 2/2 on $mux $flatten\top_inst.\f1.\DUT.$procmux$2187.
     dead port 2/2 on $mux $flatten\top_inst.\f1.\DUT.$procmux$2403.
@@ -1405,56 +1404,55 @@ Running muxtree optimizer on module \ice40hx8k..
     dead port 2/2 on $mux $flatten\top_inst.\f1.\a1.$procmux$2927.
     dead port 2/2 on $mux $flatten\top_inst.\f1.\testpc.$procmux$1135.
     dead port 2/2 on $mux $flatten\top_inst.\f1.\DUT.$procmux$1971.
-Removed 76 multiplexer ports.
-<suppressed ~79 debug messages>
+Removed 77 multiplexer ports.
+<suppressed ~77 debug messages>
 
 22.10.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \ice40hx8k.
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\a1.$procmux$2942: $auto$opt_reduce.cc:134:opt_pmux$3150
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2190: { $flatten\top_inst.\f1.\DUT.$procmux$1491_CMP $auto$opt_reduce.cc:134:opt_pmux$3152 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1470: { $auto$opt_reduce.cc:134:opt_pmux$3154 $flatten\top_inst.\f1.\DUT.$procmux$1471_CMP }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2406: { $flatten\top_inst.\f1.\DUT.$procmux$1497_CMP $auto$opt_reduce.cc:134:opt_pmux$3156 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2010: { $flatten\top_inst.\f1.\DUT.$procmux$1486_CMP $auto$opt_reduce.cc:134:opt_pmux$3158 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1650: { $flatten\top_inst.\f1.\DUT.$procmux$1476_CMP $auto$opt_reduce.cc:134:opt_pmux$3160 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1830: { $flatten\top_inst.\f1.\DUT.$procmux$1481_CMP $auto$opt_reduce.cc:134:opt_pmux$3162 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2226: { $flatten\top_inst.\f1.\DUT.$procmux$1492_CMP $auto$opt_reduce.cc:134:opt_pmux$3164 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2442: { $flatten\top_inst.\f1.\DUT.$procmux$1498_CMP $auto$opt_reduce.cc:134:opt_pmux$3166 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2190: { $flatten\top_inst.\f1.\DUT.$procmux$1491_CMP $auto$opt_reduce.cc:134:opt_pmux$3150 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1470: { $auto$opt_reduce.cc:134:opt_pmux$3152 $flatten\top_inst.\f1.\DUT.$procmux$1471_CMP }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2406: { $flatten\top_inst.\f1.\DUT.$procmux$1497_CMP $auto$opt_reduce.cc:134:opt_pmux$3154 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2010: { $flatten\top_inst.\f1.\DUT.$procmux$1486_CMP $auto$opt_reduce.cc:134:opt_pmux$3156 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1650: { $flatten\top_inst.\f1.\DUT.$procmux$1476_CMP $auto$opt_reduce.cc:134:opt_pmux$3158 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1830: { $flatten\top_inst.\f1.\DUT.$procmux$1481_CMP $auto$opt_reduce.cc:134:opt_pmux$3160 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2226: { $flatten\top_inst.\f1.\DUT.$procmux$1492_CMP $auto$opt_reduce.cc:134:opt_pmux$3162 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2442: { $flatten\top_inst.\f1.\DUT.$procmux$1498_CMP $auto$opt_reduce.cc:134:opt_pmux$3164 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1794: { $flatten\top_inst.\f1.\DUT.$procmux$1480_CMP $auto$opt_reduce.cc:134:opt_pmux$3166 }
     New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1506: { $flatten\top_inst.\f1.\DUT.$procmux$1472_CMP $auto$opt_reduce.cc:134:opt_pmux$3168 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1794: { $flatten\top_inst.\f1.\DUT.$procmux$1480_CMP $auto$opt_reduce.cc:134:opt_pmux$3170 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2046: { $flatten\top_inst.\f1.\DUT.$procmux$1487_CMP $auto$opt_reduce.cc:134:opt_pmux$3172 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1686: { $flatten\top_inst.\f1.\DUT.$procmux$1477_CMP $auto$opt_reduce.cc:134:opt_pmux$3174 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1866: { $flatten\top_inst.\f1.\DUT.$procmux$1482_CMP $auto$opt_reduce.cc:134:opt_pmux$3176 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2262: { $flatten\top_inst.\f1.\DUT.$procmux$1493_CMP $auto$opt_reduce.cc:134:opt_pmux$3178 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2478: { $flatten\top_inst.\f1.\DUT.$procmux$1499_CMP $auto$opt_reduce.cc:134:opt_pmux$3180 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1542: { $flatten\top_inst.\f1.\DUT.$procmux$1473_CMP $auto$opt_reduce.cc:134:opt_pmux$3182 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2082: { $flatten\top_inst.\f1.\DUT.$procmux$1488_CMP $auto$opt_reduce.cc:134:opt_pmux$3184 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1902: { $flatten\top_inst.\f1.\DUT.$procmux$1483_CMP $auto$opt_reduce.cc:134:opt_pmux$3186 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2514: { $flatten\top_inst.\f1.\DUT.$procmux$1500_CMP $auto$opt_reduce.cc:134:opt_pmux$3188 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2298: { $flatten\top_inst.\f1.\DUT.$procmux$1494_CMP $auto$opt_reduce.cc:134:opt_pmux$3190 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1722: { $flatten\top_inst.\f1.\DUT.$procmux$1478_CMP $auto$opt_reduce.cc:134:opt_pmux$3192 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2118: { $flatten\top_inst.\f1.\DUT.$procmux$1489_CMP $auto$opt_reduce.cc:134:opt_pmux$3194 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1578: { $flatten\top_inst.\f1.\DUT.$procmux$1474_CMP $auto$opt_reduce.cc:134:opt_pmux$3196 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2550: { $flatten\top_inst.\f1.\DUT.$procmux$1501_CMP $auto$opt_reduce.cc:134:opt_pmux$3198 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2334: { $flatten\top_inst.\f1.\DUT.$procmux$1495_CMP $auto$opt_reduce.cc:134:opt_pmux$3200 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1938: { $flatten\top_inst.\f1.\DUT.$procmux$1484_CMP $auto$opt_reduce.cc:134:opt_pmux$3202 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1758: { $flatten\top_inst.\f1.\DUT.$procmux$1479_CMP $auto$opt_reduce.cc:134:opt_pmux$3204 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2154: { $flatten\top_inst.\f1.\DUT.$procmux$1490_CMP $auto$opt_reduce.cc:134:opt_pmux$3206 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\controller.$procmux$1293: $auto$opt_reduce.cc:134:opt_pmux$3208
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\controller.$procmux$1302: $auto$opt_reduce.cc:134:opt_pmux$3210
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\controller.$procmux$1312: { $auto$opt_reduce.cc:134:opt_pmux$3216 $auto$opt_reduce.cc:134:opt_pmux$3214 $auto$opt_reduce.cc:134:opt_pmux$3212 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\controller.$procmux$1333: $auto$opt_reduce.cc:134:opt_pmux$3218
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\controller.$procmux$1338: $auto$opt_reduce.cc:134:opt_pmux$3220
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\controller.$procmux$1363: $auto$opt_reduce.cc:134:opt_pmux$3222
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2046: { $flatten\top_inst.\f1.\DUT.$procmux$1487_CMP $auto$opt_reduce.cc:134:opt_pmux$3170 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1686: { $flatten\top_inst.\f1.\DUT.$procmux$1477_CMP $auto$opt_reduce.cc:134:opt_pmux$3172 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1866: { $flatten\top_inst.\f1.\DUT.$procmux$1482_CMP $auto$opt_reduce.cc:134:opt_pmux$3174 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2262: { $flatten\top_inst.\f1.\DUT.$procmux$1493_CMP $auto$opt_reduce.cc:134:opt_pmux$3176 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2478: { $flatten\top_inst.\f1.\DUT.$procmux$1499_CMP $auto$opt_reduce.cc:134:opt_pmux$3178 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1542: { $flatten\top_inst.\f1.\DUT.$procmux$1473_CMP $auto$opt_reduce.cc:134:opt_pmux$3180 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2082: { $flatten\top_inst.\f1.\DUT.$procmux$1488_CMP $auto$opt_reduce.cc:134:opt_pmux$3182 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1902: { $flatten\top_inst.\f1.\DUT.$procmux$1483_CMP $auto$opt_reduce.cc:134:opt_pmux$3184 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2514: { $flatten\top_inst.\f1.\DUT.$procmux$1500_CMP $auto$opt_reduce.cc:134:opt_pmux$3186 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2298: { $flatten\top_inst.\f1.\DUT.$procmux$1494_CMP $auto$opt_reduce.cc:134:opt_pmux$3188 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1722: { $flatten\top_inst.\f1.\DUT.$procmux$1478_CMP $auto$opt_reduce.cc:134:opt_pmux$3190 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2118: { $flatten\top_inst.\f1.\DUT.$procmux$1489_CMP $auto$opt_reduce.cc:134:opt_pmux$3192 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1578: { $flatten\top_inst.\f1.\DUT.$procmux$1474_CMP $auto$opt_reduce.cc:134:opt_pmux$3194 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2550: { $flatten\top_inst.\f1.\DUT.$procmux$1501_CMP $auto$opt_reduce.cc:134:opt_pmux$3196 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2334: { $flatten\top_inst.\f1.\DUT.$procmux$1495_CMP $auto$opt_reduce.cc:134:opt_pmux$3198 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1938: { $flatten\top_inst.\f1.\DUT.$procmux$1484_CMP $auto$opt_reduce.cc:134:opt_pmux$3200 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1758: { $flatten\top_inst.\f1.\DUT.$procmux$1479_CMP $auto$opt_reduce.cc:134:opt_pmux$3202 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2154: { $flatten\top_inst.\f1.\DUT.$procmux$1490_CMP $auto$opt_reduce.cc:134:opt_pmux$3204 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\controller.$procmux$1293: $auto$opt_reduce.cc:134:opt_pmux$3206
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\controller.$procmux$1302: $auto$opt_reduce.cc:134:opt_pmux$3208
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\controller.$procmux$1312: { $auto$opt_reduce.cc:134:opt_pmux$3214 $auto$opt_reduce.cc:134:opt_pmux$3212 $auto$opt_reduce.cc:134:opt_pmux$3210 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\controller.$procmux$1333: $auto$opt_reduce.cc:134:opt_pmux$3216
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\controller.$procmux$1338: $auto$opt_reduce.cc:134:opt_pmux$3218
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\controller.$procmux$1363: $auto$opt_reduce.cc:134:opt_pmux$3220
     Consolidated identical input bits for $mux cell $flatten\top_inst.\f1.\rram.$procmux$1087:
       Old ports: A=0, B=32'11111111111111111111111111111111, Y=$flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299
       New ports: A=1'0, B=1'1, Y=$flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0]
       New connections: $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [31:1] = { $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] $flatten\top_inst.\f1.\rram.$0$memwr$\memory$src/ram.sv:53$291_EN[31:0]$299 [0] }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2370: { $flatten\top_inst.\f1.\DUT.$procmux$1496_CMP $auto$opt_reduce.cc:134:opt_pmux$3224 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1614: { $flatten\top_inst.\f1.\DUT.$procmux$1475_CMP $auto$opt_reduce.cc:134:opt_pmux$3226 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\write.$procmux$1114: { $flatten\top_inst.\f1.\write.$procmux$1123_CMP $flatten\top_inst.\f1.\write.$procmux$1122_CMP $flatten\top_inst.\f1.\write.$procmux$1121_CMP $flatten\top_inst.\f1.\write.$procmux$1120_CMP $flatten\top_inst.\f1.\write.$procmux$1119_CMP $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:30$116_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:30$115_Y $auto$opt_reduce.cc:134:opt_pmux$3228 }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1974: { $flatten\top_inst.\f1.\DUT.$procmux$1485_CMP $auto$opt_reduce.cc:134:opt_pmux$3230 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$2370: { $flatten\top_inst.\f1.\DUT.$procmux$1496_CMP $auto$opt_reduce.cc:134:opt_pmux$3222 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1614: { $flatten\top_inst.\f1.\DUT.$procmux$1475_CMP $auto$opt_reduce.cc:134:opt_pmux$3224 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\write.$procmux$1114: { $flatten\top_inst.\f1.\write.$procmux$1123_CMP $flatten\top_inst.\f1.\write.$procmux$1122_CMP $flatten\top_inst.\f1.\write.$procmux$1121_CMP $flatten\top_inst.\f1.\write.$procmux$1120_CMP $flatten\top_inst.\f1.\write.$procmux$1119_CMP $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:30$116_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:30$115_Y $auto$opt_reduce.cc:134:opt_pmux$3226 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\DUT.$procmux$1974: { $flatten\top_inst.\f1.\DUT.$procmux$1485_CMP $auto$opt_reduce.cc:134:opt_pmux$3228 }
   Optimizing cells in module \ice40hx8k.
-Performed a total of 40 changes.
+Performed a total of 39 changes.
 
 22.10.5. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\ice40hx8k'.
@@ -1498,8 +1496,8 @@ Setting constant 0-bit at position 31 on $flatten\top_inst.\f1.\DUT.$procdff$307
 
 22.10.7. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \ice40hx8k..
-Removed 0 unused cells and 1342 unused wires.
-<suppressed ~23 debug messages>
+Removed 0 unused cells and 1348 unused wires.
+<suppressed ~29 debug messages>
 
 22.10.8. Executing OPT_EXPR pass (perform const folding).
 Optimizing module ice40hx8k.
@@ -1512,12 +1510,12 @@ Running muxtree optimizer on module \ice40hx8k..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~82 debug messages>
+<suppressed ~80 debug messages>
 
 22.10.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \ice40hx8k.
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\a1.$procmux$2930: { \top_inst.f1.a1.f5.enable $auto$opt_reduce.cc:134:opt_pmux$3232 \top_inst.f1.a1.f10.enable }
-    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\testpc.$procmux$1126: { $flatten\top_inst.\f1.\testpc.$procmux$1134_CMP $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:20$94_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:23$95_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:23$96_Y $auto$opt_reduce.cc:134:opt_pmux$3236 $auto$opt_reduce.cc:134:opt_pmux$3234 }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\a1.$procmux$2930: { \top_inst.f1.a1.f5.enable $auto$opt_reduce.cc:134:opt_pmux$3230 \top_inst.f1.a1.f10.enable }
+    New ctrl vector for $pmux cell $flatten\top_inst.\f1.\testpc.$procmux$1126: { $flatten\top_inst.\f1.\testpc.$procmux$1134_CMP $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:20$94_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:23$95_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:23$96_Y $auto$opt_reduce.cc:134:opt_pmux$3234 $auto$opt_reduce.cc:134:opt_pmux$3232 }
   Optimizing cells in module \ice40hx8k.
 Performed a total of 2 changes.
 
@@ -1541,7 +1539,7 @@ Running muxtree optimizer on module \ice40hx8k..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~82 debug messages>
+<suppressed ~80 debug messages>
 
 22.10.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \ice40hx8k.
@@ -1568,7 +1566,6 @@ Not marking ice40hx8k.ros.startup as FSM state register:
     Users of register don't seem to benefit from recoding.
     Register has an initialization value.
 Not marking ice40hx8k.top_inst.f1.a1.state as FSM state register:
-    Register is connected to module port.
     Users of register don't seem to benefit from recoding.
 
 22.11.2. Executing FSM_EXTRACT pass (extracting FSM from design).
@@ -1601,7 +1598,7 @@ Running muxtree optimizer on module \ice40hx8k..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~82 debug messages>
+<suppressed ~80 debug messages>
 
 22.12.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \ice40hx8k.
@@ -1619,7 +1616,7 @@ Adding EN signal on $flatten\uart_inst.\uart_tx_inst.$procdff$3021 ($dff) from m
 Adding EN signal on $flatten\uart_inst.\uart_tx_inst.$procdff$3020 ($dff) from module ice40hx8k (D = $flatten\uart_inst.\uart_tx_inst.$procmux$853_Y, Q = \uart_inst.uart_tx_inst.data_reg).
 Adding EN signal on $flatten\uart_inst.\uart_tx_inst.$procdff$3018 ($dff) from module ice40hx8k (D = $flatten\uart_inst.\uart_tx_inst.$procmux$885_Y, Q = \uart_inst.uart_tx_inst.txd_reg).
 Adding SRST signal on $flatten\uart_inst.\uart_tx_inst.$procdff$3017 ($dff) from module ice40hx8k (D = $flatten\uart_inst.\uart_tx_inst.$procmux$923_Y, Q = \uart_inst.uart_tx_inst.input_axis_tready_reg, rval = 1'0).
-Adding EN signal on $auto$ff.cc:266:slice$3273 ($sdff) from module ice40hx8k (D = $flatten\uart_inst.\uart_tx_inst.$procmux$921_Y, Q = \uart_inst.uart_tx_inst.input_axis_tready_reg).
+Adding EN signal on $auto$ff.cc:266:slice$3271 ($sdff) from module ice40hx8k (D = $flatten\uart_inst.\uart_tx_inst.$procmux$921_Y, Q = \uart_inst.uart_tx_inst.input_axis_tready_reg).
 Adding EN signal on $flatten\top_inst.\f1.\testpc.$procdff$3040 ($adff) from module ice40hx8k (D = $flatten\top_inst.\f1.\testpc.$2\next_pc[31:0], Q = \top_inst.f1.testpc.PC).
 Adding EN signal on $flatten\top_inst.\f1.\a1.$procdff$3113 ($adff) from module ice40hx8k (D = \top_inst.f1.a1.nextState, Q = \top_inst.f1.a1.state).
 Adding EN signal on $flatten\top_inst.\f1.\a1.$procdff$3112 ($adff) from module ice40hx8k (D = \top_inst.f1.a1.nextData, Q = \top_inst.f1.a1.data).
@@ -1673,7 +1670,7 @@ Running muxtree optimizer on module \ice40hx8k..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~80 debug messages>
+<suppressed ~78 debug messages>
 
 22.12.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \ice40hx8k.
@@ -1734,7 +1731,7 @@ Running muxtree optimizer on module \ice40hx8k..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~80 debug messages>
+<suppressed ~78 debug messages>
 
 22.12.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \ice40hx8k.
@@ -1765,8 +1762,7 @@ Removed top 31 bits (of 32) from port B of cell ice40hx8k.$flatten\uart_inst.\ua
 Removed top 28 bits (of 32) from port Y of cell ice40hx8k.$flatten\uart_inst.\uart_tx_inst.$sub$ice40/uart/uart_tx.v:103$791 ($sub).
 Removed top 3 bits (of 4) from port B of cell ice40hx8k.$flatten\uart_inst.\uart_tx_inst.$eq$ice40/uart/uart_tx.v:106$794 ($eq).
 Removed top 31 bits (of 32) from port B of cell ice40hx8k.$flatten\uart_inst.\uart_tx_inst.$gt$ice40/uart/uart_tx.v:86$784 ($gt).
-Removed top 1 bits (of 2) from port B of cell ice40hx8k.$auto$opt_dff.cc:195:make_patterns_logic$3287 ($ne).
-Removed top 1 bits (of 2) from port B of cell ice40hx8k.$auto$opt_dff.cc:195:make_patterns_logic$3285 ($ne).
+Removed top 1 bits (of 2) from port B of cell ice40hx8k.$auto$opt_dff.cc:195:make_patterns_logic$3283 ($ne).
 Removed top 31 bits (of 32) from mux cell ice40hx8k.$flatten\top_inst.\f1.\enableWrite.$procmux$2975 ($mux).
 Removed top 20 bits (of 32) from mux cell ice40hx8k.$flatten\top_inst.\f1.\enableFpgaAddress.$procmux$2975 ($mux).
 Removed top 4 bits (of 6) from port B of cell ice40hx8k.$flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:20$94 ($eq).
@@ -1784,7 +1780,7 @@ Removed top 1 bits (of 4) from port B of cell ice40hx8k.$flatten\top_inst.\f1.\a
 Removed top 2 bits (of 4) from port B of cell ice40hx8k.$flatten\top_inst.\f1.\a1.\f3.$procmux$2871_CMP0 ($eq).
 Removed top 2 bits (of 4) from port B of cell ice40hx8k.$flatten\top_inst.\f1.\a1.\f3.$procmux$2872_CMP0 ($eq).
 Removed top 3 bits (of 4) from port B of cell ice40hx8k.$flatten\top_inst.\f1.\a1.\f3.$procmux$2873_CMP0 ($eq).
-Removed top 28 bits (of 32) from port B of cell ice40hx8k.$flatten\top_inst.\f1.\a1.\f2.$add$src/fpgaModule.sv:157$48 ($add).
+Removed top 28 bits (of 32) from port B of cell ice40hx8k.$flatten\top_inst.\f1.\a1.\f2.$add$src/fpgaModule.sv:158$48 ($add).
 Removed top 3 bits (of 5) from port B of cell ice40hx8k.$flatten\top_inst.\f1.\a1.$procmux$2966_CMP0 ($eq).
 Removed top 2 bits (of 5) from port B of cell ice40hx8k.$flatten\top_inst.\f1.\a1.$procmux$2965_CMP0 ($eq).
 Removed top 1 bits (of 5) from port B of cell ice40hx8k.$flatten\top_inst.\f1.\a1.$procmux$2964_CMP0 ($eq).
@@ -1795,8 +1791,8 @@ Removed top 25 bits (of 32) from mux cell ice40hx8k.$flatten\top_inst.\f1.\a1.$p
 Removed top 23 bits (of 32) from mux cell ice40hx8k.$flatten\top_inst.\f1.\a1.$procmux$2879 ($mux).
 Removed top 2 bits (of 3) from port B of cell ice40hx8k.$flatten\top_inst.\f1.\a1.$eq$src/fpgaModule.sv:85$37 ($eq).
 Removed top 1 bits (of 3) from port B of cell ice40hx8k.$flatten\top_inst.\f1.\a1.$eq$src/fpgaModule.sv:83$35 ($eq).
-Removed top 28 bits (of 31) from port B of cell ice40hx8k.$flatten\top_inst.\f1.\a1.\f2.$mul$src/fpgaModule.sv:157$47 ($mul).
-Removed top 24 bits (of 31) from port Y of cell ice40hx8k.$flatten\top_inst.\f1.\a1.\f2.$mul$src/fpgaModule.sv:157$47 ($mul).
+Removed top 28 bits (of 31) from port B of cell ice40hx8k.$flatten\top_inst.\f1.\a1.\f2.$mul$src/fpgaModule.sv:158$47 ($mul).
+Removed top 24 bits (of 31) from port Y of cell ice40hx8k.$flatten\top_inst.\f1.\a1.\f2.$mul$src/fpgaModule.sv:158$47 ($mul).
 Removed top 1 bits (of 4) from port B of cell ice40hx8k.$flatten\top_inst.\f1.\arith.$procmux$2791_CMP0 ($eq).
 Removed top 1 bits (of 4) from port B of cell ice40hx8k.$flatten\top_inst.\f1.\arith.$procmux$2776_CMP0 ($eq).
 Removed top 3 bits (of 4) from port B of cell ice40hx8k.$flatten\top_inst.\f1.\arith.$procmux$2737_CMP0 ($eq).
@@ -1887,34 +1883,33 @@ Removed top 16 bits (of 32) from wire ice40hx8k.$add$ice40/ice40hx8k.sv:21$4_Y.
 Removed top 23 bits (of 32) from wire ice40hx8k.$flatten\top_inst.\f1.\a1.$2\address[31:0].
 Removed top 25 bits (of 32) from wire ice40hx8k.$flatten\top_inst.\f1.\a1.$3\address[31:0].
 Removed top 23 bits (of 32) from wire ice40hx8k.$flatten\top_inst.\f1.\a1.$4\address[31:0].
-Removed top 24 bits (of 32) from wire ice40hx8k.$flatten\top_inst.\f1.\a1.\f2.$mul$src/fpgaModule.sv:157$47_Y.
+Removed top 24 bits (of 32) from wire ice40hx8k.$flatten\top_inst.\f1.\a1.\f2.$mul$src/fpgaModule.sv:158$47_Y.
 Removed top 31 bits (of 32) from wire ice40hx8k.$flatten\top_inst.\f1.\arith.$2\ALUResult[31:0].
 Removed top 31 bits (of 32) from wire ice40hx8k.$flatten\top_inst.\f1.\arith.$3\ALUResult[31:0].
 Removed top 3 bits (of 4) from wire ice40hx8k.$flatten\top_inst.\f1.\controller.$5\aluOP[3:0].
 Removed top 5 bits (of 6) from wire ice40hx8k.$flatten\top_inst.\f1.\controller.$6\cuOP[5:0].
 Removed top 5 bits (of 6) from wire ice40hx8k.$flatten\top_inst.\f1.\controller.$8\cuOP[5:0].
 Removed top 5 bits (of 6) from wire ice40hx8k.$flatten\top_inst.\f1.\controller.$9\cuOP[5:0].
+Removed top 28 bits (of 32) from wire ice40hx8k.$flatten\uart_inst.\uart_tx_inst.$sub$ice40/uart/uart_tx.v:103$791_Y.
+Removed top 13 bits (of 32) from wire ice40hx8k.$flatten\uart_inst.\uart_tx_inst.$sub$ice40/uart/uart_tx.v:88$785_Y.
 
 22.14. Executing PEEPOPT pass (run peephole optimizers).
 
 22.15. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \ice40hx8k..
-Removed 0 unused cells and 11 unused wires.
+Removed 0 unused cells and 13 unused wires.
 <suppressed ~1 debug messages>
 
 22.16. Executing SHARE pass (SAT-based resource sharing).
-Found 4 cells in module ice40hx8k that may be considered for resource sharing.
+Found 3 cells in module ice40hx8k that may be considered for resource sharing.
   Analyzing resource sharing options for $flatten\top_inst.\f1.\arith.$sshr$src/alu.sv:37$121 ($sshr):
-    Found 36 activation_patterns using ctrl signal { $auto$opt_reduce.cc:134:opt_pmux$3228 $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:23$95_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:23$96_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:30$115_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:30$116_Y $flatten\top_inst.\f1.\write.$procmux$1119_CMP $flatten\top_inst.\f1.\write.$procmux$1120_CMP $flatten\top_inst.\f1.\write.$procmux$1121_CMP $flatten\top_inst.\f1.\write.$procmux$1122_CMP $flatten\top_inst.\f1.\write.$procmux$1123_CMP $auto$opt_reduce.cc:134:opt_pmux$3236 $flatten\top_inst.\f1.\DUT.$procmux$1471_CMP $flatten\top_inst.\f1.\DUT.$procmux$1472_CMP $flatten\top_inst.\f1.\DUT.$procmux$1473_CMP $flatten\top_inst.\f1.\DUT.$procmux$1474_CMP $flatten\top_inst.\f1.\DUT.$procmux$1475_CMP $flatten\top_inst.\f1.\DUT.$procmux$1476_CMP $flatten\top_inst.\f1.\DUT.$procmux$1477_CMP $flatten\top_inst.\f1.\DUT.$procmux$1478_CMP $flatten\top_inst.\f1.\DUT.$procmux$1479_CMP $flatten\top_inst.\f1.\DUT.$procmux$1480_CMP $flatten\top_inst.\f1.\DUT.$procmux$1481_CMP $flatten\top_inst.\f1.\DUT.$procmux$1482_CMP $flatten\top_inst.\f1.\DUT.$procmux$1483_CMP $flatten\top_inst.\f1.\DUT.$procmux$1484_CMP $flatten\top_inst.\f1.\DUT.$procmux$1485_CMP $flatten\top_inst.\f1.\DUT.$procmux$1486_CMP $flatten\top_inst.\f1.\DUT.$procmux$1487_CMP $flatten\top_inst.\f1.\DUT.$procmux$1488_CMP $flatten\top_inst.\f1.\DUT.$procmux$1489_CMP $flatten\top_inst.\f1.\DUT.$procmux$1490_CMP $flatten\top_inst.\f1.\DUT.$procmux$1491_CMP $flatten\top_inst.\f1.\DUT.$procmux$1492_CMP $flatten\top_inst.\f1.\DUT.$procmux$1493_CMP $flatten\top_inst.\f1.\DUT.$procmux$1494_CMP $flatten\top_inst.\f1.\DUT.$procmux$1495_CMP $flatten\top_inst.\f1.\DUT.$procmux$1496_CMP $flatten\top_inst.\f1.\DUT.$procmux$1497_CMP $flatten\top_inst.\f1.\DUT.$procmux$1498_CMP $flatten\top_inst.\f1.\DUT.$procmux$1499_CMP $flatten\top_inst.\f1.\DUT.$procmux$1500_CMP $flatten\top_inst.\f1.\DUT.$procmux$1501_CMP $flatten\top_inst.\f1.\arith.$procmux$2776_CMP $flatten\top_inst.\f1.\a1.$procmux$2944_CMP $auto$opt_reduce.cc:134:opt_pmux$3234 }.
+    Found 36 activation_patterns using ctrl signal { $auto$opt_reduce.cc:134:opt_pmux$3226 $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:23$95_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:23$96_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:30$115_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:30$116_Y $flatten\top_inst.\f1.\write.$procmux$1119_CMP $flatten\top_inst.\f1.\write.$procmux$1120_CMP $flatten\top_inst.\f1.\write.$procmux$1121_CMP $flatten\top_inst.\f1.\write.$procmux$1122_CMP $flatten\top_inst.\f1.\write.$procmux$1123_CMP $flatten\top_inst.\f1.\DUT.$procmux$1471_CMP $flatten\top_inst.\f1.\DUT.$procmux$1472_CMP $flatten\top_inst.\f1.\DUT.$procmux$1473_CMP $flatten\top_inst.\f1.\DUT.$procmux$1474_CMP $flatten\top_inst.\f1.\DUT.$procmux$1475_CMP $flatten\top_inst.\f1.\DUT.$procmux$1476_CMP $flatten\top_inst.\f1.\DUT.$procmux$1477_CMP $flatten\top_inst.\f1.\DUT.$procmux$1478_CMP $flatten\top_inst.\f1.\DUT.$procmux$1479_CMP $flatten\top_inst.\f1.\DUT.$procmux$1480_CMP $flatten\top_inst.\f1.\DUT.$procmux$1481_CMP $flatten\top_inst.\f1.\DUT.$procmux$1482_CMP $flatten\top_inst.\f1.\DUT.$procmux$1483_CMP $flatten\top_inst.\f1.\DUT.$procmux$1484_CMP $flatten\top_inst.\f1.\DUT.$procmux$1485_CMP $flatten\top_inst.\f1.\DUT.$procmux$1486_CMP $flatten\top_inst.\f1.\DUT.$procmux$1487_CMP $flatten\top_inst.\f1.\DUT.$procmux$1488_CMP $flatten\top_inst.\f1.\DUT.$procmux$1489_CMP $flatten\top_inst.\f1.\DUT.$procmux$1490_CMP $flatten\top_inst.\f1.\DUT.$procmux$1491_CMP $flatten\top_inst.\f1.\DUT.$procmux$1492_CMP $flatten\top_inst.\f1.\DUT.$procmux$1493_CMP $flatten\top_inst.\f1.\DUT.$procmux$1494_CMP $flatten\top_inst.\f1.\DUT.$procmux$1495_CMP $flatten\top_inst.\f1.\DUT.$procmux$1496_CMP $flatten\top_inst.\f1.\DUT.$procmux$1497_CMP $flatten\top_inst.\f1.\DUT.$procmux$1498_CMP $flatten\top_inst.\f1.\DUT.$procmux$1499_CMP $flatten\top_inst.\f1.\DUT.$procmux$1500_CMP $flatten\top_inst.\f1.\DUT.$procmux$1501_CMP $flatten\top_inst.\f1.\arith.$procmux$2776_CMP $auto$opt_reduce.cc:134:opt_pmux$3234 $flatten\top_inst.\f1.\a1.$procmux$2944_CMP $auto$opt_reduce.cc:134:opt_pmux$3232 }.
     No candidates found.
   Analyzing resource sharing options for $flatten\top_inst.\f1.\arith.$shr$src/alu.sv:45$123 ($shr):
-    Found 36 activation_patterns using ctrl signal { $auto$opt_reduce.cc:134:opt_pmux$3228 $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:23$95_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:23$96_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:30$115_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:30$116_Y $flatten\top_inst.\f1.\write.$procmux$1119_CMP $flatten\top_inst.\f1.\write.$procmux$1120_CMP $flatten\top_inst.\f1.\write.$procmux$1121_CMP $flatten\top_inst.\f1.\write.$procmux$1122_CMP $flatten\top_inst.\f1.\write.$procmux$1123_CMP $auto$opt_reduce.cc:134:opt_pmux$3236 $flatten\top_inst.\f1.\DUT.$procmux$1471_CMP $flatten\top_inst.\f1.\DUT.$procmux$1472_CMP $flatten\top_inst.\f1.\DUT.$procmux$1473_CMP $flatten\top_inst.\f1.\DUT.$procmux$1474_CMP $flatten\top_inst.\f1.\DUT.$procmux$1475_CMP $flatten\top_inst.\f1.\DUT.$procmux$1476_CMP $flatten\top_inst.\f1.\DUT.$procmux$1477_CMP $flatten\top_inst.\f1.\DUT.$procmux$1478_CMP $flatten\top_inst.\f1.\DUT.$procmux$1479_CMP $flatten\top_inst.\f1.\DUT.$procmux$1480_CMP $flatten\top_inst.\f1.\DUT.$procmux$1481_CMP $flatten\top_inst.\f1.\DUT.$procmux$1482_CMP $flatten\top_inst.\f1.\DUT.$procmux$1483_CMP $flatten\top_inst.\f1.\DUT.$procmux$1484_CMP $flatten\top_inst.\f1.\DUT.$procmux$1485_CMP $flatten\top_inst.\f1.\DUT.$procmux$1486_CMP $flatten\top_inst.\f1.\DUT.$procmux$1487_CMP $flatten\top_inst.\f1.\DUT.$procmux$1488_CMP $flatten\top_inst.\f1.\DUT.$procmux$1489_CMP $flatten\top_inst.\f1.\DUT.$procmux$1490_CMP $flatten\top_inst.\f1.\DUT.$procmux$1491_CMP $flatten\top_inst.\f1.\DUT.$procmux$1492_CMP $flatten\top_inst.\f1.\DUT.$procmux$1493_CMP $flatten\top_inst.\f1.\DUT.$procmux$1494_CMP $flatten\top_inst.\f1.\DUT.$procmux$1495_CMP $flatten\top_inst.\f1.\DUT.$procmux$1496_CMP $flatten\top_inst.\f1.\DUT.$procmux$1497_CMP $flatten\top_inst.\f1.\DUT.$procmux$1498_CMP $flatten\top_inst.\f1.\DUT.$procmux$1499_CMP $flatten\top_inst.\f1.\DUT.$procmux$1500_CMP $flatten\top_inst.\f1.\DUT.$procmux$1501_CMP $flatten\top_inst.\f1.\arith.$procmux$2762_CMP $flatten\top_inst.\f1.\a1.$procmux$2944_CMP $auto$opt_reduce.cc:134:opt_pmux$3234 }.
+    Found 36 activation_patterns using ctrl signal { $auto$opt_reduce.cc:134:opt_pmux$3226 $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:23$95_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:23$96_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:30$115_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:30$116_Y $flatten\top_inst.\f1.\write.$procmux$1119_CMP $flatten\top_inst.\f1.\write.$procmux$1120_CMP $flatten\top_inst.\f1.\write.$procmux$1121_CMP $flatten\top_inst.\f1.\write.$procmux$1122_CMP $flatten\top_inst.\f1.\write.$procmux$1123_CMP $flatten\top_inst.\f1.\DUT.$procmux$1471_CMP $flatten\top_inst.\f1.\DUT.$procmux$1472_CMP $flatten\top_inst.\f1.\DUT.$procmux$1473_CMP $flatten\top_inst.\f1.\DUT.$procmux$1474_CMP $flatten\top_inst.\f1.\DUT.$procmux$1475_CMP $flatten\top_inst.\f1.\DUT.$procmux$1476_CMP $flatten\top_inst.\f1.\DUT.$procmux$1477_CMP $flatten\top_inst.\f1.\DUT.$procmux$1478_CMP $flatten\top_inst.\f1.\DUT.$procmux$1479_CMP $flatten\top_inst.\f1.\DUT.$procmux$1480_CMP $flatten\top_inst.\f1.\DUT.$procmux$1481_CMP $flatten\top_inst.\f1.\DUT.$procmux$1482_CMP $flatten\top_inst.\f1.\DUT.$procmux$1483_CMP $flatten\top_inst.\f1.\DUT.$procmux$1484_CMP $flatten\top_inst.\f1.\DUT.$procmux$1485_CMP $flatten\top_inst.\f1.\DUT.$procmux$1486_CMP $flatten\top_inst.\f1.\DUT.$procmux$1487_CMP $flatten\top_inst.\f1.\DUT.$procmux$1488_CMP $flatten\top_inst.\f1.\DUT.$procmux$1489_CMP $flatten\top_inst.\f1.\DUT.$procmux$1490_CMP $flatten\top_inst.\f1.\DUT.$procmux$1491_CMP $flatten\top_inst.\f1.\DUT.$procmux$1492_CMP $flatten\top_inst.\f1.\DUT.$procmux$1493_CMP $flatten\top_inst.\f1.\DUT.$procmux$1494_CMP $flatten\top_inst.\f1.\DUT.$procmux$1495_CMP $flatten\top_inst.\f1.\DUT.$procmux$1496_CMP $flatten\top_inst.\f1.\DUT.$procmux$1497_CMP $flatten\top_inst.\f1.\DUT.$procmux$1498_CMP $flatten\top_inst.\f1.\DUT.$procmux$1499_CMP $flatten\top_inst.\f1.\DUT.$procmux$1500_CMP $flatten\top_inst.\f1.\DUT.$procmux$1501_CMP $flatten\top_inst.\f1.\arith.$procmux$2762_CMP $auto$opt_reduce.cc:134:opt_pmux$3234 $flatten\top_inst.\f1.\a1.$procmux$2944_CMP $auto$opt_reduce.cc:134:opt_pmux$3232 }.
     No candidates found.
   Analyzing resource sharing options for $flatten\top_inst.\f1.\arith.$shl$src/alu.sv:29$119 ($shl):
-    Found 36 activation_patterns using ctrl signal { $auto$opt_reduce.cc:134:opt_pmux$3228 $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:23$95_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:23$96_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:30$115_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:30$116_Y $flatten\top_inst.\f1.\write.$procmux$1119_CMP $flatten\top_inst.\f1.\write.$procmux$1120_CMP $flatten\top_inst.\f1.\write.$procmux$1121_CMP $flatten\top_inst.\f1.\write.$procmux$1122_CMP $flatten\top_inst.\f1.\write.$procmux$1123_CMP $auto$opt_reduce.cc:134:opt_pmux$3236 $flatten\top_inst.\f1.\DUT.$procmux$1471_CMP $flatten\top_inst.\f1.\DUT.$procmux$1472_CMP $flatten\top_inst.\f1.\DUT.$procmux$1473_CMP $flatten\top_inst.\f1.\DUT.$procmux$1474_CMP $flatten\top_inst.\f1.\DUT.$procmux$1475_CMP $flatten\top_inst.\f1.\DUT.$procmux$1476_CMP $flatten\top_inst.\f1.\DUT.$procmux$1477_CMP $flatten\top_inst.\f1.\DUT.$procmux$1478_CMP $flatten\top_inst.\f1.\DUT.$procmux$1479_CMP $flatten\top_inst.\f1.\DUT.$procmux$1480_CMP $flatten\top_inst.\f1.\DUT.$procmux$1481_CMP $flatten\top_inst.\f1.\DUT.$procmux$1482_CMP $flatten\top_inst.\f1.\DUT.$procmux$1483_CMP $flatten\top_inst.\f1.\DUT.$procmux$1484_CMP $flatten\top_inst.\f1.\DUT.$procmux$1485_CMP $flatten\top_inst.\f1.\DUT.$procmux$1486_CMP $flatten\top_inst.\f1.\DUT.$procmux$1487_CMP $flatten\top_inst.\f1.\DUT.$procmux$1488_CMP $flatten\top_inst.\f1.\DUT.$procmux$1489_CMP $flatten\top_inst.\f1.\DUT.$procmux$1490_CMP $flatten\top_inst.\f1.\DUT.$procmux$1491_CMP $flatten\top_inst.\f1.\DUT.$procmux$1492_CMP $flatten\top_inst.\f1.\DUT.$procmux$1493_CMP $flatten\top_inst.\f1.\DUT.$procmux$1494_CMP $flatten\top_inst.\f1.\DUT.$procmux$1495_CMP $flatten\top_inst.\f1.\DUT.$procmux$1496_CMP $flatten\top_inst.\f1.\DUT.$procmux$1497_CMP $flatten\top_inst.\f1.\DUT.$procmux$1498_CMP $flatten\top_inst.\f1.\DUT.$procmux$1499_CMP $flatten\top_inst.\f1.\DUT.$procmux$1500_CMP $flatten\top_inst.\f1.\DUT.$procmux$1501_CMP $flatten\top_inst.\f1.\arith.$procmux$2791_CMP $flatten\top_inst.\f1.\a1.$procmux$2944_CMP $auto$opt_reduce.cc:134:opt_pmux$3234 }.
-    No candidates found.
-  Analyzing resource sharing options for $flatten\top_inst.\f1.\a1.\f2.$mul$src/fpgaModule.sv:157$47 ($mul):
-    Found 1 activation_patterns using ctrl signal { \top_inst.f1.rram.write_enable $flatten\top_inst.\f1.\a1.$procmux$2944_CMP }.
+    Found 36 activation_patterns using ctrl signal { $auto$opt_reduce.cc:134:opt_pmux$3226 $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:23$95_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:23$96_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:30$115_Y $flatten\top_inst.\f1.\signex.$eq$src/signExtender.sv:30$116_Y $flatten\top_inst.\f1.\write.$procmux$1119_CMP $flatten\top_inst.\f1.\write.$procmux$1120_CMP $flatten\top_inst.\f1.\write.$procmux$1121_CMP $flatten\top_inst.\f1.\write.$procmux$1122_CMP $flatten\top_inst.\f1.\write.$procmux$1123_CMP $flatten\top_inst.\f1.\DUT.$procmux$1471_CMP $flatten\top_inst.\f1.\DUT.$procmux$1472_CMP $flatten\top_inst.\f1.\DUT.$procmux$1473_CMP $flatten\top_inst.\f1.\DUT.$procmux$1474_CMP $flatten\top_inst.\f1.\DUT.$procmux$1475_CMP $flatten\top_inst.\f1.\DUT.$procmux$1476_CMP $flatten\top_inst.\f1.\DUT.$procmux$1477_CMP $flatten\top_inst.\f1.\DUT.$procmux$1478_CMP $flatten\top_inst.\f1.\DUT.$procmux$1479_CMP $flatten\top_inst.\f1.\DUT.$procmux$1480_CMP $flatten\top_inst.\f1.\DUT.$procmux$1481_CMP $flatten\top_inst.\f1.\DUT.$procmux$1482_CMP $flatten\top_inst.\f1.\DUT.$procmux$1483_CMP $flatten\top_inst.\f1.\DUT.$procmux$1484_CMP $flatten\top_inst.\f1.\DUT.$procmux$1485_CMP $flatten\top_inst.\f1.\DUT.$procmux$1486_CMP $flatten\top_inst.\f1.\DUT.$procmux$1487_CMP $flatten\top_inst.\f1.\DUT.$procmux$1488_CMP $flatten\top_inst.\f1.\DUT.$procmux$1489_CMP $flatten\top_inst.\f1.\DUT.$procmux$1490_CMP $flatten\top_inst.\f1.\DUT.$procmux$1491_CMP $flatten\top_inst.\f1.\DUT.$procmux$1492_CMP $flatten\top_inst.\f1.\DUT.$procmux$1493_CMP $flatten\top_inst.\f1.\DUT.$procmux$1494_CMP $flatten\top_inst.\f1.\DUT.$procmux$1495_CMP $flatten\top_inst.\f1.\DUT.$procmux$1496_CMP $flatten\top_inst.\f1.\DUT.$procmux$1497_CMP $flatten\top_inst.\f1.\DUT.$procmux$1498_CMP $flatten\top_inst.\f1.\DUT.$procmux$1499_CMP $flatten\top_inst.\f1.\DUT.$procmux$1500_CMP $flatten\top_inst.\f1.\DUT.$procmux$1501_CMP $flatten\top_inst.\f1.\arith.$procmux$2791_CMP $auto$opt_reduce.cc:134:opt_pmux$3234 $flatten\top_inst.\f1.\a1.$procmux$2944_CMP $auto$opt_reduce.cc:134:opt_pmux$3232 }.
     No candidates found.
 
 22.17. Executing TECHMAP pass (map to technology primitives).
@@ -1940,8 +1935,8 @@ Removed 0 unused cells and 3 unused wires.
 22.20. Executing ALUMACC pass (create $alu and $macc cells).
 Extracting $alu and $macc cells in module ice40hx8k:
   creating $macc model for $add$ice40/ice40hx8k.sv:21$4 ($add).
-  creating $macc model for $flatten\top_inst.\f1.\a1.\f2.$add$src/fpgaModule.sv:157$48 ($add).
-  creating $macc model for $flatten\top_inst.\f1.\a1.\f2.$mul$src/fpgaModule.sv:157$47 ($mul).
+  creating $macc model for $flatten\top_inst.\f1.\a1.\f2.$add$src/fpgaModule.sv:158$48 ($add).
+  creating $macc model for $flatten\top_inst.\f1.\a1.\f2.$mul$src/fpgaModule.sv:158$47 ($mul).
   creating $macc model for $flatten\top_inst.\f1.\arith.$add$src/alu.sv:53$125 ($add).
   creating $macc model for $flatten\top_inst.\f1.\arith.$sub$src/alu.sv:61$127 ($sub).
   creating $macc model for $flatten\top_inst.\f1.\testpc.$add$src/pc.sv:42$249 ($add).
@@ -1958,15 +1953,15 @@ Extracting $alu and $macc cells in module ice40hx8k:
   creating $alu model for $macc $flatten\top_inst.\f1.\testpc.$add$src/pc.sv:42$249.
   creating $alu model for $macc $flatten\top_inst.\f1.\arith.$sub$src/alu.sv:61$127.
   creating $alu model for $macc $flatten\top_inst.\f1.\arith.$add$src/alu.sv:53$125.
-  creating $alu model for $macc $flatten\top_inst.\f1.\a1.\f2.$add$src/fpgaModule.sv:157$48.
+  creating $alu model for $macc $flatten\top_inst.\f1.\a1.\f2.$add$src/fpgaModule.sv:158$48.
   creating $alu model for $macc $add$ice40/ice40hx8k.sv:21$4.
-  creating $macc cell for $flatten\top_inst.\f1.\a1.\f2.$mul$src/fpgaModule.sv:157$47: $auto$alumacc.cc:365:replace_macc$3462
+  creating $macc cell for $flatten\top_inst.\f1.\a1.\f2.$mul$src/fpgaModule.sv:158$47: $auto$alumacc.cc:365:replace_macc$3462
   creating $alu model for $flatten\top_inst.\f1.\arith.$lt$src/alu.sv:100$136 ($lt): new $alu
   creating $alu model for $flatten\top_inst.\f1.\arith.$lt$src/alu.sv:93$135 ($lt): merged with $flatten\top_inst.\f1.\arith.$sub$src/alu.sv:61$127.
   creating $alu model for $flatten\uart_inst.\uart_tx_inst.$gt$ice40/uart/uart_tx.v:86$784 ($gt): new $alu
   creating $alu cell for $flatten\uart_inst.\uart_tx_inst.$gt$ice40/uart/uart_tx.v:86$784: $auto$alumacc.cc:485:replace_alu$3465
   creating $alu cell for $add$ice40/ice40hx8k.sv:21$4: $auto$alumacc.cc:485:replace_alu$3470
-  creating $alu cell for $flatten\top_inst.\f1.\a1.\f2.$add$src/fpgaModule.sv:157$48: $auto$alumacc.cc:485:replace_alu$3473
+  creating $alu cell for $flatten\top_inst.\f1.\a1.\f2.$add$src/fpgaModule.sv:158$48: $auto$alumacc.cc:485:replace_alu$3473
   creating $alu cell for $flatten\top_inst.\f1.\arith.$lt$src/alu.sv:100$136: $auto$alumacc.cc:485:replace_alu$3476
   creating $alu cell for $flatten\top_inst.\f1.\arith.$add$src/alu.sv:53$125: $auto$alumacc.cc:485:replace_alu$3481
   creating $alu cell for $flatten\top_inst.\f1.\arith.$sub$src/alu.sv:61$127, $flatten\top_inst.\f1.\arith.$lt$src/alu.sv:93$135: $auto$alumacc.cc:485:replace_alu$3484
@@ -1994,7 +1989,7 @@ Running muxtree optimizer on module \ice40hx8k..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~78 debug messages>
+<suppressed ~76 debug messages>
 
 22.21.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \ice40hx8k.
@@ -2025,7 +2020,7 @@ Running muxtree optimizer on module \ice40hx8k..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~80 debug messages>
+<suppressed ~78 debug messages>
 
 22.21.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \ice40hx8k.
@@ -2104,9 +2099,9 @@ Using template $paramod$14f3ae77ff1994b59f02d085858f48b2e81447f9\$__ICE40_RAM4K_
 Using template $paramod$9ead2d60aa7e2bb544911774aa33b2b6bc653ef1\$__ICE40_RAM4K_ for cells of type $__ICE40_RAM4K_.
 Using template $paramod$952e7e044ecb9d2ce8b4c7c18cb99c1b9a42b1bc\$__ICE40_RAM4K_ for cells of type $__ICE40_RAM4K_.
 Using template $paramod$295b7b0448c368dc1e63094d4f7fa7fe9045aedc\$__ICE40_RAM4K_ for cells of type $__ICE40_RAM4K_.
-Using template $paramod$b226d97ae7d39737422ec59fd11430850b0f520b\$__ICE40_RAM4K_ for cells of type $__ICE40_RAM4K_.
-Using template $paramod$d3eec062bf0e5fdfe6bccebaf37dbf99fe3413e5\$__ICE40_RAM4K_ for cells of type $__ICE40_RAM4K_.
-Using template $paramod$b11d4d8572891adb2934ef1bf9f0dd76663cc0b3\$__ICE40_RAM4K_ for cells of type $__ICE40_RAM4K_.
+Using template $paramod$0197607a6576bbe5db35ec7ea600051da82692db\$__ICE40_RAM4K_ for cells of type $__ICE40_RAM4K_.
+Using template $paramod$bbc337e23cba422d34c7235c0f66b3ebaa273773\$__ICE40_RAM4K_ for cells of type $__ICE40_RAM4K_.
+Using template $paramod$14a0c1ed50f7189b0ff96411a19535e2d1f6ebc0\$__ICE40_RAM4K_ for cells of type $__ICE40_RAM4K_.
 Using template $paramod$cca925c0e1b39f6881dd2c3ae2fcb0315a4019cb\$__ICE40_RAM4K_ for cells of type $__ICE40_RAM4K_.
 Using template $paramod$3331ac9f2c7fcf4c178875cac314a7c9a5501159\$__ICE40_RAM4K_ for cells of type $__ICE40_RAM4K_.
 Using template $paramod$cd6d61850236ca6f13a362717cb8db8c29d7d03f\$__ICE40_RAM4K_ for cells of type $__ICE40_RAM4K_.
@@ -2126,7 +2121,7 @@ No more expansions possible.
 
 22.27.1. Executing OPT_EXPR pass (perform const folding).
 Optimizing module ice40hx8k.
-<suppressed ~489 debug messages>
+<suppressed ~481 debug messages>
 
 22.27.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\ice40hx8k'.
@@ -2136,11 +2131,11 @@ Removed a total of 3 cells.
 22.27.3. Executing OPT_DFF pass (perform DFF optimizations).
 Handling const CLK on $procdff$3116 ($adff) from module ice40hx8k (removing D path).
 Removing always-active EN on $auto$memory_libmap.cc:1668:generate_mux$3604 ($dffe) from module ice40hx8k.
-Adding EN signal on $auto$ff.cc:266:slice$3275 ($adffe) from module ice40hx8k (D = $flatten\top_inst.\f1.\testpc.$2\next_pc[31:0] [0], Q = \top_inst.f1.testpc.PC [0]).
-Adding EN signal on $auto$ff.cc:266:slice$3275 ($adffe) from module ice40hx8k (D = $flatten\top_inst.\f1.\testpc.$2\next_pc[31:0] [1], Q = \top_inst.f1.testpc.PC [1]).
-Adding SRST signal on $auto$ff.cc:266:slice$3264 ($dffe) from module ice40hx8k (D = $flatten\uart_inst.\uart_tx_inst.$procmux$880_Y, Q = \uart_inst.uart_tx_inst.txd_reg, rval = 1'0).
-Adding SRST signal on $auto$ff.cc:266:slice$3255 ($dffe) from module ice40hx8k (D = $flatten\uart_inst.\uart_tx_inst.$procmux$848_Y [8], Q = \uart_inst.uart_tx_inst.data_reg [8], rval = 1'1).
-Adding SRST signal on $auto$ff.cc:266:slice$3239 ($dffe) from module ice40hx8k (D = $flatten\uart_inst.\uart_tx_inst.$procmux$907_Y, Q = \uart_inst.uart_tx_inst.bit_cnt, rval = 4'1001).
+Adding EN signal on $auto$ff.cc:266:slice$3273 ($adffe) from module ice40hx8k (D = $flatten\top_inst.\f1.\testpc.$2\next_pc[31:0] [0], Q = \top_inst.f1.testpc.PC [0]).
+Adding EN signal on $auto$ff.cc:266:slice$3273 ($adffe) from module ice40hx8k (D = $flatten\top_inst.\f1.\testpc.$2\next_pc[31:0] [1], Q = \top_inst.f1.testpc.PC [1]).
+Adding SRST signal on $auto$ff.cc:266:slice$3262 ($dffe) from module ice40hx8k (D = $flatten\uart_inst.\uart_tx_inst.$procmux$880_Y, Q = \uart_inst.uart_tx_inst.txd_reg, rval = 1'0).
+Adding SRST signal on $auto$ff.cc:266:slice$3253 ($dffe) from module ice40hx8k (D = $flatten\uart_inst.\uart_tx_inst.$procmux$848_Y [8], Q = \uart_inst.uart_tx_inst.data_reg [8], rval = 1'1).
+Adding SRST signal on $auto$ff.cc:266:slice$3237 ($dffe) from module ice40hx8k (D = $flatten\uart_inst.\uart_tx_inst.$procmux$907_Y, Q = \uart_inst.uart_tx_inst.bit_cnt, rval = 4'1001).
 Removing always-active EN on $auto$mem.cc:1146:emulate_transparency$3592 ($dffe) from module ice40hx8k.
 Setting constant 0-bit at position 0 on $auto$memory_libmap.cc:1668:generate_mux$3604 ($dff) from module ice40hx8k.
 Setting constant 0-bit at position 0 on $procdff$3116 ($dlatch) from module ice40hx8k.
@@ -2204,7 +2199,7 @@ Running muxtree optimizer on module \ice40hx8k..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~41 debug messages>
+<suppressed ~39 debug messages>
 
 22.29.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \ice40hx8k.
@@ -2214,20 +2209,20 @@ Removed 0 multiplexer ports.
       New ports: A=1'0, B=1'1, Y=$flatten\ros.$procmux$2980_Y [1]
       New connections: { $flatten\ros.$procmux$2980_Y [2] $flatten\ros.$procmux$2980_Y [0] } = { $flatten\ros.$procmux$2980_Y [1] 1'1 }
     Consolidated identical input bits for $mux cell $flatten\top_inst.\f1.\a1.$procmux$2879:
-      Old ports: A=9'101000000, B=9'011110000, Y=$auto$wreduce.cc:461:run$3451 [8:0]
-      New ports: A=2'10, B=2'01, Y={ $auto$wreduce.cc:461:run$3451 [8] $auto$wreduce.cc:461:run$3451 [4] }
-      New connections: { $auto$wreduce.cc:461:run$3451 [7:5] $auto$wreduce.cc:461:run$3451 [3:0] } = { $auto$wreduce.cc:461:run$3451 [4] 1'1 $auto$wreduce.cc:461:run$3451 [4] 4'0000 }
+      Old ports: A=9'101000000, B=9'011110000, Y=$auto$wreduce.cc:461:run$3449 [8:0]
+      New ports: A=2'10, B=2'01, Y={ $auto$wreduce.cc:461:run$3449 [8] $auto$wreduce.cc:461:run$3449 [4] }
+      New connections: { $auto$wreduce.cc:461:run$3449 [7:5] $auto$wreduce.cc:461:run$3449 [3:0] } = { $auto$wreduce.cc:461:run$3449 [4] 1'1 $auto$wreduce.cc:461:run$3449 [4] 4'0000 }
     Consolidated identical input bits for $mux cell $flatten\top_inst.\f1.\a1.$procmux$2896:
-      Old ports: A=7'1000000, B=7'0000100, Y=$auto$wreduce.cc:461:run$3450 [6:0]
-      New ports: A=2'10, B=2'01, Y={ $auto$wreduce.cc:461:run$3450 [6] $auto$wreduce.cc:461:run$3450 [2] }
-      New connections: { $auto$wreduce.cc:461:run$3450 [5:3] $auto$wreduce.cc:461:run$3450 [1:0] } = 5'00000
+      Old ports: A=7'1000000, B=7'0000100, Y=$auto$wreduce.cc:461:run$3448 [6:0]
+      New ports: A=2'10, B=2'01, Y={ $auto$wreduce.cc:461:run$3448 [6] $auto$wreduce.cc:461:run$3448 [2] }
+      New connections: { $auto$wreduce.cc:461:run$3448 [5:3] $auto$wreduce.cc:461:run$3448 [1:0] } = 5'00000
     Consolidated identical input bits for $mux cell $flatten\top_inst.\f1.\a1.$procmux$2915:
-      Old ports: A=9'101000000, B=9'011011100, Y=$auto$wreduce.cc:461:run$3449 [8:0]
-      New ports: A=2'10, B=2'01, Y={ $auto$wreduce.cc:461:run$3449 [8] $auto$wreduce.cc:461:run$3449 [2] }
-      New connections: { $auto$wreduce.cc:461:run$3449 [7:3] $auto$wreduce.cc:461:run$3449 [1:0] } = { $auto$wreduce.cc:461:run$3449 [2] 2'10 $auto$wreduce.cc:461:run$3449 [2] $auto$wreduce.cc:461:run$3449 [2] 2'00 }
+      Old ports: A=9'101000000, B=9'011011100, Y=$auto$wreduce.cc:461:run$3447 [8:0]
+      New ports: A=2'10, B=2'01, Y={ $auto$wreduce.cc:461:run$3447 [8] $auto$wreduce.cc:461:run$3447 [2] }
+      New connections: { $auto$wreduce.cc:461:run$3447 [7:3] $auto$wreduce.cc:461:run$3447 [1:0] } = { $auto$wreduce.cc:461:run$3447 [2] 2'10 $auto$wreduce.cc:461:run$3447 [2] $auto$wreduce.cc:461:run$3447 [2] 2'00 }
     Consolidated identical input bits for $pmux cell $flatten\top_inst.\f1.\a1.$procmux$2936:
-      Old ports: A=12'000101000000, B={ 3'000 $auto$wreduce.cc:461:run$3449 [8:0] 5'00010 $auto$wreduce.cc:461:run$3450 [6:0] 3'000 $auto$wreduce.cc:461:run$3451 [8:0] 12'000100011000 }, Y=\top_inst.f1.enableFpgaAddress.in1 [11:0]
-      New ports: A=9'101000000, B={ $auto$wreduce.cc:461:run$3449 [8:0] 2'10 $auto$wreduce.cc:461:run$3450 [6:0] $auto$wreduce.cc:461:run$3451 [8:0] 9'100011000 }, Y=\top_inst.f1.enableFpgaAddress.in1 [8:0]
+      Old ports: A=12'000101000000, B={ 3'000 $auto$wreduce.cc:461:run$3447 [8:0] 5'00010 $auto$wreduce.cc:461:run$3448 [6:0] 3'000 $auto$wreduce.cc:461:run$3449 [8:0] 12'000100011000 }, Y=\top_inst.f1.enableFpgaAddress.in1 [11:0]
+      New ports: A=9'101000000, B={ $auto$wreduce.cc:461:run$3447 [8:0] 2'10 $auto$wreduce.cc:461:run$3448 [6:0] $auto$wreduce.cc:461:run$3449 [8:0] 9'100011000 }, Y=\top_inst.f1.enableFpgaAddress.in1 [8:0]
       New connections: \top_inst.f1.enableFpgaAddress.in1 [11:9] = 3'000
     Consolidated identical input bits for $mux cell $flatten\top_inst.\f1.\a1.$procmux$2956:
       Old ports: A=3'011, B=3'100, Y=$flatten\top_inst.\f1.\a1.$2\nextState[2:0]
@@ -2238,12 +2233,12 @@ Removed 0 multiplexer ports.
       New ports: A=2'10, B=2'01, Y=$flatten\top_inst.\f1.\controller.$3\aluOP[3:0] [1:0]
       New connections: $flatten\top_inst.\f1.\controller.$3\aluOP[3:0] [3:2] = { $flatten\top_inst.\f1.\controller.$3\aluOP[3:0] [0] $flatten\top_inst.\f1.\controller.$3\aluOP[3:0] [1] }
     Consolidated identical input bits for $pmux cell $flatten\top_inst.\f1.\controller.$procmux$1187:
-      Old ports: A={ 5'01110 $auto$wreduce.cc:461:run$3455 [0] }, B={ 41'01111110000010000110010010010101111010001 $auto$wreduce.cc:461:run$3456 [0] }, Y=$flatten\top_inst.\f1.\controller.$7\cuOP[5:0]
-      New ports: A={ 4'0110 $auto$wreduce.cc:461:run$3455 [0] }, B={ 34'0111110000100011010010101011101001 $auto$wreduce.cc:461:run$3456 [0] }, Y={ $flatten\top_inst.\f1.\controller.$7\cuOP[5:0] [5] $flatten\top_inst.\f1.\controller.$7\cuOP[5:0] [3:0] }
+      Old ports: A={ 5'01110 $auto$wreduce.cc:461:run$3453 [0] }, B={ 41'01111110000010000110010010010101111010001 $auto$wreduce.cc:461:run$3454 [0] }, Y=$flatten\top_inst.\f1.\controller.$7\cuOP[5:0]
+      New ports: A={ 4'0110 $auto$wreduce.cc:461:run$3453 [0] }, B={ 34'0111110000100011010010101011101001 $auto$wreduce.cc:461:run$3454 [0] }, Y={ $flatten\top_inst.\f1.\controller.$7\cuOP[5:0] [5] $flatten\top_inst.\f1.\controller.$7\cuOP[5:0] [3:0] }
       New connections: $flatten\top_inst.\f1.\controller.$7\cuOP[5:0] [4] = $flatten\top_inst.\f1.\controller.$7\cuOP[5:0] [3]
     Consolidated identical input bits for $pmux cell $flatten\top_inst.\f1.\controller.$procmux$1230:
-      Old ports: A=6'010010, B={ 41'01001101010001011001011101100001100101101 $auto$wreduce.cc:461:run$3456 [0] }, Y=$flatten\top_inst.\f1.\controller.$5\cuOP[5:0]
-      New ports: A=4'0010, B={ 27'001101000110011110001001101 $auto$wreduce.cc:461:run$3456 [0] }, Y=$flatten\top_inst.\f1.\controller.$5\cuOP[5:0] [3:0]
+      Old ports: A=6'010010, B={ 41'01001101010001011001011101100001100101101 $auto$wreduce.cc:461:run$3454 [0] }, Y=$flatten\top_inst.\f1.\controller.$5\cuOP[5:0]
+      New ports: A=4'0010, B={ 27'001101000110011110001001101 $auto$wreduce.cc:461:run$3454 [0] }, Y=$flatten\top_inst.\f1.\controller.$5\cuOP[5:0] [3:0]
       New connections: $flatten\top_inst.\f1.\controller.$5\cuOP[5:0] [5:4] = 2'01
     Consolidated identical input bits for $pmux cell $flatten\top_inst.\f1.\controller.$procmux$1258:
       Old ports: A=6'100110, B=18'001111010000010001, Y=$flatten\top_inst.\f1.\controller.$4\cuOP[5:0]
@@ -2287,8 +2282,8 @@ Removed 0 multiplexer ports.
       New ports: A={ $flatten\ros.$procmux$2980_Y [1] 1'1 }, B=2'10, Y=$flatten\ros.$procmux$2983_Y [1:0]
       New connections: $flatten\ros.$procmux$2983_Y [2] = $flatten\ros.$procmux$2983_Y [1]
     Consolidated identical input bits for $pmux cell $flatten\top_inst.\f1.\a1.$procmux$2936:
-      Old ports: A=9'101000000, B={ $auto$wreduce.cc:461:run$3449 [8:0] 2'10 $auto$wreduce.cc:461:run$3450 [6:0] $auto$wreduce.cc:461:run$3451 [8:0] 9'100011000 }, Y=\top_inst.f1.enableFpgaAddress.in1 [8:0]
-      New ports: A=7'1010000, B={ $auto$wreduce.cc:461:run$3449 [8] $auto$wreduce.cc:461:run$3449 [2] 2'10 $auto$wreduce.cc:461:run$3449 [2] $auto$wreduce.cc:461:run$3449 [2] $auto$wreduce.cc:461:run$3449 [2] 2'10 $auto$wreduce.cc:461:run$3450 [6] 3'000 $auto$wreduce.cc:461:run$3450 [2] $auto$wreduce.cc:461:run$3451 [8] $auto$wreduce.cc:461:run$3451 [4] 1'1 $auto$wreduce.cc:461:run$3451 [4] $auto$wreduce.cc:461:run$3451 [4] 9'001000110 }, Y=\top_inst.f1.enableFpgaAddress.in1 [8:2]
+      Old ports: A=9'101000000, B={ $auto$wreduce.cc:461:run$3447 [8:0] 2'10 $auto$wreduce.cc:461:run$3448 [6:0] $auto$wreduce.cc:461:run$3449 [8:0] 9'100011000 }, Y=\top_inst.f1.enableFpgaAddress.in1 [8:0]
+      New ports: A=7'1010000, B={ $auto$wreduce.cc:461:run$3447 [8] $auto$wreduce.cc:461:run$3447 [2] 2'10 $auto$wreduce.cc:461:run$3447 [2] $auto$wreduce.cc:461:run$3447 [2] $auto$wreduce.cc:461:run$3447 [2] 2'10 $auto$wreduce.cc:461:run$3448 [6] 3'000 $auto$wreduce.cc:461:run$3448 [2] $auto$wreduce.cc:461:run$3449 [8] $auto$wreduce.cc:461:run$3449 [4] 1'1 $auto$wreduce.cc:461:run$3449 [4] $auto$wreduce.cc:461:run$3449 [4] 9'001000110 }, Y=\top_inst.f1.enableFpgaAddress.in1 [8:2]
       New connections: \top_inst.f1.enableFpgaAddress.in1 [1:0] = 2'00
     Consolidated identical input bits for $mux cell $flatten\top_inst.\f1.\signex.$procmux$2841:
       Old ports: A=$flatten\top_inst.\f1.\signex.$4\immOut[31:0], B={ \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11] \top_inst.f1.signex.imm [11:0] }, Y=$flatten\top_inst.\f1.\signex.$3\immOut[31:0]
@@ -2329,7 +2324,7 @@ Running muxtree optimizer on module \ice40hx8k..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~41 debug messages>
+<suppressed ~39 debug messages>
 
 22.29.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \ice40hx8k.
@@ -2340,7 +2335,7 @@ Finding identical cells in module `\ice40hx8k'.
 Removed a total of 0 cells.
 
 22.29.13. Executing OPT_DFF pass (perform DFF optimizations).
-Adding SRST signal on $auto$ff.cc:266:slice$3248 ($dffe) from module ice40hx8k (D = $flatten\uart_inst.\uart_tx_inst.$sub$ice40/uart/uart_tx.v:88$785_Y [18:6], Q = \uart_inst.uart_tx_inst.prescale_reg [18:6], rval = 13'0000000000000).
+Adding SRST signal on $auto$ff.cc:266:slice$3246 ($dffe) from module ice40hx8k (D = $auto$wreduce.cc:461:run$3458 [18:6], Q = \uart_inst.uart_tx_inst.prescale_reg [18:6], rval = 13'0000000000000).
 
 22.29.14. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \ice40hx8k..
@@ -2356,7 +2351,7 @@ Running muxtree optimizer on module \ice40hx8k..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~41 debug messages>
+<suppressed ~39 debug messages>
 
 22.29.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \ice40hx8k.
@@ -2419,10 +2414,10 @@ Using extmapper simplemap for cells of type $not.
 Using extmapper simplemap for cells of type $logic_and.
 Using extmapper simplemap for cells of type $sdff.
 Using extmapper simplemap for cells of type $reduce_and.
-Using extmapper simplemap for cells of type $ne.
+Using extmapper simplemap for cells of type $reduce_bool.
 Using extmapper simplemap for cells of type $xor.
 Using template $paramod$20b1d0597707d55efcb9664e40f63985956d7680\_80_ice40_alu for cells of type $alu.
-Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $ne.
 Using extmapper simplemap for cells of type $logic_not.
 Using template $paramod$3826c06832e910ed7e3a5e37dc9a6adea7917f5a\_80_ice40_alu for cells of type $alu.
 Using extmapper simplemap for cells of type $sdffce.
@@ -2470,7 +2465,7 @@ Using extmapper simplemap for cells of type $pos.
 Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000111 for cells of type $fa.
 Using template $paramod$dbcdc7e8aa1a4080cea2deda6fdc8772064f4d90\_80_ice40_alu for cells of type $alu.
 No more expansions possible.
-<suppressed ~2839 debug messages>
+<suppressed ~2837 debug messages>
 
 22.32. Executing OPT pass (performing simple optimizations).
 
@@ -2480,14 +2475,14 @@ Optimizing module ice40hx8k.
 
 22.32.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\ice40hx8k'.
-<suppressed ~6237 debug messages>
-Removed a total of 2079 cells.
+<suppressed ~6243 debug messages>
+Removed a total of 2081 cells.
 
 22.32.3. Executing OPT_DFF pass (perform DFF optimizations).
 
 22.32.4. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \ice40hx8k..
-Removed 242 unused cells and 2725 unused wires.
+Removed 242 unused cells and 2732 unused wires.
 <suppressed ~243 debug messages>
 
 22.32.5. Finished fast OPT passes.
@@ -2500,13 +2495,13 @@ Optimized $__ICE40_CARRY_WRAPPER cell back to logic (without SB_CARRY) ice40hx8k
 Optimized $__ICE40_CARRY_WRAPPER cell back to logic (without SB_CARRY) ice40hx8k.$auto$alumacc.cc:485:replace_alu$3497.slice[0].carry: CO=\top_inst.f1.testpc.PC [2]
 Optimized $__ICE40_CARRY_WRAPPER cell back to logic (without SB_CARRY) ice40hx8k.$auto$alumacc.cc:485:replace_alu$3503.slice[0].carry: CO=\uart_inst.uart_tx_inst.bit_cnt [0]
 Optimized $__ICE40_CARRY_WRAPPER cell back to logic (without SB_CARRY) ice40hx8k.$auto$alumacc.cc:485:replace_alu$3506.slice[0].carry: CO=\uart_inst.uart_tx_inst.prescale_reg [0]
-Optimized $__ICE40_CARRY_WRAPPER cell back to logic (without SB_CARRY) ice40hx8k.$auto$maccmap.cc:240:synth$4521.slice[0].carry: CO=1'0
-Optimized $__ICE40_CARRY_WRAPPER cell back to logic (without SB_CARRY) ice40hx8k.$auto$maccmap.cc:240:synth$4521.slice[6].carry: CO=1'0
+Optimized $__ICE40_CARRY_WRAPPER cell back to logic (without SB_CARRY) ice40hx8k.$auto$maccmap.cc:240:synth$4492.slice[0].carry: CO=1'0
+Optimized $__ICE40_CARRY_WRAPPER cell back to logic (without SB_CARRY) ice40hx8k.$auto$maccmap.cc:240:synth$4492.slice[6].carry: CO=1'0
 Optimized $__ICE40_CARRY_WRAPPER cell back to logic (without SB_CARRY) ice40hx8k.$auto$opt_expr.cc:1948:replace_const_cells$4069.slice[7].carry: CO=1'0
 
 22.33.2. Executing OPT_EXPR pass (perform const folding).
 Optimizing module ice40hx8k.
-<suppressed ~39 debug messages>
+<suppressed ~36 debug messages>
 
 22.33.3. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\ice40hx8k'.
@@ -2522,7 +2517,7 @@ Removed 1 unused cells and 3 unused wires.
 22.33.6. Rerunning OPT passes. (Removed registers in this run.)
 
 22.33.7. Running ICE40 specific optimizations.
-Optimized $__ICE40_CARRY_WRAPPER cell back to logic (without SB_CARRY) ice40hx8k.$auto$maccmap.cc:240:synth$4521.slice[1].carry: CO=1'0
+Optimized $__ICE40_CARRY_WRAPPER cell back to logic (without SB_CARRY) ice40hx8k.$auto$maccmap.cc:240:synth$4492.slice[1].carry: CO=1'0
 
 22.33.8. Executing OPT_EXPR pass (perform const folding).
 Optimizing module ice40hx8k.
@@ -2539,7 +2534,7 @@ Finding unused cells or wires in module \ice40hx8k..
 22.33.12. Rerunning OPT passes. (Removed registers in this run.)
 
 22.33.13. Running ICE40 specific optimizations.
-Optimized $__ICE40_CARRY_WRAPPER cell back to logic (without SB_CARRY) ice40hx8k.$auto$maccmap.cc:240:synth$4521.slice[2].carry: CO=1'0
+Optimized $__ICE40_CARRY_WRAPPER cell back to logic (without SB_CARRY) ice40hx8k.$auto$maccmap.cc:240:synth$4492.slice[2].carry: CO=1'0
 
 22.33.14. Executing OPT_EXPR pass (perform const folding).
 Optimizing module ice40hx8k.
@@ -2618,10 +2613,10 @@ Mapping ice40hx8k.$auto$alumacc.cc:485:replace_alu$3470.slice[0].carry ($lut).
 Mapping ice40hx8k.$auto$alumacc.cc:485:replace_alu$3497.slice[0].carry ($lut).
 Mapping ice40hx8k.$auto$alumacc.cc:485:replace_alu$3503.slice[0].carry ($lut).
 Mapping ice40hx8k.$auto$alumacc.cc:485:replace_alu$3506.slice[0].carry ($lut).
-Mapping ice40hx8k.$auto$maccmap.cc:240:synth$4521.slice[0].carry ($lut).
-Mapping ice40hx8k.$auto$maccmap.cc:240:synth$4521.slice[1].carry ($lut).
-Mapping ice40hx8k.$auto$maccmap.cc:240:synth$4521.slice[2].carry ($lut).
-Mapping ice40hx8k.$auto$maccmap.cc:240:synth$4521.slice[6].carry ($lut).
+Mapping ice40hx8k.$auto$maccmap.cc:240:synth$4492.slice[0].carry ($lut).
+Mapping ice40hx8k.$auto$maccmap.cc:240:synth$4492.slice[1].carry ($lut).
+Mapping ice40hx8k.$auto$maccmap.cc:240:synth$4492.slice[2].carry ($lut).
+Mapping ice40hx8k.$auto$maccmap.cc:240:synth$4492.slice[6].carry ($lut).
 Mapping ice40hx8k.$auto$opt_expr.cc:1948:replace_const_cells$4069.slice[7].carry ($lut).
 
 22.38. Executing ICE40_OPT pass (performing simple optimizations).
@@ -2939,16 +2934,18 @@ Module ice40hx8k: replaced 7 cells with 43 new cells, skipped 11 cells.
        2 $_AND_
 
 22.41.16. Executing AIGMAP pass (map logic to AIG).
-Module ice40hx8k: replaced 4711 cells with 21700 new cells, skipped 7943 cells.
+Module ice40hx8k: replaced 4709 cells with 21692 new cells, skipped 7941 cells.
   replaced 3 cell types:
-    3759 $_OR_
+    3757 $_OR_
       56 $_XOR_
      896 $_MUX_
   not replaced 38 cell types:
       29 $scopeinfo
-     385 $_NOT_
-    2968 $_AND_
+     384 $_NOT_
+    2967 $_AND_
        1 SB_PLL40_CORE
+       2 $paramod$19cf94f266aba1064aec5fa55e3922ab207f6b9c\SB_RAM40_4K
+       2 $paramod$cc8ed014fd3d32ade8f7ad5113ce4345f9b1ca16\SB_RAM40_4K
       54 SB_DFF
       15 SB_DFFE
       39 SB_DFFSR
@@ -2957,32 +2954,30 @@ Module ice40hx8k: replaced 4711 cells with 21700 new cells, skipped 7943 cells.
     1038 SB_DFFER
        4 SB_DFFESS
      272 $paramod$__ICE40_CARRY_WRAPPER\LUT=16'0110100110010110\I3_IS_CI=1'1
-       2 $paramod$007b32df21c95567ed8b46fbf4ef8775b3481ab9\SB_RAM40_4K
-       2 $paramod$9cd7afb4e5da675c305594a4c86a6152164be73e\SB_RAM40_4K
     1038 SB_DFFER_$abc9_byp
        2 $paramod$b20908b5f3e3287dac447e4c3e905952c1e01911\SB_RAM40_4K
        2 $paramod$53225f8a34bb52a758d9170e140d13054da15638\SB_RAM40_4K
-       2 $paramod$b92a9b097f58cfcb51d04640868ff0592485b627\SB_RAM40_4K
-       2 $paramod$b8961e3db3a153b5dc2d7156f9fb078fd80acd29\SB_RAM40_4K
-       2 $paramod$cc8ed014fd3d32ade8f7ad5113ce4345f9b1ca16\SB_RAM40_4K
+       2 $paramod$38f3c49e08fedaaf3e15d5bfec934df35c2e7283\SB_RAM40_4K
+       2 $paramod$91c8cfa1be949b73d14cbdc7a5bca65e840ff089\SB_RAM40_4K
+       2 $paramod$9cd7afb4e5da675c305594a4c86a6152164be73e\SB_RAM40_4K
+       2 $paramod$72928bff5f6034cc225249b5efd191192b5b1eec\SB_RAM40_4K
+       2 $paramod$56cc47d056461c5bbd8657db8233a02aa5c0d708\SB_RAM40_4K
        2 $paramod$28536d176d87038ba83fbec55a33d93664933d71\SB_RAM40_4K
-       2 $paramod$5517bf24d7f6da20ff47e9ae7ab8885e8dde3808\SB_RAM40_4K
+       2 $paramod$007b32df21c95567ed8b46fbf4ef8775b3481ab9\SB_RAM40_4K
        6 SB_DFFR_$abc9_byp
+       2 $paramod$c8a71790567fe0932f980b7ce9128f2548695c34\SB_RAM40_4K
      127 $paramod$__ABC9_DELAY\DELAY=32'00000000000000000000000000010101
      410 $paramod$__ABC9_DELAY\DELAY=32'00000000000000000000000011001011
       32 $paramod$__ABC9_DELAY\DELAY=32'00000000000000000000000010000101
      512 $paramod$__ABC9_DELAY\DELAY=32'00000000000000000000000010100001
-     352 $paramod$__ABC9_DELAY\DELAY=32'00000000000000000000000011100000
-      32 $paramod$__ABC9_DELAY\DELAY=32'00000000000000000000000001100010
-       2 $paramod$344783396d6c96ec4f6fce79ae1acd25a3ea4b2a\SB_RAM40_4K
+       2 $paramod$d290aada7e1acdd315cedc6a8230927ff0f2e388\SB_RAM40_4K
      512 $paramod$__ABC9_DELAY\DELAY=32'00000000000000000000000100010010
+       2 $paramod$5517bf24d7f6da20ff47e9ae7ab8885e8dde3808\SB_RAM40_4K
       64 $paramod$__ABC9_DELAY\DELAY=32'00000000000000000000000100001011
-       2 $paramod$56cc47d056461c5bbd8657db8233a02aa5c0d708\SB_RAM40_4K
-       2 $paramod$91c8cfa1be949b73d14cbdc7a5bca65e840ff089\SB_RAM40_4K
-       2 $paramod$c8a71790567fe0932f980b7ce9128f2548695c34\SB_RAM40_4K
-       2 $paramod$72928bff5f6034cc225249b5efd191192b5b1eec\SB_RAM40_4K
-       2 $paramod$19cf94f266aba1064aec5fa55e3922ab207f6b9c\SB_RAM40_4K
-       2 $paramod$9b7aeadf45b2e94113d9204336f11da68757db63\SB_RAM40_4K
+      32 $paramod$__ABC9_DELAY\DELAY=32'00000000000000000000000001100010
+     352 $paramod$__ABC9_DELAY\DELAY=32'00000000000000000000000011100000
+       2 $paramod$b8961e3db3a153b5dc2d7156f9fb078fd80acd29\SB_RAM40_4K
+       2 $paramod$280aa1ac1fe7c6c97b88c185098b3a8de243741c\SB_RAM40_4K
 
 22.41.16.1. Executing ABC9_OPS pass (helper functions for ABC9).
 
@@ -2990,7 +2985,7 @@ Module ice40hx8k: replaced 4711 cells with 21700 new cells, skipped 7943 cells.
 
 22.41.16.3. Executing XAIGER backend.
 <suppressed ~1694 debug messages>
-Extracted 9583 AND gates and 30284 wires from module `ice40hx8k' to a netlist network with 1259 inputs and 2256 outputs.
+Extracted 9580 AND gates and 30278 wires from module `ice40hx8k' to a netlist network with 1259 inputs and 2256 outputs.
 
 22.41.16.4. Executing ABC9_EXE pass (technology mapping using ABC9).
 
@@ -3002,7 +2997,7 @@ ABC: + read_lut <abc-temp-dir>/input.lut
 ABC: + read_box <abc-temp-dir>/input.box 
 ABC: + &read <abc-temp-dir>/input.xaig 
 ABC: + &ps 
-ABC: <abc-temp-dir>/input : i/o =   1259/   2256  and =    9020  lev =   60 (3.20)  mem = 0.30 MB  box = 3357  bb = 3085
+ABC: <abc-temp-dir>/input : i/o =   1259/   2256  and =    9016  lev =   60 (3.19)  mem = 0.30 MB  box = 3357  bb = 3085
 ABC: Warning: AIG with boxes has internal fanout in 0 complex flops and 175 carries.
 ABC: + &scorr 
 ABC: Warning: The network is combinational.
@@ -3010,30 +3005,35 @@ ABC: + &sweep
 ABC: + &dc2 
 ABC: + &dch -f 
 ABC: + &ps 
-ABC: <abc-temp-dir>/input : i/o =   1259/   2256  and =   13976  lev =   45 (2.45)  mem = 0.35 MB  ch =  882  box = 3356  bb = 3085
+ABC: <abc-temp-dir>/input : i/o =   1259/   2256  and =   14225  lev =   45 (2.42)  mem = 0.36 MB  ch =  848  box = 3356  bb = 3085
 ABC: Warning: AIG with boxes has internal fanout in 0 complex flops and 174 carries.
 ABC: + &if -W 250 -v 
 ABC: K = 4. Memory (bytes): Truth =    0. Cut =   48. Obj =  128. Set =  528. CutMin = no
-ABC: Node =   13976.  Ch =   745.  Total mem =    3.65 MB. Peak cut mem =    0.21 MB.
-ABC: P:  Del = 15872.00.  Ar =    4773.0.  Edge =    18084.  Cut =    93029.  T =     0.01 sec
-ABC: P:  Del = 15823.00.  Ar =    4485.0.  Edge =    17279.  Cut =    88324.  T =     0.01 sec
-ABC: P:  Del = 15823.00.  Ar =    3705.0.  Edge =    12007.  Cut =    95124.  T =     0.02 sec
-ABC: F:  Del = 15823.00.  Ar =    3305.0.  Edge =    11409.  Cut =    78209.  T =     0.01 sec
-ABC: A:  Del = 15823.00.  Ar =    3151.0.  Edge =    10822.  Cut =    76630.  T =     0.02 sec
-ABC: A:  Del = 15823.00.  Ar =    3099.0.  Edge =    10735.  Cut =    77530.  T =     0.02 sec
+ABC: Node =   14225.  Ch =   716.  Total mem =    3.69 MB. Peak cut mem =    0.21 MB.
+ABC: P:  Del = 15921.00.  Ar =    4902.0.  Edge =    18648.  Cut =    93159.  T =     0.01 sec
+ABC: P:  Del = 15872.00.  Ar =    4743.0.  Edge =    18370.  Cut =    90619.  T =     0.02 sec
+ABC: P:  Del = 15872.00.  Ar =    3859.0.  Edge =    12401.  Cut =    97620.  T =     0.02 sec
+ABC: F:  Del = 15872.00.  Ar =    3244.0.  Edge =    11417.  Cut =    84098.  T =     0.01 sec
+ABC: A:  Del = 15872.00.  Ar =    3136.0.  Edge =    10931.  Cut =    80276.  T =     0.02 sec
+ABC: A:  Del = 15872.00.  Ar =    3102.0.  Edge =    10865.  Cut =    80175.  T =     0.02 sec
 ABC: Total time =     0.11 sec
 ABC: + &write -n <abc-temp-dir>/output.aig 
 ABC: + &mfs 
-ABC: yosys-abc: src/aig/gia/giaMfs.c:386: abc::Gia_Man_t* abc::Gia_ManInsertMfs(abc::Gia_Man_t*, abc::Sfm_Ntk_t*, int): Assertion `iLitNew >= 0' failed.
-ABC: Aborted (core dumped)
-Warning: ABC: execution of command ""/home/shay/a/ece270/bin/yosys-abc" -s -f /tmp/yosys-abc-ajvUu9/abc.script 2>&1" failed: return code 134.
+ABC: + &ps -l 
+ABC: <abc-temp-dir>/input : i/o =   1259/   2256  and =    8297  lev =   44 (2.41)  mem = 0.29 MB  box = 3356  bb = 3085
+ABC: Mapping (K=4)  :  lut =   3085  edge =   10764  lev =   23 (1.30)  levB =   47  mem = 0.14 MB
+ABC: LUT = 3085 : 2=446 14.5 %  3=684 22.2 %  4=1955 63.4 %  Ave = 3.49
+ABC: Warning: AIG with boxes has internal fanout in 0 complex flops and 174 carries.
+ABC: + &write -n <abc-temp-dir>/output.aig 
+ABC: + time 
+ABC: elapse: 3.44 seconds, total: 3.44 seconds
 
 22.41.16.6. Executing AIGER frontend.
 <suppressed ~7043 debug messages>
-Removed 10198 unused cells and 22981 unused wires.
+Removed 9953 unused cells and 22738 unused wires.
 
 22.41.16.7. Executing ABC9_OPS pass (helper functions for ABC9).
-ABC RESULTS:              $lut cells:     3123
+ABC RESULTS:              $lut cells:     3109
 ABC RESULTS:   $paramod$__ICE40_CARRY_WRAPPER\LUT=16'0110100110010110\I3_IS_CI=1'1 cells:      271
 ABC RESULTS:   \SB_DFFER_$abc9_byp cells:     1038
 ABC RESULTS:   \SB_DFFR_$abc9_byp cells:        6
@@ -3053,21 +3053,21 @@ Successfully finished Verilog frontend.
 Using template SB_DFFER_$abc9_byp for cells of type SB_DFFER_$abc9_byp.
 Using template $paramod$__ICE40_CARRY_WRAPPER\LUT=16'0110100110010110\I3_IS_CI=1'1 for cells of type $paramod$__ICE40_CARRY_WRAPPER\LUT=16'0110100110010110\I3_IS_CI=1'1.
 Using template SB_DFFR_$abc9_byp for cells of type SB_DFFR_$abc9_byp.
-Using template $paramod$5517bf24d7f6da20ff47e9ae7ab8885e8dde3808\SB_RAM40_4K for cells of type $paramod$5517bf24d7f6da20ff47e9ae7ab8885e8dde3808\SB_RAM40_4K.
+Using template $paramod$c8a71790567fe0932f980b7ce9128f2548695c34\SB_RAM40_4K for cells of type $paramod$c8a71790567fe0932f980b7ce9128f2548695c34\SB_RAM40_4K.
 Using template $paramod$72928bff5f6034cc225249b5efd191192b5b1eec\SB_RAM40_4K for cells of type $paramod$72928bff5f6034cc225249b5efd191192b5b1eec\SB_RAM40_4K.
+Using template $paramod$5517bf24d7f6da20ff47e9ae7ab8885e8dde3808\SB_RAM40_4K for cells of type $paramod$5517bf24d7f6da20ff47e9ae7ab8885e8dde3808\SB_RAM40_4K.
 Using template $paramod$28536d176d87038ba83fbec55a33d93664933d71\SB_RAM40_4K for cells of type $paramod$28536d176d87038ba83fbec55a33d93664933d71\SB_RAM40_4K.
 Using template $paramod$53225f8a34bb52a758d9170e140d13054da15638\SB_RAM40_4K for cells of type $paramod$53225f8a34bb52a758d9170e140d13054da15638\SB_RAM40_4K.
-Using template $paramod$56cc47d056461c5bbd8657db8233a02aa5c0d708\SB_RAM40_4K for cells of type $paramod$56cc47d056461c5bbd8657db8233a02aa5c0d708\SB_RAM40_4K.
 Using template $paramod$b20908b5f3e3287dac447e4c3e905952c1e01911\SB_RAM40_4K for cells of type $paramod$b20908b5f3e3287dac447e4c3e905952c1e01911\SB_RAM40_4K.
-Using template $paramod$cc8ed014fd3d32ade8f7ad5113ce4345f9b1ca16\SB_RAM40_4K for cells of type $paramod$cc8ed014fd3d32ade8f7ad5113ce4345f9b1ca16\SB_RAM40_4K.
+Using template $paramod$56cc47d056461c5bbd8657db8233a02aa5c0d708\SB_RAM40_4K for cells of type $paramod$56cc47d056461c5bbd8657db8233a02aa5c0d708\SB_RAM40_4K.
 Using template $paramod$91c8cfa1be949b73d14cbdc7a5bca65e840ff089\SB_RAM40_4K for cells of type $paramod$91c8cfa1be949b73d14cbdc7a5bca65e840ff089\SB_RAM40_4K.
 Using template $paramod$9cd7afb4e5da675c305594a4c86a6152164be73e\SB_RAM40_4K for cells of type $paramod$9cd7afb4e5da675c305594a4c86a6152164be73e\SB_RAM40_4K.
-Using template $paramod$c8a71790567fe0932f980b7ce9128f2548695c34\SB_RAM40_4K for cells of type $paramod$c8a71790567fe0932f980b7ce9128f2548695c34\SB_RAM40_4K.
+Using template $paramod$cc8ed014fd3d32ade8f7ad5113ce4345f9b1ca16\SB_RAM40_4K for cells of type $paramod$cc8ed014fd3d32ade8f7ad5113ce4345f9b1ca16\SB_RAM40_4K.
 Using template $paramod$b8961e3db3a153b5dc2d7156f9fb078fd80acd29\SB_RAM40_4K for cells of type $paramod$b8961e3db3a153b5dc2d7156f9fb078fd80acd29\SB_RAM40_4K.
 Using template $paramod$19cf94f266aba1064aec5fa55e3922ab207f6b9c\SB_RAM40_4K for cells of type $paramod$19cf94f266aba1064aec5fa55e3922ab207f6b9c\SB_RAM40_4K.
-Using template $paramod$b92a9b097f58cfcb51d04640868ff0592485b627\SB_RAM40_4K for cells of type $paramod$b92a9b097f58cfcb51d04640868ff0592485b627\SB_RAM40_4K.
-Using template $paramod$9b7aeadf45b2e94113d9204336f11da68757db63\SB_RAM40_4K for cells of type $paramod$9b7aeadf45b2e94113d9204336f11da68757db63\SB_RAM40_4K.
-Using template $paramod$344783396d6c96ec4f6fce79ae1acd25a3ea4b2a\SB_RAM40_4K for cells of type $paramod$344783396d6c96ec4f6fce79ae1acd25a3ea4b2a\SB_RAM40_4K.
+Using template $paramod$38f3c49e08fedaaf3e15d5bfec934df35c2e7283\SB_RAM40_4K for cells of type $paramod$38f3c49e08fedaaf3e15d5bfec934df35c2e7283\SB_RAM40_4K.
+Using template $paramod$280aa1ac1fe7c6c97b88c185098b3a8de243741c\SB_RAM40_4K for cells of type $paramod$280aa1ac1fe7c6c97b88c185098b3a8de243741c\SB_RAM40_4K.
+Using template $paramod$d290aada7e1acdd315cedc6a8230927ff0f2e388\SB_RAM40_4K for cells of type $paramod$d290aada7e1acdd315cedc6a8230927ff0f2e388\SB_RAM40_4K.
 Using template $paramod$007b32df21c95567ed8b46fbf4ef8775b3481ab9\SB_RAM40_4K for cells of type $paramod$007b32df21c95567ed8b46fbf4ef8775b3481ab9\SB_RAM40_4K.
 No more expansions possible.
 <suppressed ~1371 debug messages>
@@ -3103,39 +3103,39 @@ Successfully finished Verilog frontend.
 22.43.2. Continuing TECHMAP pass.
 No more expansions possible.
 <suppressed ~22 debug messages>
-Removed 207 unused cells and 43664 unused wires.
+Removed 208 unused cells and 43656 unused wires.
 
 22.44. Executing OPT_LUT pass (optimize LUTs).
 Discovering LUTs.
-Number of LUTs:     3404
+Number of LUTs:     3392
   1-LUT               24
-  2-LUT              461
-  3-LUT             1006
-  4-LUT             1913
+  2-LUT              451
+  3-LUT              960
+  4-LUT             1957
   with \SB_CARRY    (#0)  213
-  with \SB_CARRY    (#1)  212
+  with \SB_CARRY    (#1)  213
 
 Eliminating LUTs.
-Number of LUTs:     3404
+Number of LUTs:     3392
   1-LUT               24
-  2-LUT              461
-  3-LUT             1006
-  4-LUT             1913
+  2-LUT              451
+  3-LUT              960
+  4-LUT             1957
   with \SB_CARRY    (#0)  213
-  with \SB_CARRY    (#1)  212
+  with \SB_CARRY    (#1)  213
 
 Combining LUTs.
-Number of LUTs:     3402
+Number of LUTs:     3390
   1-LUT               24
-  2-LUT              459
-  3-LUT             1004
-  4-LUT             1915
+  2-LUT              449
+  3-LUT              958
+  4-LUT             1959
   with \SB_CARRY    (#0)  213
-  with \SB_CARRY    (#1)  212
+  with \SB_CARRY    (#1)  213
 
 Eliminated 0 LUTs.
 Combined 2 LUTs.
-<suppressed ~23615 debug messages>
+<suppressed ~23228 debug messages>
 
 22.45. Executing TECHMAP pass (map to technology primitives).
 
@@ -3145,284 +3145,240 @@ Generating RTLIL representation for module `\$lut'.
 Successfully finished Verilog frontend.
 
 22.45.2. Continuing TECHMAP pass.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10111000 for cells of type $lut.
 Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11011000 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10111000 for cells of type $lut.
 Using template $paramod$272652f6c6fbe9a75eff76e45cc7e2788835518b\$lut for cells of type $lut.
-Using template $paramod$fb5ee0bdef1c4e74aaf1fd8efae98b46a2f5e564\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000010\LUT=4'0010 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000010\LUT=4'1000 for cells of type $lut.
-Using template $paramod$8e44661def013b6bf9fe6f8b049ef2c838d749f9\$lut for cells of type $lut.
-Using template $paramod$f9813472aa48e533b3838c6f2316dc2e78c66111\$lut for cells of type $lut.
-Using template $paramod$f8f63b209b7230e81958663ff24fef1613156af7\$lut for cells of type $lut.
-Using template $paramod$498daa9936ffa1c0b12d774cacc95a35d14b818e\$lut for cells of type $lut.
-Using template $paramod$6e238df02989b317f10820a22773676e71120644\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000010\LUT=4'0100 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01000000 for cells of type $lut.
-Using template $paramod$0425f46a1444788a7d60572c26dbde5e7cb29de0\$lut for cells of type $lut.
-Using template $paramod$06e62c2045624c211a1abe4f2f36c8f22c688165\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00001000 for cells of type $lut.
-Using template $paramod$a5516fc31d1e552de2435200bb732b4d4ad63a9c\$lut for cells of type $lut.
-Using template $paramod$47a8214374025465e226fa66bee690ff33268a25\$lut for cells of type $lut.
-Using template $paramod$11ec7271d8e6e5aeaace08c13e4c601f10e31038\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00000100 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10000000 for cells of type $lut.
-Using template $paramod$d6ca727e39f31d51d29072e0f33aa09c65e37336\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00100000 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000010\LUT=4'0001 for cells of type $lut.
-Using template $paramod$873c285bdccf0ac2b60d2304ea5cd14bf211d2a6\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00010000 for cells of type $lut.
-Using template $paramod$571404c0889eaf57f492cb5e37f8acb5df5852f9\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11110001 for cells of type $lut.
-Using template $paramod$179512a187da069f3b79ef6612a41e494e7d54b6\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00000010 for cells of type $lut.
-Using template $paramod$4976b5f7a7b9f6e596e742c7d9dd919d8c62448f\$lut for cells of type $lut.
-Using template $paramod$c2a1bb68533c5960a29646e059263e39a30d95af\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10001010 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11101100 for cells of type $lut.
-Using template $paramod$c28a8b7ce0535d090c4cfb52e9c74affd52b110c\$lut for cells of type $lut.
-Using template $paramod$658b9ed803f0d3d335616d3858b53e0a2522f1e8\$lut for cells of type $lut.
-Using template $paramod$7ad33c776f7927014a3c72f1a75c59359054c3fb\$lut for cells of type $lut.
-Using template $paramod$a06aa83841491819ea0cf939b57a7ccfb595b114\$lut for cells of type $lut.
-Using template $paramod$46a3c0240e7a0e1ba60e351b8dd1863f2b554f8b\$lut for cells of type $lut.
-Using template $paramod$cdc5bba2585477f1744fd1f869bebc8beb23d707\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00000111 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00101100 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01100100 for cells of type $lut.
-Using template $paramod$6d6beead1425af15cf78b27fd9b11b41b5d4bce8\$lut for cells of type $lut.
-Using template $paramod$baa939b0bd5b3e0c8760492528669bd58f640542\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11101101 for cells of type $lut.
-Using template $paramod$82b4a585d1edcb5c6e755dc9bd3392228a1c1304\$lut for cells of type $lut.
-Using template $paramod$37c9af120c85145419565a9ccf4ceb7397fbbe92\$lut for cells of type $lut.
-Using template $paramod$daac9b1e7bb2ac018f7132a3fbe0026ddd7b1a71\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11010000 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00110010 for cells of type $lut.
-Using template $paramod$af01034afe1bdbc87587d263805971d96e724ed7\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01110010 for cells of type $lut.
-Using template $paramod$30305e55a780880b9c824fe3509a4d981acb0f2b\$lut for cells of type $lut.
-Using template $paramod$93a2de77daaad788b7b7db86fd9aeaaa749d64de\$lut for cells of type $lut.
-Using template $paramod$865395c0228487a64a8e4011cecafc2c64b79f2b\$lut for cells of type $lut.
-Using template $paramod$2d8ecce5c907513cebcd38ab5efe0fc26fc03464\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01110000 for cells of type $lut.
 Using template $paramod$bba54c1ef87367812b4c15f4aed5ac70773df775\$lut for cells of type $lut.
-Using template $paramod$6f4aaf68b847f2ed1b73dd57525b99932e3429ca\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00001101 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00100111 for cells of type $lut.
-Using template $paramod$219b71aec9a19e7a27754ed85a7d6cdad9e5ec96\$lut for cells of type $lut.
-Using template $paramod$66658cbed86a8310f9b7ba1190d35eff90ee749b\$lut for cells of type $lut.
-Using template $paramod$cad45b6c9da81941161a13849773fe2ed4bc1c6f\$lut for cells of type $lut.
-Using template $paramod$b40080b643baa8bb528ec249e10d82b2d80dfed9\$lut for cells of type $lut.
-Using template $paramod$364c9ffbffac467d60dfec81bba4e18476c15602\$lut for cells of type $lut.
-Using template $paramod$a6ef2a845efd4ff0d96bc4fd2f06cc3516fa63ff\$lut for cells of type $lut.
-Using template $paramod$f4c640ab60ad160388bbc71b56173ddf9879f8c4\$lut for cells of type $lut.
-Using template $paramod$9f6bc32305fc769fa11e4327bee073e3fbe84018\$lut for cells of type $lut.
-Using template $paramod$f405ee362848dd1a47c58160f854302f6ecf95ff\$lut for cells of type $lut.
-Using template $paramod$1cec58bfb33a7a51c359586aade8e947536c006e\$lut for cells of type $lut.
-Using template $paramod$f85f1073c412d406200a6a72283f918c8b751314\$lut for cells of type $lut.
-Using template $paramod$c07d61aaf1d93e15249de987e8fd0ca391dbd52a\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000010\LUT=4'0111 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01111111 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00011011 for cells of type $lut.
-Using template $paramod$2054e486c979b759b6f4f7df3aeef508bad324ef\$lut for cells of type $lut.
-Using template $paramod$097592bb16245531f0716c5ddb18d7090f9c7d9d\$lut for cells of type $lut.
-Using template $paramod$a15fd389a2f54cb7b94707b25934d226e68d9e2e\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11100100 for cells of type $lut.
-Using template $paramod$9225a1e7171a31391d3103e59bac04fd4b7aa6c1\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10001011 for cells of type $lut.
-Using template $paramod$fcff9a7b1687e357a40264efcefe8443c8b2971a\$lut for cells of type $lut.
-Using template $paramod$723eb79ef8d5d376f3f196f4acfa8e347145a0fa\$lut for cells of type $lut.
 Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01000111 for cells of type $lut.
-Using template $paramod$4380d164d25d6a9a3a11f9976a02840f91855a4a\$lut for cells of type $lut.
-Using template $paramod$f840a6057f1d372c3e6a8a9fa5382749feb221f5\$lut for cells of type $lut.
-Using template $paramod$101238f3d8d49ab12a9b49a2f01cd503b26e9c61\$lut for cells of type $lut.
-Using template $paramod$96bba4dd6b25810888fec5248ce50ac8f2ee4880\$lut for cells of type $lut.
-Using template $paramod$6cd4d627edf352030a541c7b67170150b9e5d0b8\$lut for cells of type $lut.
-Using template $paramod$fe70bb3280659663b8fa2b45f42fda9ccf4ccfaa\$lut for cells of type $lut.
-Using template $paramod$18455d4fd1270af2266bf4bb1c44971b2eb6b37a\$lut for cells of type $lut.
-Using template $paramod$a9579ee6945670e687aa63d8d55dd4cf839ae00c\$lut for cells of type $lut.
-Using template $paramod$9583ab40db57ba76ead4c869be5b61dc3f252411\$lut for cells of type $lut.
-Using template $paramod$c4a4cf1f67c598049dd5cb5cdb183838e000e772\$lut for cells of type $lut.
-Using template $paramod$8b81775fb73b10ccf3a57c39fc26126ef8a47ddb\$lut for cells of type $lut.
-Using template $paramod$19457468c03b53ec09024ada785c6816b7d0407d\$lut for cells of type $lut.
-Using template $paramod$fcc4c770d778df8a1eb6afe48bd4c202a6c1ff2b\$lut for cells of type $lut.
-Using template $paramod$e1f6f26c595b714b23aaf5b46e4ff285d7dd2807\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10001100 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00110001 for cells of type $lut.
-Using template $paramod$4b9b235bc4444ff899bef0c648e4109b26737f1a\$lut for cells of type $lut.
-Using template $paramod$5502a85110dbca29ac631107f0b0635e7fade476\$lut for cells of type $lut.
-Using template $paramod$27dd7ea71d2126c74d85758e5a06b7f432d9242f\$lut for cells of type $lut.
-Using template $paramod$28c616faf5f033f157ae11b466e19ab28d454f1e\$lut for cells of type $lut.
-Using template $paramod$712505941a295086314c22735153725461a87f4a\$lut for cells of type $lut.
-Using template $paramod$529baf23c57d5ed871d62e547aaaa8bb53e364ce\$lut for cells of type $lut.
-Using template $paramod$e2d96f36ef28053ecd27167cd95b944485ac3146\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11010001 for cells of type $lut.
-Using template $paramod$baa9d2fb2d21010939721b85aa9f11effe0b53c4\$lut for cells of type $lut.
-Using template $paramod$58df2c605746858c7e53492c8f57d6f1fafa12d2\$lut for cells of type $lut.
-Using template $paramod$c796465325e8612408ffd6216ec3001cb65cf6eb\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10110001 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10001101 for cells of type $lut.
-Using template $paramod$c52228221673cb40e85e683314eb992be6bc9613\$lut for cells of type $lut.
-Using template $paramod$e6a488add0b5a2d742e2ae29f62ce7616e04271d\$lut for cells of type $lut.
-Using template $paramod$e4b832d686d12318ec0715f027fe549b42e45c20\$lut for cells of type $lut.
-Using template $paramod$db08fd84fb3c4d6a41eaec6adfffe445fb7eb17f\$lut for cells of type $lut.
-Using template $paramod$9238b4f918408168668f80b2f347ff8fe515d0e4\$lut for cells of type $lut.
-Using template $paramod$018d71a0fe325d6362687fe53ac13dd6340e400d\$lut for cells of type $lut.
-Using template $paramod$728e616c918eb05878d70b2bb240e381ea2847b9\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000010\LUT=4'0100 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000010\LUT=4'0010 for cells of type $lut.
+Using template $paramod$6d6beead1425af15cf78b27fd9b11b41b5d4bce8\$lut for cells of type $lut.
+Using template $paramod$7491e7206ae8c682d288373efe06a43b67c277cf\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01000000 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00001000 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000010\LUT=4'0001 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00100000 for cells of type $lut.
+Using template $paramod$f8f63b209b7230e81958663ff24fef1613156af7\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00010000 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000010\LUT=4'1000 for cells of type $lut.
+Using template $paramod$873c285bdccf0ac2b60d2304ea5cd14bf211d2a6\$lut for cells of type $lut.
+Using template $paramod$75d5c453cca75cc7a7ca320c4fb7be0932b6aaa7\$lut for cells of type $lut.
+Using template $paramod$7ccb46ee9b56c39e0a7d82a185b08cb026e04fbc\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10000000 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01010100 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10101000 for cells of type $lut.
+Using template $paramod$6e238df02989b317f10820a22773676e71120644\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01001000 for cells of type $lut.
+Using template $paramod$9e354de8d358bf081aa0c089488ea3bc5b7c2fd9\$lut for cells of type $lut.
+Using template $paramod$18df3812bc12364e5ebcb6c3ed05c0294e4c26fc\$lut for cells of type $lut.
+Using template $paramod$41cf3e7f9a592734c11550fc575af1ecb816015d\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01010001 for cells of type $lut.
+Using template $paramod$b431bfd938e35871dd0b7668e1503c7e8b9d491c\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01110000 for cells of type $lut.
+Using template $paramod$658b9ed803f0d3d335616d3858b53e0a2522f1e8\$lut for cells of type $lut.
+Using template $paramod$8e44661def013b6bf9fe6f8b049ef2c838d749f9\$lut for cells of type $lut.
 Using template $paramod$fd904e9e35cfd343a9df248824bd3f1408724879\$lut for cells of type $lut.
-Using template $paramod$72043e0aa7fa64cb454e3c2ca3dbe1636171896a\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11001000 for cells of type $lut.
-Using template $paramod$58bf88dee97c29613c0267b2f3ba1de3c88089a0\$lut for cells of type $lut.
-Using template $paramod$c63fb63be97a9db4ce7bd031e26652a8b349a094\$lut for cells of type $lut.
-Using template $paramod$e51a8a571bee774247b38f52d6e85fd62ae52cea\$lut for cells of type $lut.
-Using template $paramod$f7cbd8f5974233f70d25c33ef6a692898e4f6377\$lut for cells of type $lut.
-Using template $paramod$153c36e047f05fb8dde958e7632f5362a93d12c6\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00010011 for cells of type $lut.
+Using template $paramod$e85b6eba0dacefc5f73f8748159b8b9599212afc\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11100000 for cells of type $lut.
+Using template $paramod$a50983bc2d916c31a7d4beac5feb90028d16502d\$lut for cells of type $lut.
+Using template $paramod$e053a22d78e6bd5ea33183ea69976f0db741be0e\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00100111 for cells of type $lut.
+Using template $paramod$6e424bd4a747f8421ac946af3d9bb3a47fd0b233\$lut for cells of type $lut.
+Using template $paramod$d6ca727e39f31d51d29072e0f33aa09c65e37336\$lut for cells of type $lut.
+Using template $paramod$364c9ffbffac467d60dfec81bba4e18476c15602\$lut for cells of type $lut.
+Using template $paramod$571404c0889eaf57f492cb5e37f8acb5df5852f9\$lut for cells of type $lut.
+Using template $paramod$a15fd389a2f54cb7b94707b25934d226e68d9e2e\$lut for cells of type $lut.
 Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11001110 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01001100 for cells of type $lut.
+Using template $paramod$daac9b1e7bb2ac018f7132a3fbe0026ddd7b1a71\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000010\LUT=4'1001 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000010\LUT=4'0110 for cells of type $lut.
+Using template $paramod$57ae3a623ef331de1f279633747a291db51b146a\$lut for cells of type $lut.
+Using template $paramod$8c9d35083b636222f67664b47a2d18c9378a689e\$lut for cells of type $lut.
+Using template $paramod$a1d323730045824cfc84bb9f4ee8031f1c4dcc9e\$lut for cells of type $lut.
+Using template $paramod$85b779ce5ab505dbf25e5e046fb43ca2b76b878b\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00000111 for cells of type $lut.
+Using template $paramod$4976b5f7a7b9f6e596e742c7d9dd919d8c62448f\$lut for cells of type $lut.
+Using template $paramod$498daa9936ffa1c0b12d774cacc95a35d14b818e\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00000010 for cells of type $lut.
+Using template $paramod$7d35f3eb4056e6484203c99fe42cfcf1dfaba704\$lut for cells of type $lut.
+Using template $paramod$cad45b6c9da81941161a13849773fe2ed4bc1c6f\$lut for cells of type $lut.
+Using template $paramod$2d75a5bcbfdae0b5c7b27bc805406602bd65a67e\$lut for cells of type $lut.
+Using template $paramod$17fd36fab32bce162e5828682c2ba9fa7f9e273b\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11011001 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11000100 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01000101 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11001000 for cells of type $lut.
+Using template $paramod$30305e55a780880b9c824fe3509a4d981acb0f2b\$lut for cells of type $lut.
+Using template $paramod$82b4a585d1edcb5c6e755dc9bd3392228a1c1304\$lut for cells of type $lut.
+Using template $paramod$037be5c00d8a02858cdb1ab049b58a0133287ff1\$lut for cells of type $lut.
+Using template $paramod$1b53a9695a0f80de7517b50863b438fd2b7f56da\$lut for cells of type $lut.
+Using template $paramod$045dfb283e189b7f82307f417ee14e356a42e8ec\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01110010 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10001101 for cells of type $lut.
+Using template $paramod$179512a187da069f3b79ef6612a41e494e7d54b6\$lut for cells of type $lut.
+Using template $paramod$097592bb16245531f0716c5ddb18d7090f9c7d9d\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01111111 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10101100 for cells of type $lut.
+Using template $paramod$219b71aec9a19e7a27754ed85a7d6cdad9e5ec96\$lut for cells of type $lut.
+Using template $paramod$28c616faf5f033f157ae11b466e19ab28d454f1e\$lut for cells of type $lut.
+Using template $paramod$be48d952fcad8a16b8d84daa4c48a3065f343e5e\$lut for cells of type $lut.
+Using template $paramod$e57bcb018bfe8170bc04f13a73befe2def28cdf3\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00001110 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000010\LUT=4'0111 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11100100 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11100010 for cells of type $lut.
+Using template $paramod$9225a1e7171a31391d3103e59bac04fd4b7aa6c1\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10110001 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11001010 for cells of type $lut.
+Using template $paramod$865395c0228487a64a8e4011cecafc2c64b79f2b\$lut for cells of type $lut.
+Using template $paramod$11ec7271d8e6e5aeaace08c13e4c601f10e31038\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00010011 for cells of type $lut.
+Using template $paramod$a7c07944e10969b2e1fd563a5b72f89493cb3705\$lut for cells of type $lut.
 Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00100011 for cells of type $lut.
+Using template $paramod$101238f3d8d49ab12a9b49a2f01cd503b26e9c61\$lut for cells of type $lut.
+Using template $paramod$3ccc23db184ad4ca7ed34ebe2511de41d5d97e78\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00010101 for cells of type $lut.
 Using template $paramod$ff2af82b1ffeb96974682ef5543fdafb7a85c4e5\$lut for cells of type $lut.
 Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11001101 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11001010 for cells of type $lut.
-Using template $paramod$9a20e5eb914da7530de8ea5af782be66b9acb237\$lut for cells of type $lut.
-Using template $paramod$e00d03686849cf5e50e9f0c13f0f78958ff5e7ae\$lut for cells of type $lut.
-Using template $paramod$cfd807e22868a8191a7b70d1505818467d62f24c\$lut for cells of type $lut.
-Using template $paramod$a8ff24295e45aabda71972c6a839bf0640df5e86\$lut for cells of type $lut.
-Using template $paramod$ba7f31f246a278c41fa0648a6e0512f63185dec0\$lut for cells of type $lut.
+Using template $paramod$66658cbed86a8310f9b7ba1190d35eff90ee749b\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00100001 for cells of type $lut.
+Using template $paramod$6d23198eb2b8f79a41c7626605a61009695893b1\$lut for cells of type $lut.
+Using template $paramod$c28a8b7ce0535d090c4cfb52e9c74affd52b110c\$lut for cells of type $lut.
 Using template $paramod$9e394303e290a474880b56f98766417009256d93\$lut for cells of type $lut.
-Using template $paramod$e134ec2a47a2462a591072e65d34fb15b81c90e0\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01001100 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00001110 for cells of type $lut.
-Using template $paramod$e9314cc3ceea54213e00520663daba3b2df90b7d\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00000001 for cells of type $lut.
 Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01001110 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00001011 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11000100 for cells of type $lut.
-Using template $paramod$20ba583962918fa0136fc97b1558cc45cc91cc29\$lut for cells of type $lut.
-Using template $paramod$f1a1d9f676e9a8dfefb9d549b9b2c26a026e27e6\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01010001 for cells of type $lut.
-Using template $paramod$734cd1512f671d92bc4f41153da0d9781801dd98\$lut for cells of type $lut.
-Using template $paramod$70dcc34b3190ff5541006bab0f38ffad9d439d5a\$lut for cells of type $lut.
-Using template $paramod$a48d96b3084901aac1f541d9be59ab6aad37df36\$lut for cells of type $lut.
-Using template $paramod$be48d952fcad8a16b8d84daa4c48a3065f343e5e\$lut for cells of type $lut.
-Using template $paramod$e053a22d78e6bd5ea33183ea69976f0db741be0e\$lut for cells of type $lut.
-Using template $paramod$52953750219effadf43093a566baf492fdd6b6c8\$lut for cells of type $lut.
-Using template $paramod$66caeb00a39d236782a97659e3bd99621b74681b\$lut for cells of type $lut.
-Using template $paramod$e9c77024ca501b890c641f9c0b10e27242db8730\$lut for cells of type $lut.
+Using template $paramod$5502a85110dbca29ac631107f0b0635e7fade476\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00011011 for cells of type $lut.
+Using template $paramod$cf93df6a751c015d454aef52e32716809f254f3e\$lut for cells of type $lut.
+Using template $paramod$a8372e175876cbb66e220516f0b094622c6ad591\$lut for cells of type $lut.
+Using template $paramod$db08fd84fb3c4d6a41eaec6adfffe445fb7eb17f\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00110010 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00001101 for cells of type $lut.
+Using template $paramod$32abbd1d449a67fb913b4733374e345d4c17175b\$lut for cells of type $lut.
+Using template $paramod$a7d9b4ab0321c8125e5b895183ee6b84cdb4a31b\$lut for cells of type $lut.
+Using template $paramod$6c22e4c9acd607e1249c5e3017b6703f378da140\$lut for cells of type $lut.
+Using template $paramod$2ec6422db00d358fc7469efce6208bffbc8521cd\$lut for cells of type $lut.
+Using template $paramod$068092ddede495d8462ffe530e6d91711913edbc\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00110001 for cells of type $lut.
+Using template $paramod$1114d560ed98e9182fe073c9893577168d869f6b\$lut for cells of type $lut.
+Using template $paramod$7c3833e617307006af30409ed68b65a011a1121e\$lut for cells of type $lut.
+Using template $paramod$a06aa83841491819ea0cf939b57a7ccfb595b114\$lut for cells of type $lut.
+Using template $paramod$250e9ed6c15020113b6b30a5ef7c8f11f208ca8e\$lut for cells of type $lut.
+Using template $paramod$a6ef2a845efd4ff0d96bc4fd2f06cc3516fa63ff\$lut for cells of type $lut.
+Using template $paramod$a4640096cbef09c4ef8613155a589c40164ac034\$lut for cells of type $lut.
+Using template $paramod$af0c0e3aea5daa768aac0697b02a2a49301800b1\$lut for cells of type $lut.
+Using template $paramod$6d937d8a77a6356f2f9cc89d5646fb948bb8225e\$lut for cells of type $lut.
+Using template $paramod$018d71a0fe325d6362687fe53ac13dd6340e400d\$lut for cells of type $lut.
+Using template $paramod$77268019239d7d46332da9cb6aa01cbf3ba29ee3\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10001010 for cells of type $lut.
+Using template $paramod$baa939b0bd5b3e0c8760492528669bd58f640542\$lut for cells of type $lut.
+Using template $paramod$3a0a392069bc969f34c65c546a8c56fbbb67e282\$lut for cells of type $lut.
+Using template $paramod$bea08a495d16293f8cc454a45845d26cde0762b6\$lut for cells of type $lut.
+Using template $paramod$23b135911b7c14b5b19b5329e5903bcf58b44188\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00000100 for cells of type $lut.
+Using template $paramod$47a8214374025465e226fa66bee690ff33268a25\$lut for cells of type $lut.
+Using template $paramod$7e8d331d1e06632d29fbdf6c3afc2de1856d3c67\$lut for cells of type $lut.
+Using template $paramod$609ff53b8e25fddda2f58be8d19c2d47b81baf45\$lut for cells of type $lut.
+Using template $paramod$181733d3e31dcdcea8c52d0a4fc252b3aa453564\$lut for cells of type $lut.
+Using template $paramod$153c6cdaaddbc43e6ef3facd06aa851de33910ae\$lut for cells of type $lut.
+Using template $paramod$e0286d7bdebdb6346cb367bb1962e01892ba2e32\$lut for cells of type $lut.
+Using template $paramod$1f9991b7d220a1444c81118371531284fe6401b3\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000010\LUT=4'1011 for cells of type $lut.
+Using template $paramod$34b1f7b459d102c0882dcbac0fbb3f7b1a5a2df4\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11010000 for cells of type $lut.
+Using template $paramod$620586420e818d3afa7e5b51fcf19f5c6ea83ad4\$lut for cells of type $lut.
+Using template $paramod$d21d214a5aa271f2d9da3f90f22432c0ecee130f\$lut for cells of type $lut.
+Using template $paramod$cc2c73b4a486d6847dcd620841ed542a241d8998\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00101111 for cells of type $lut.
+Using template $paramod$f3e1547c4b47e64c590e75cf09078b2507c8cc75\$lut for cells of type $lut.
+Using template $paramod$6b0849254d6c87461fb93e37cc18f089f61eb912\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10110000 for cells of type $lut.
+Using template $paramod$526e4703e3f9e5bf75da836fd3d4410dd76747a6\$lut for cells of type $lut.
+Using template $paramod$f55f4b90ec8e3e648d5c29eab1fa5ddd64b3f973\$lut for cells of type $lut.
+Using template $paramod$31f0a66a4b242b524303bfb4ac95c05ad74158f8\$lut for cells of type $lut.
+Using template $paramod$58bd588a49a6a3b9d057d75f907cb4932e1635f6\$lut for cells of type $lut.
+Using template $paramod$41326ad8644342a66dfb051d050f2b6fbf15015b\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11110100 for cells of type $lut.
+Using template $paramod$58df2c605746858c7e53492c8f57d6f1fafa12d2\$lut for cells of type $lut.
+Using template $paramod$aab54572d5ffecd31253b36e73e9cb718d05be34\$lut for cells of type $lut.
+Using template $paramod$8cac5452d526045503c5864c3a1dac0121c7053e\$lut for cells of type $lut.
+Using template $paramod$fe0977701b8bdf4fefe979a9c12e84d2dcaa2920\$lut for cells of type $lut.
+Using template $paramod$4fd3428c4b8b1accf8f8fb4bb88555a2b5fa688d\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11111011 for cells of type $lut.
+Using template $paramod$849d013d096d73269ca4beb768f8e399745d37f2\$lut for cells of type $lut.
+Using template $paramod$e3d9d09dc79e0ff17e42d3a3f34cb2c26617403f\$lut for cells of type $lut.
+Using template $paramod$dcf464990597ed9f574b5d75638c55d2a4e121f4\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11111000 for cells of type $lut.
 Using template $paramod$38f9bf4dd2329347b8471f0a98443dd323386889\$lut for cells of type $lut.
 Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10111111 for cells of type $lut.
-Using template $paramod$60e0a526d5120cb853aa823aea6dcb02645a9f39\$lut for cells of type $lut.
-Using template $paramod$41326ad8644342a66dfb051d050f2b6fbf15015b\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11100000 for cells of type $lut.
 Using template $paramod$0de052767abdccc3aefc818722bdc3c7850d25d6\$lut for cells of type $lut.
-Using template $paramod$c958b3a888f937f082b94811ff62d71e32a2b4eb\$lut for cells of type $lut.
-Using template $paramod$b93d1ea7a612a32c185108f67a153d44ffb9aac2\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00000001 for cells of type $lut.
-Using template $paramod$bea08a495d16293f8cc454a45845d26cde0762b6\$lut for cells of type $lut.
-Using template $paramod$cc2c73b4a486d6847dcd620841ed542a241d8998\$lut for cells of type $lut.
-Using template $paramod$620586420e818d3afa7e5b51fcf19f5c6ea83ad4\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01110101 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00111011 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11111011 for cells of type $lut.
-Using template $paramod$609ff53b8e25fddda2f58be8d19c2d47b81baf45\$lut for cells of type $lut.
-Using template $paramod$153c6cdaaddbc43e6ef3facd06aa851de33910ae\$lut for cells of type $lut.
-Using template $paramod$23b135911b7c14b5b19b5329e5903bcf58b44188\$lut for cells of type $lut.
-Using template $paramod$849d013d096d73269ca4beb768f8e399745d37f2\$lut for cells of type $lut.
-Using template $paramod$d883e135b7bd8ae4385e869b4ab8d5786e0934a2\$lut for cells of type $lut.
-Using template $paramod$b2e8d279775d333b39e310bd45fd5952acdde290\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11111000 for cells of type $lut.
-Using template $paramod$4b815e6c998e04ad0d0242e44b0c58a7a9d0b3b6\$lut for cells of type $lut.
-Using template $paramod$18df3812bc12364e5ebcb6c3ed05c0294e4c26fc\$lut for cells of type $lut.
-Using template $paramod$4cab3b31c601551ff65536bf4f533afa0b2094ee\$lut for cells of type $lut.
-Using template $paramod$fe0977701b8bdf4fefe979a9c12e84d2dcaa2920\$lut for cells of type $lut.
-Using template $paramod$5321e04f7ce32c091123c3570ab562efb1c81402\$lut for cells of type $lut.
-Using template $paramod$1ec3fb8fd1fa98216cb96b4422de32c4ba5f6c9c\$lut for cells of type $lut.
-Using template $paramod$1b53a9695a0f80de7517b50863b438fd2b7f56da\$lut for cells of type $lut.
-Using template $paramod$6b0849254d6c87461fb93e37cc18f089f61eb912\$lut for cells of type $lut.
-Using template $paramod$11f40c6e5956bd02fdd7805ba9d14d78aff01738\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10110000 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01100000 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01110001 for cells of type $lut.
-Using template $paramod$f969aefcb5fdd29444244ce17e4806b1ebc6f568\$lut for cells of type $lut.
-Using template $paramod$0331e023d83b8009e60defb446ce9fa640b122c7\$lut for cells of type $lut.
-Using template $paramod$c2590929527069bd4b69a5a273443516f7b9d04a\$lut for cells of type $lut.
-Using template $paramod$a03ef989f8f4e1878ce2f5c4e0e3d2dfb54307ef\$lut for cells of type $lut.
-Using template $paramod$fca001e3e0b52158a872e76e56c01ec10dfbb1de\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000010\LUT=4'1011 for cells of type $lut.
-Using template $paramod$e5e0b3ddfad741c9efef28018ea9d09c68de87c3\$lut for cells of type $lut.
-Using template $paramod$9891217114ca63a6e9d48073351d843bb1d46faf\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00101111 for cells of type $lut.
-Using template $paramod$d21d214a5aa271f2d9da3f90f22432c0ecee130f\$lut for cells of type $lut.
-Using template $paramod$fbed19fb84ee7c8a884778d28a96daea96245184\$lut for cells of type $lut.
-Using template $paramod$cae45ff85b946d8cfe295bf4feda7db55ee71cea\$lut for cells of type $lut.
-Using template $paramod$6842b8b2a2a38d0fdb35de972b4ce1a464745b17\$lut for cells of type $lut.
-Using template $paramod$183ec76ed3429a430a8be24b57f3de734985f568\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10101000 for cells of type $lut.
-Using template $paramod$8cac5452d526045503c5864c3a1dac0121c7053e\$lut for cells of type $lut.
-Using template $paramod$31f0a66a4b242b524303bfb4ac95c05ad74158f8\$lut for cells of type $lut.
-Using template $paramod$d5a37b92345ff038953b03524b014e8a09fc93d9\$lut for cells of type $lut.
-Using template $paramod$34b1f7b459d102c0882dcbac0fbb3f7b1a5a2df4\$lut for cells of type $lut.
-Using template $paramod$58bd588a49a6a3b9d057d75f907cb4932e1635f6\$lut for cells of type $lut.
+Using template $paramod$e51a8a571bee774247b38f52d6e85fd62ae52cea\$lut for cells of type $lut.
+Using template $paramod$54ef21ccddfa27629768f219f304bb4163ac6894\$lut for cells of type $lut.
 Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10001111 for cells of type $lut.
-Using template $paramod$fe1497207981e9e4f2f9556fad9970ec052e0a6d\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00101010 for cells of type $lut.
-Using template $paramod$9b077dfefff5cf79a47f9f47436d486c647f1113\$lut for cells of type $lut.
-Using template $paramod$1da7671d5a831182fa319b389380f67221c32724\$lut for cells of type $lut.
-Using template $paramod$41a800cf8ab34ffd8bd6b27becdd9b32af451047\$lut for cells of type $lut.
-Using template $paramod$23efb786b9acf84d399e85dd6b38f2dbf6278177\$lut for cells of type $lut.
-Using template $paramod$1d18749bd79ee80b63813dfc0132e4ef56cbe1c5\$lut for cells of type $lut.
-Using template $paramod$f8fc9bdd0c8b1eea493d53eae8bc35d8089b2dc0\$lut for cells of type $lut.
-Using template $paramod$3f640fc8e198a77ee1638fd0ca495b7a8e3f867a\$lut for cells of type $lut.
-Using template $paramod$b0480ff462270525aa9e807944c1881bc20bd836\$lut for cells of type $lut.
-Using template $paramod$910be30328e053070aa1002dad9959dbae4c5280\$lut for cells of type $lut.
-Using template $paramod$ab8bb87959c5d7cfa27886cee1355b38e054a61a\$lut for cells of type $lut.
-Using template $paramod$94ac66a11090dca84889e55fcf03297912a5b7ec\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11111101 for cells of type $lut.
-Using template $paramod$dcf464990597ed9f574b5d75638c55d2a4e121f4\$lut for cells of type $lut.
-Using template $paramod$ea79e410ad0f4fc3326666c891e1f3992816d636\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01011101 for cells of type $lut.
-Using template $paramod$60096d1cdb5f7f55fdf4ed3aab322b5c7375f61e\$lut for cells of type $lut.
-Using template $paramod$fceb3a526de44b8f6b38e567360f59f7cf5878fb\$lut for cells of type $lut.
-Using template $paramod$8d7a8d6e3356de09670738ba85f2c6b874f6b06d\$lut for cells of type $lut.
-Using template $paramod$32ccf65669c41e1e3bce1f16051f6d60ad96a2a0\$lut for cells of type $lut.
-Using template $paramod$86d1a43c2f1d620ff2cef866448dd1258c868fad\$lut for cells of type $lut.
-Using template $paramod$b287726797d0722f64e731f1134f7c05af8f1578\$lut for cells of type $lut.
-Using template $paramod$1241d759e3df4cac11dc7c99c36b0d1b07f7a673\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10010000 for cells of type $lut.
-Using template $paramod$b4f85a6321a00b090afc4e21d68e7b99eb94d149\$lut for cells of type $lut.
-Using template $paramod$df196ed0a1da5c4a58c5e08a1dac304fd3fccaab\$lut for cells of type $lut.
-Using template $paramod$6be53ab59e0a69757fc32adb071ddcb64e8c87b6\$lut for cells of type $lut.
-Using template $paramod$8a133ea198422e25ce8b1e8cef76f813cd97d9fd\$lut for cells of type $lut.
-Using template $paramod$4fd3428c4b8b1accf8f8fb4bb88555a2b5fa688d\$lut for cells of type $lut.
-Using template $paramod$abf5bd48c31109317e8e8c25b718320bfa5ca6d2\$lut for cells of type $lut.
-Using template $paramod$325e90edf97670f9dea57833ae1f51a5e8bcddea\$lut for cells of type $lut.
-Using template $paramod$5dd010b8b6611f480d8479d5a73c697bd413c5b6\$lut for cells of type $lut.
-Using template $paramod$f509505c8b31df179f95b03d0a4828ec02f1a784\$lut for cells of type $lut.
-Using template $paramod$234fd643079033ba0cbc98ff572df9b7b7a0dc86\$lut for cells of type $lut.
-Using template $paramod$7d35f3eb4056e6484203c99fe42cfcf1dfaba704\$lut for cells of type $lut.
-Using template $paramod$e277a522d8a930c8c8c8cdb56d33d42914aefec4\$lut for cells of type $lut.
-Using template $paramod$8512f4fb47fa9596f76cdbe5b407a5b54df368e7\$lut for cells of type $lut.
-Using template $paramod$857512ea84a5fe5464efcd374b77666399ea78e1\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00110111 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10111110 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000010\LUT=4'0110 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00101110 for cells of type $lut.
-Using template $paramod$d9922e15eb5da1acc26e937540cc16b16c2ad42c\$lut for cells of type $lut.
-Using template $paramod$0ad5300ed37f2fc9e5d70bd7c11dc082ff3e4fb3\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000001\LUT=2'01 for cells of type $lut.
-Using template $paramod$1644affdabe7f65febd25ca1c4d1e050be54e54f\$lut for cells of type $lut.
-Using template $paramod$48919ef3b7976e5a25423f1a25c447a40c3002e9\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01010100 for cells of type $lut.
-Using template $paramod$722bfd9af0ae56ca9d1d12a221cb5ede16461f26\$lut for cells of type $lut.
-Using template $paramod$05f19d9c2311a3d1ab38ece311a1bb9f96c62043\$lut for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11110111 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000010\LUT=4'1101 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000010\LUT=4'1110 for cells of type $lut.
+Using template $paramod$8a10a67809a4c226e7b6ed397585f1b2ade29b11\$lut for cells of type $lut.
+Using template $paramod$3258fabf91107b4a007ae89b2246a16c31e8ae28\$lut for cells of type $lut.
 Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00011111 for cells of type $lut.
-Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11000101 for cells of type $lut.
+Using template $paramod$440c55e9b86a4d19d2d9af4513ac1f3c626292af\$lut for cells of type $lut.
+Using template $paramod$5e96c51e862795fcf5123ad90ed33b3bddf109cb\$lut for cells of type $lut.
+Using template $paramod$5e9374f44a27c3f8a1c38af244ec43ceb4fb8d4f\$lut for cells of type $lut.
+Using template $paramod$95647f061a452a57330090c74bbb5ab75f7ee34a\$lut for cells of type $lut.
+Using template $paramod$f9813472aa48e533b3838c6f2316dc2e78c66111\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01011100 for cells of type $lut.
+Using template $paramod$ab8bb87959c5d7cfa27886cee1355b38e054a61a\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00001011 for cells of type $lut.
+Using template $paramod$622f15e1486e14083b8aad1ca2a797d1b21b4f3f\$lut for cells of type $lut.
+Using template $paramod$1da7671d5a831182fa319b389380f67221c32724\$lut for cells of type $lut.
+Using template $paramod$18085fe4c0c6485495a847949cd87d0e8f3957d3\$lut for cells of type $lut.
+Using template $paramod$96d53f88d39d623034cb89e2cf9731fefe78d1ce\$lut for cells of type $lut.
+Using template $paramod$f671b3f3b0498606c282f75758f0d20cff9551f9\$lut for cells of type $lut.
+Using template $paramod$17501b83e92414784378d9e96f0093d9409cae7a\$lut for cells of type $lut.
+Using template $paramod$33d7922ffd97406108ae816f19dd91e9813a2ec2\$lut for cells of type $lut.
+Using template $paramod$7bdafbcc070ca3a98b9a76179d525bdc1c294233\$lut for cells of type $lut.
+Using template $paramod$f969aefcb5fdd29444244ce17e4806b1ebc6f568\$lut for cells of type $lut.
+Using template $paramod$c2590929527069bd4b69a5a273443516f7b9d04a\$lut for cells of type $lut.
+Using template $paramod$0331e023d83b8009e60defb446ce9fa640b122c7\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11110001 for cells of type $lut.
+Using template $paramod$33362e839f197ff57c23ae62ea5ee326c6991985\$lut for cells of type $lut.
+Using template $paramod$9dd298ae76fb41ac94779a83c068607fbc09ce4f\$lut for cells of type $lut.
+Using template $paramod$abf5bd48c31109317e8e8c25b718320bfa5ca6d2\$lut for cells of type $lut.
+Using template $paramod$f03902c6767e06d0070a298346a9bd1d7e6b6c8b\$lut for cells of type $lut.
+Using template $paramod$8d7a8d6e3356de09670738ba85f2c6b874f6b06d\$lut for cells of type $lut.
+Using template $paramod$b7685cb0c8a6753256bc84bc31d36a443c15fab7\$lut for cells of type $lut.
+Using template $paramod$4cab3b31c601551ff65536bf4f533afa0b2094ee\$lut for cells of type $lut.
+Using template $paramod$19451f719aa4a75f15cb977ed4212a1c1a1550e9\$lut for cells of type $lut.
+Using template $paramod$889dc7b17c448030eaa05f5eb6c645a7ac00212c\$lut for cells of type $lut.
+Using template $paramod$b4f85a6321a00b090afc4e21d68e7b99eb94d149\$lut for cells of type $lut.
+Using template $paramod$44322768708ea1617c4f8f4845eb883e6765da22\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10010000 for cells of type $lut.
+Using template $paramod$ab5c02e04aac2a755a7077d4a47f25280e3bc179\$lut for cells of type $lut.
+Using template $paramod$1241d759e3df4cac11dc7c99c36b0d1b07f7a673\$lut for cells of type $lut.
+Using template $paramod$fca001e3e0b52158a872e76e56c01ec10dfbb1de\$lut for cells of type $lut.
+Using template $paramod$b4410865e8124402796f9dfbf73ef8d279fdbd08\$lut for cells of type $lut.
+Using template $paramod$5183b4454493323aca6310872659274580528fcf\$lut for cells of type $lut.
+Using template $paramod$b287726797d0722f64e731f1134f7c05af8f1578\$lut for cells of type $lut.
+Using template $paramod$df196ed0a1da5c4a58c5e08a1dac304fd3fccaab\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10001011 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'10111110 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00110101 for cells of type $lut.
+Using template $paramod$1644affdabe7f65febd25ca1c4d1e050be54e54f\$lut for cells of type $lut.
+Using template $paramod$aea6b93923bb1c2b26a058abe32d075fd832807f\$lut for cells of type $lut.
+Using template $paramod$94ac66a11090dca84889e55fcf03297912a5b7ec\$lut for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01100000 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000001\LUT=2'01 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01110001 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'01011101 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'11110111 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000011\LUT=8'00111011 for cells of type $lut.
+Using template $paramod\$lut\WIDTH=32'00000000000000000000000000000010\LUT=4'1110 for cells of type $lut.
+Using template $paramod$5d16e795d6c582b27c818459b159f81a7f4525c4\$lut for cells of type $lut.
 No more expansions possible.
-<suppressed ~6928 debug messages>
-Removed 0 unused cells and 8929 unused wires.
+<suppressed ~6344 debug messages>
+Removed 0 unused cells and 9010 unused wires.
 
 22.46. Executing AUTONAME pass.
-Renamed 349520 objects in module ice40hx8k (309 iterations).
-<suppressed ~7348 debug messages>
+Renamed 312981 objects in module ice40hx8k (287 iterations).
+<suppressed ~7217 debug messages>
 
 22.47. Executing HIERARCHY pass (managing design hierarchy).
 
@@ -3437,14 +3393,14 @@ Removed 0 unused modules.
 
 === ice40hx8k ===
 
-   Number of wires:               2814
-   Number of wire bits:          10879
-   Number of public wires:        2814
-   Number of public wire bits:   10879
+   Number of wires:               2681
+   Number of wire bits:          10489
+   Number of public wires:        2681
+   Number of public wire bits:   10489
    Number of memories:               0
    Number of memory bits:            0
    Number of processes:              0
-   Number of cells:               4897
+   Number of cells:               4885
      $scopeinfo                     29
      SB_CARRY                      262
      SB_DFF                         54
@@ -3454,7 +3410,7 @@ Removed 0 unused modules.
      SB_DFFESS                       4
      SB_DFFR                         6
      SB_DFFSR                       39
-     SB_LUT4                      3402
+     SB_LUT4                      3390
      SB_PLL40_CORE                   1
      SB_RAM40_4K                    32
 
@@ -3464,7 +3420,7 @@ Found and reported 0 problems.
 
 22.50. Executing JSON backend.
 
-Warnings: 29 unique messages, 29 total
-End of script. Logfile hash: 37a5e1df77, CPU: user 9.42s system 0.04s, MEM: 143.77 MB peak
+Warnings: 26 unique messages, 26 total
+End of script. Logfile hash: 0a76120516, CPU: user 9.84s system 0.04s, MEM: 141.80 MB peak
 Yosys 0.39 (git sha1 00338082b, g++ 11.4.0-1ubuntu1~22.04 -fPIC -O3)
-Time spent: 27% 11x techmap (3 sec), 26% 1x abc9_exe (3 sec), ...
+Time spent: 28% 11x techmap (3 sec), 25% 1x abc9_exe (3 sec), ...
