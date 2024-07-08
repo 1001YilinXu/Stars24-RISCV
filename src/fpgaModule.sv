@@ -5,12 +5,12 @@ typedef enum logic [2:0] {
 
 module fpgaModule (
 input logic clk, nrst,
-input logic [31:0] instruction, dataIn,
+input logic [31:0] instruction, dataIn, writeData,
 input logic [19:0] buttons,
 output logic [7:0] ss1, ss2, ss3, ss4, ss5, ss6, ss7, ss8, right, left, 
 //output [127:0] row1, row2,
 output logic [31:0] address, dataOut,
-output logic FPGAEnable, writeFPGA, CPUEnable
+output logic FPGAEnable, writeFPGA, CPUEnable, nrstFPGA
 );
 
 //logic definitions
@@ -36,7 +36,7 @@ always_ff@(posedge clk, negedge nrst) begin
     if (!nrst) begin
         state <= NUM1;
     end
-    else if (en) begin
+    else if (en | instructionTrue) begin
         state <= nextState;
     end
 end
@@ -67,11 +67,11 @@ always_comb begin
     {NUM1, 2'b11}: nextState = OPSEL;
     {OPSEL, 2'b11}: nextState = NUM2;
     {NUM2, 2'b11}: nextState = RESULT;
-    {RESULT, 2'b??}: begin
-        if(instructionTrue)
-            nextState = DISPLAY;
-        else 
-            nextState = RESULT;
+    {RESULT, 2'b00}: begin
+    if (instructionTrue) 
+        nextState = DISPLAY;
+    else 
+        nextState = RESULT;
     end
     {DISPLAY, 2'b11}: nextState = NUM1;
     default: nextState = state;
@@ -86,10 +86,12 @@ ssdec f5 (.in(data[7:4]), .enable(state == OPSEL), .out(ss4[6:0]));
 ssdec f6 (.in(data[3:0]), .enable(state == OPSEL), .out(ss3[6:0]));
 ssdec f7 (.in(data[7:4]), .enable(state == NUM1), .out(ss6[6:0]));
 ssdec f8 (.in(data[3:0]), .enable(state == NUM1), .out(ss5[6:0]));
-ssdec f9 (.in(data[7:4]), .enable(state == DISPLAY), .out(ss8[6:0]));
-ssdec f10 (.in(data[3:0]), .enable(state == DISPLAY), .out(ss7[6:0]));
+ssdec f9 (.in(dataIn[7:4]), .enable(state == DISPLAY), .out(ss8[6:0]));
+ssdec f10 (.in(dataIn[3:0]), .enable(state == DISPLAY), .out(ss7[6:0]));
 assign right = instruction[7:0];
-assign left = dataOut[7:0];
+
+assign left[2:0] = state;
+assign left[4] = instructionTrue;
 // assign left[2:0] = state;
 // assign left[7] = CPUEnable;
 // assign left[6] = writeFPGA;
@@ -98,6 +100,7 @@ always_comb begin
     currCPUEnable = 0;
     currFPGAEnable = 1;
     currFPGAWrite = 1;
+    nrstFPGA = 1;
     casez(state)
         NUM1: begin
             if(|buttons[9:0]) begin
@@ -109,7 +112,7 @@ always_comb begin
                 address = 32'd320;
             end
         end
-        3'b001: begin
+        OPSEL: begin
             if(|buttons[19:16]) begin
                 nextData = {3'b0, halfData};
                 //need to fix
@@ -141,6 +144,8 @@ always_comb begin
             address = 32'd280;
             nextData = dataIn[7:0];
             currFPGAWrite = 0;
+            nrstFPGA = 0;
+
         end
         default: begin
             nextData = data;
