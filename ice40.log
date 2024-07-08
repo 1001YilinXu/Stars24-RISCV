@@ -3033,7 +3033,7 @@ ABC: P:  Del = 14810.00.  Ar =    3804.0.  Edge =    12343.  Cut =   103617.  T 
 ABC: F:  Del = 14810.00.  Ar =    3274.0.  Edge =    11455.  Cut =    84422.  T =     0.01 sec
 ABC: A:  Del = 14810.00.  Ar =    3161.0.  Edge =    10962.  Cut =    78105.  T =     0.02 sec
 ABC: A:  Del = 14810.00.  Ar =    3124.0.  Edge =    10910.  Cut =    79261.  T =     0.02 sec
-ABC: Total time =     0.11 sec
+ABC: Total time =     0.10 sec
 ABC: + &write -n <abc-temp-dir>/output.aig 
 ABC: + &mfs 
 ABC: + &ps -l 
@@ -3043,7 +3043,7 @@ ABC: LUT = 3097 : 2=476 15.4 %  3=651 21.0 %  4=1970 63.6 %  Ave = 3.48
 ABC: Warning: AIG with boxes has internal fanout in 0 complex flops and 175 carries.
 ABC: + &write -n <abc-temp-dir>/output.aig 
 ABC: + time 
-ABC: elapse: 3.61 seconds, total: 3.61 seconds
+ABC: elapse: 3.24 seconds, total: 3.24 seconds
 
 22.41.16.6. Executing AIGER frontend.
 <suppressed ~7072 debug messages>
@@ -3490,6 +3490,6 @@ Found and reported 0 problems.
 22.50. Executing JSON backend.
 
 Warnings: 30 unique messages, 30 total
-End of script. Logfile hash: 04fe9bb973, CPU: user 9.98s system 0.04s, MEM: 141.52 MB peak
+End of script. Logfile hash: 49ca8b5463, CPU: user 7.93s system 0.03s, MEM: 141.18 MB peak
 Yosys 0.39 (git sha1 00338082b, g++ 11.4.0-1ubuntu1~22.04 -fPIC -O3)
-Time spent: 27% 11x techmap (3 sec), 26% 1x abc9_exe (3 sec), ...
+Time spent: 29% 11x techmap (3 sec), 29% 1x abc9_exe (3 sec), ...
