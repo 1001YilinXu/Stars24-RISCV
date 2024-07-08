@@ -89,10 +89,11 @@ ssdec f8 (.in(data[3:0]), .enable(state == NUM1), .out(ss5[6:0]));
 ssdec f9 (.in(data[7:4]), .enable(state == DISPLAY), .out(ss8[6:0]));
 ssdec f10 (.in(data[3:0]), .enable(state == DISPLAY), .out(ss7[6:0]));
 assign right = instruction[7:0];
-assign left[2:0] = state;
-assign left[7] = CPUEnable;
-assign left[6] = writeFPGA;
-assign left[5] = FPGAEnable;
+assign left = dataOut[7:0];
+// assign left[2:0] = state;
+// assign left[7] = CPUEnable;
+// assign left[6] = writeFPGA;
+// assign left[5] = FPGAEnable;
 always_comb begin
     currCPUEnable = 0;
     currFPGAEnable = 1;
