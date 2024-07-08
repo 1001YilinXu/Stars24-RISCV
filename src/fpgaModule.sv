@@ -37,6 +37,8 @@ always_ff@(posedge clk, negedge nrst) begin
     end
     else if (en | instructionTrue) begin
         state <= nextState;
+    end
+    else if (state == DISPLAY) begin
         dataInTemp <= nextdataInTemp;
     end
 end
