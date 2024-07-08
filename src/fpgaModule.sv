@@ -49,19 +49,19 @@ always_ff@(posedge clk, negedge nrst)begin
     end
 end
 
-always_ff@(posedge clk, negedge nrst)begin
-    if(!nrst) begin
-        instructionTrue <= 0;
-    end else begin
-        instructionTrue <= nextTrue;
-    end
-end
+// always_ff@(posedge clk, negedge nrst)begin
+//     if(!nrst) begin
+//         instructionTrue <= 0;
+//     end else begin
+//         instructionTrue <= nextTrue;
+//     end
+// end
 
 always_comb begin
     if(instruction == 32'hffffffff)
-        nextTrue = 1;
+        instructionTrue = 1;
     else 
-        nextTrue = 0;
+        instructionTrue = 0;
 
     casez ({state, buttons[12], keyStrobe})
     {NUM1, 2'b11}: nextState = OPSEL;
