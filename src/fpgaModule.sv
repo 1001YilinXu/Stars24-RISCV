@@ -46,7 +46,7 @@ end
 always_ff@(posedge clk, negedge nrst)begin
     if(!nrst) begin
         data <= 0;
-    end else if(en) begin
+    end else if(en | state == DISPLAY) begin
         data <= nextData;
     end
 end
@@ -91,8 +91,8 @@ ssdec f5 (.in(data[7:4]), .enable(state == OPSEL), .out(ss4[6:0]));
 ssdec f6 (.in(data[3:0]), .enable(state == OPSEL), .out(ss3[6:0]));
 ssdec f7 (.in(data[7:4]), .enable(state == NUM1), .out(ss6[6:0]));
 ssdec f8 (.in(data[3:0]), .enable(state == NUM1), .out(ss5[6:0]));
-ssdec f9 (.in(dataIn[7:4]), .enable(state == DISPLAY), .out(ss8[6:0]));
-ssdec f10 (.in(dataIn[3:0]), .enable(state == DISPLAY), .out(ss7[6:0]));
+ssdec f9 (.in(data[7:4]), .enable(state == DISPLAY), .out(ss8[6:0]));
+ssdec f10 (.in(data[3:0]), .enable(state == DISPLAY), .out(ss7[6:0]));
 // assign right = instruction[7:0];
 
 assign left = nextdataInTemp[7:0];
@@ -111,7 +111,6 @@ always_comb begin
         NUM1: begin
             if(|buttons[9:0]) begin
                 nextData = {data[3:0], halfData[3:0]};
-                //need to fix
                 address = 32'd220;
             end else if (buttons[10]) begin
                 nextData = dataInTemp[7:0];
@@ -125,7 +124,6 @@ always_comb begin
         OPSEL: begin
             if(|buttons[19:16]) begin
                 nextData = {3'b0, halfData};
-                //need to fix
                 address = 32'd260;
             end else begin
                 nextData = data;
@@ -135,7 +133,6 @@ always_comb begin
         NUM2: begin
             if(|buttons[9:0]) begin
                 nextData = {data[3:0], halfData[3:0]};
-                //need to fix
                 address = 32'd240;
             end else begin
                 nextData = data;
@@ -150,7 +147,6 @@ always_comb begin
             nextData = data;
         end
         DISPLAY: begin
-            //need to fix, result address
             address = 32'd280;
             nextData = dataIn[7:0];
             currFPGAWrite = 0;
