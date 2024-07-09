@@ -19,7 +19,8 @@ output logic FPGAEnable, writeFPGA, CPUEnable, nrstFPGA
     logic currFPGAEnable;
     logic currFPGAWrite;
     logic instructionTrue, nextTrue;
-    logic [7:0] data, nextData, hexop, nextHex;
+		logic [31:0] one, ten, hun, thou;
+    logic [7:0] data, nextData, hexop, nextHex, dataInTemp, nextdataInTemp;;
     logic [15:0] halfData;
 		logic [127:0] row1, row2, nextRow1, nextRow2;
     logic keyStrobe, key;
@@ -44,12 +45,14 @@ lcd1602 lcd (.clk(clk), .rst(nrst), .row_1(row1), .row_2(row2), .lcd_en(left[5])
 
 always_ff@(posedge clk, negedge nrst) begin
     if (!nrst) begin
-        state <= NUM1;
+      state <= NUM1;
     end else if (instructionTrue) begin
 			state <= nextState;
 		end else if (enData) begin
-        state <= nextState;
-		end 
+      state <= nextState;
+		end else if (state == DISPLAY) begin
+			dataInTemp = nextdataInTemp;
+		end
 end
 
 always_ff@(posedge clk, negedge nrst)begin
@@ -62,8 +65,8 @@ end
 
 always_ff@(posedge clk, negedge nrst)begin
 	if(!nrst) begin
-		row1 <= 0;
-		row2 <= 0;
+		row1 <= 128'ha0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0;
+		row2 <= 128'ha0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0;
 		hexop <= 0;
 	end else begin
 		row1 <= nextRow1;
@@ -95,6 +98,7 @@ end
 
 keysync f1 (.clk(clk), .keyin(buttons[19:0]), .keyclk(key), .rst(nrst), .keyout());
 bcd f2 (.in(data), .out(dataOut));
+bcdOut f11 (.in(dataIn), .ones(one), .tens(ten), .hundred(hun), .thousand(thou));
 ssdec f3 (.in(data[7:4]), .enable(state == NUM2), .out(ss2[6:0]));
 ssdec f4 (.in(data[3:0]), .enable(state == NUM2), .out(ss1[6:0]));
 ssdec f5 (.in(data[7:4]), .enable(state == OPSEL), .out(ss4[6:0]));
@@ -112,14 +116,19 @@ always_comb begin
 		nextHex = hexop;
 		nextRow1 = row1;
 		nextRow2 = row2;
+		nextdataInTemp = 0;
     casez(state)
         NUM1: begin
-            if(|buttons[3:0] && (halfData[7:0] != 8'b00100011)) begin
+            if(|buttons[3:0] && (halfData[7:0] != 8'b00100011 && halfData[7:0] != 8'b00101010)) begin
                 nextData = {data[3:0], halfData[3:0]};
                 //need to fix
                 address = 32'd220;
 								nextRow1 = {{4'b0011, data[7:4]}, {4'b0011, data[3:0]}, row1[111:0]};
-            end else begin
+						end else if(|buttons[3:0] && (halfData[7:0] == 8'b00101010)) begin
+								nextData = dataInTemp;
+                address = 32'd220;
+								nextRow1 = {{4'b0011, dataInTemp[7:4]}, {4'b0011, dataInTemp[3:0]}, row1[111:0]};
+						end else begin
                 nextData = data;
                 address = 32'd320;
             end
@@ -143,12 +152,16 @@ always_comb begin
             end
         end
         NUM2: begin
-            if(|buttons[3:0] && (halfData[7:0] != 8'b00100011)) begin
+            if(|buttons[3:0] && (halfData[7:0] != 8'b00100011 && halfData[7:0] != 8'b00101010)) begin
                 nextData = {data[3:0], halfData[3:0]};
                 //need to fix
                 address = 32'd240;
 								nextRow1 = {row1[127:16], {4'b0011, data[7:4]}, {4'b0011, data[3:0]}};
-            end else begin
+						end else if(|buttons[3:0] && (halfData[7:0] == 8'b00101010)) begin
+								nextData = dataInTemp;
+                address = 32'd240;
+								nextRow1 = {{4'b0011, dataInTemp[7:4]}, {4'b0011, dataInTemp[3:0]}, row1[111:0]};
+						end else begin
                 nextData = data;
                 address = 32'd320;
             end
@@ -166,8 +179,14 @@ always_comb begin
             nextData = dataIn[7:0];
             currFPGAWrite = 0;
             nrstFPGA = 0;
-						nextRow1 = row1;
-						nextRow2 = {row2[127:24], 8'b00111101, {4'b0011, dataIn[7:4]}, {4'b0011, dataIn[3:0]}};
+						nextdataInTemp = {ten[3:0], one[3:0]};
+						if(halfData[7:0] == 8'b00100011) begin
+							nextRow1 = 128'ha0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0;
+							nextRow2 = 128'ha0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0;
+						end else begin
+							nextRow1 = row1;
+							nextRow2 = {row2[127:40], 8'b00111101, {4'b0011, thou[3:0]}, {4'b0011, hun[3:0]}, {4'b0011, ten[3:0]}, {4'b0011, one[3:0]}};
+						end
         end
         default: begin
             nextData = data;
@@ -183,4 +202,19 @@ input logic [7:0] in,
 output logic [31:0] out
 );
 assign out = in[7:4] * 10 + {28'b0, in[3:0]};
+endmodule
+
+module bcdOut(
+	input logic [31:0] in,
+	output logic [31:0] ones, tens, hundred, thousand
+);
+	logic [31:0] temp;
+	always_comb begin
+	thousand = {in / 1000};
+	temp = in % 1000;
+	hundred = {temp / 100};
+	temp = temp % 100;
+	tens = {temp / 10};
+	ones = {temp % 10};
+	end
 endmodule
