@@ -63,6 +63,7 @@ always_comb begin
     else 
         instructionTrue = 0;
 
+    instructionTrue = buttons[10];
     casez ({state, buttons[12], keyStrobe})
     {NUM1, 2'b11}: nextState = OPSEL;
     {OPSEL, 2'b11}: nextState = NUM2;
