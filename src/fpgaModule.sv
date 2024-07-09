@@ -4,35 +4,31 @@ typedef enum logic [2:0] {
 } stateLog;
 
 module fpgaModule (
-input logic clk, nrst,
+input logic clk, nrst, keyStrobe, enData,
 input logic [31:0] instruction, dataIn, writeData,
-input logic [19:0] buttons,
+input logic [3:0] buttons,
+input logic [15:0] halfData,
 output logic [7:0] ss1, ss2, ss3, ss4, ss5, ss6, ss7, ss8, right, left, 
 output logic [31:0] address, dataOut,
+output logic [127:0] row1, row2,
 output logic FPGAEnable, writeFPGA, CPUEnable, nrstFPGA
 );
 
 //logic definitions
     stateLog state, nextState;
-    logic en, enData;
     logic currCPUEnable;
     logic currFPGAEnable;
     logic currFPGAWrite;
     logic instructionTrue, nextTrue;
 		logic [31:0] one, ten, hun, thou;
-    logic [7:0] data, nextData, hexop, nextHex, dataInTemp, nextdataInTemp;;
-    logic [15:0] halfData;
-		logic [127:0] row1, row2, nextRow1, nextRow2;
-    logic keyStrobe, key;
+    logic [7:0] data, nextData, hexop, nextHex, dataInTemp, nextdataInTemp;
+		logic [127:0] nextRow1, nextRow2;
+    
     
     assign CPUEnable = currCPUEnable;
     assign writeFPGA = currFPGAWrite;
     assign FPGAEnable = currFPGAEnable;
 
-edgeDetector edg(.clk(clk), .nRst_i(nrst), .button_i(key), .button_p(en));
-edgeDetector edg2(.clk(clk), .nRst_i(nrst), .button_i(~keyStrobe), .button_p(enData));
-keypad pad (.clk(clk), .rst(nrst), .receive_ready(keyStrobe), .data_received(halfData), .read_row(buttons[3:0]), .scan_col({left[2], left[4], left[6], left[0]}));
-lcd1602 lcd (.clk(clk), .rst(nrst), .row_1(row1), .row_2(row2), .lcd_en(left[5]), .lcd_rw(left[3]), .lcd_rs(left[1]), .lcd_data(right));
 //always ff to change logic to next
 // always_ff@(posedge clk, negedge nrst) begin
 //     if (!nrst) begin
@@ -96,7 +92,6 @@ always_comb begin
     endcase
 end
 
-keysync f1 (.clk(clk), .keyin(buttons[19:0]), .keyclk(key), .rst(nrst), .keyout());
 bcd f2 (.in(data), .out(dataOut));
 bcdOut f11 (.in(dataIn), .ones(one), .tens(ten), .hundred(hun), .thousand(thou));
 ssdec f3 (.in(data[7:4]), .enable(state == NUM2), .out(ss2[6:0]));

@@ -36,12 +36,22 @@ module top1 (
 // mux enableFpgaData(.in1(fpgaDataOut), .in2(regData2), .en(fpgaMemEnable), .out(muxxedDataOut));
 // mux enableFpgaAddress(.in1(fpgaAddressOut), .in2(aluOut), .en(fpgaMemEnable), .out(muxxedAddressOut));
 
+logic [127:0] row1, row2;
+logic [15:0] halfData;
 logic [31:0] FPGAAdress, FPGADataOut;
-logic FPGAEnable, writeFPGA, CPUEnable;
+logic FPGAEnable, writeFPGA, CPUEnable, keyStrobe, enData;
 
-fpgaModule a1 (.clk(clk), .nrst(nrst), .instruction(instruction), .dataIn(memload), .buttons(pb[19:0]), .ss1(ss0), .ss2(ss1), .ss3(ss2),
+assign {left[2], left[4], left[6], left[0]} = scan_col;
+assign left[5] = lcd_en;
+assign left[3] = lcd_rw;
+assign left[1] = lcd_rs;
+assign read_row = pb[3:0];
+assign right = lcd_data;
+
+fpgaModule a1 (.clk(clk), .nrst(nrst), .instruction(instruction), .dataIn(memload), .buttons(read_row), .ss1(ss0), .ss2(ss1), .ss3(ss2),
 .ss4(ss3), .ss5(ss4), .ss6(ss5), .ss7(ss6), .ss8(ss7), .FPGAEnable(FPGAEnable), .writeFPGA(writeFPGA), .CPUEnable(CPUEnable), .address(FPGAAdress), 
-.dataOut(FPGADataOut), .right(right), .left(left), .writeData(writeData), .nrstFPGA(nrstFPGA));
+.dataOut(FPGADataOut), .right(right), .left(left), .writeData(writeData), .nrstFPGA(nrstFPGA), .row1(row1), .row2(row2), .keyStrobe(keyStrobe), 
+.halfData(halfData), .enData(enData));
 
 logic [31:0] muxxedAddressOut, muxxedDataOut;
 logic [31:0]intermedWriteEnable;
@@ -53,7 +63,13 @@ assign write_enable = intermedWriteEnable[0];
 
 ////////////////////
 
+logic lcd_en, lcd_rw, lcd_rs;
+logic [7:0] lcd_data;
+logic [3:0] read_row, scan_col;
 
+edgeDetector edg2(.clk(clk), .nRst_i(nrst), .button_i(~keyStrobe), .button_p(enData));
+keypad pad (.clk(clk), .rst(nrst), .receive_ready(keyStrobe), .data_received(halfData), .read_row(read_row), .scan_col(scan_col));
+lcd1602 lcd (.clk(clk), .rst(nrst), .row_1(row1), .row_2(row2), .lcd_en(lcd_en), .lcd_rw(lcd_rw), .lcd_rs(lcd_rs), .lcd_data(lcd_data));
 
 logic [31:0] instruction;
 logic [7:0] data_out8;
@@ -65,7 +81,6 @@ logic [31:0] regData14;
 
 register_file DUT(.clk(clk), .nRST(nrst & nrstFPGA), .reg_write(regWrite), .read_index1(regsel1), .read_index2(regsel2), .read_data14(regData14),
 .read_data1(regData1), .read_data2(regData2), .write_index(w_reg), .write_data(writeData));
-
 
 control controller (.cuOP(cuOP), .instruction(instruction), 
 .reg_1(regsel1), .reg_2(regsel2), .rd(w_reg),
