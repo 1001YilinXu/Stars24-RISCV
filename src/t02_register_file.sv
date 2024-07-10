@@ -29,12 +29,12 @@
 // assign read_data1 = register [read_index1];
 // assign read_data2 = register [read_index2];
 // endmodule
-module register_file
+module t02_register_file
 (
     input logic clk, nRST, reg_write,
     input logic [4:0] write_index, read_index1, read_index2,
     input logic [31:0] write_data,
-    output logic [31:0] read_data1, read_data2, read_data14
+    output logic [31:0] read_data1, read_data2
 );
 
     logic [31:0] register [31:0];
@@ -67,5 +67,5 @@ module register_file
 
     assign read_data1 = register[read_index1];
     assign read_data2 = register[read_index2];
-    assign read_data14 = register[7];
+
 endmodule

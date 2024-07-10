@@ -1,4 +1,4 @@
-module control(
+module t02_control(
 	input logic [31:0] instruction,
 	output logic [4:0] reg_1, reg_2, rd,
 	output logic [19:0] imm,
@@ -35,7 +35,7 @@ module control(
 		ALU_AND = 4, 
 		ALU_SLL = 5, 
 		ALU_SRA = 6, 
-		ALU_SLTU = 7, 
+		// ALU_SLTU = 7, 
 		ALU_SLT = 8,
 		ALU_SRL = 9
 	}aluOPType;
@@ -43,7 +43,7 @@ module control(
 	typedef enum logic [2:0] {
 		ADDI = 3'b000,
 		SLTI = 3'b010,
-		SLTIU = 3'b011,
+		// SLTIU = 3'b011,
 		XORI = 3'b100,
 		SLLI = 3'b001,
 		SRLI = 3'b101,
@@ -55,7 +55,7 @@ module control(
 		ADD = 3'b000,
 		SLL = 3'b001,
 		SLT = 3'b010,
-		SLTU = 3'b011,
+		// SLTU = 3'b011,
 		XOR = 3'b100,
 		SRL = 3'b101,
 		OR = 3'b110,
@@ -72,7 +72,7 @@ always_comb begin
 	memRead=0; 
 	aluSrc=0;
 	aluOP = '0; //
-	casez (instruction[6:0])
+	case (instruction[6:0])
 	(LUI): begin
 		cuOP = CU_LUI;
 		imm = instruction[31:12];
@@ -103,7 +103,7 @@ always_comb begin
 		reg_2 = instruction[24:20];
 		imm = {8'b0, instruction[31:25], instruction[11:7]};
 		aluOP = ALU_SUB;
-		casez(instruction[14:12])
+		case(instruction[14:12])
 		3'b000: cuOP = CU_BEQ;
 		3'b001: cuOP = CU_BNE; 
 		3'b100: cuOP = CU_BLT; 
@@ -121,7 +121,7 @@ always_comb begin
 		aluSrc = 1;
 		memRead = 1;
 		aluOP = ALU_ADD;
-		casez(instruction[14:12])
+		case(instruction[14:12])
 		3'b000: cuOP = CU_LB; 
 		3'b001: cuOP = CU_LH; 
 		3'b010: cuOP = CU_LW; 
@@ -137,7 +137,7 @@ always_comb begin
 		memWrite = 1;
 		aluSrc = 1;
 		aluOP = ALU_ADD;
-		casez(instruction[14:12])
+		case(instruction[14:12])
 		3'b000: cuOP = CU_SB;
 		3'b001: cuOP = CU_SH;
 		3'b010: cuOP = CU_SW;
@@ -150,7 +150,7 @@ always_comb begin
 		imm = {8'b0, instruction[31:20]};
 		regWrite = 1;
 		aluSrc = 1;
-		casez(instruction[14:12])
+		case(instruction[14:12])
 		ADDI: begin
 			aluOP = ALU_ADD;
 			cuOP = CU_ADDI;
@@ -159,10 +159,10 @@ always_comb begin
 			aluOP = ALU_SLT;
 			cuOP = CU_SLTI;
 		end
-		SLTIU: begin
-			aluOP = ALU_SLTU;
-			cuOP = CU_SLTIU;
-		end 
+		// SLTIU: begin
+		// 	aluOP = ALU_SLTU;
+		// 	cuOP = CU_SLTIU;
+		// end 
 		XORI: begin
 			aluOP = ALU_XOR;
 			cuOP = CU_XORI;
@@ -196,7 +196,7 @@ always_comb begin
 		reg_2 = instruction[24:20];
 		rd = instruction[11:7];
 		regWrite = 1;
-		casez(instruction[14:12])
+		case(instruction[14:12])
 		ADD: begin
 			if(!(|instruction[31:22]))begin
 			aluOP = ALU_ADD;
@@ -210,10 +210,10 @@ always_comb begin
 			aluOP = ALU_SLT;
 			cuOP = CU_SLT;
 		end
-		SLTU: begin
-			aluOP = ALU_SLTU;
-			cuOP = CU_SLTU;
-		end 
+		// SLTU: begin
+		// 	aluOP = ALU_SLTU;
+		// 	cuOP = CU_SLTU;
+		// end 
 		XOR: begin
 			aluOP = ALU_XOR;
 			cuOP = CU_XOR;

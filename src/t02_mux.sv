@@ -1,4 +1,4 @@
-module mux(
+module t02_mux(
 	input logic [31:0] in1, in2, 
 	input logic en,
 	output logic [31:0] out);

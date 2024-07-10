@@ -1,6 +1,6 @@
 
 
-module signExtender (
+module t02_signExtender (
 input logic[19:0] imm,
 input logic[5:0] CUOp,
 output logic[31:0] immOut

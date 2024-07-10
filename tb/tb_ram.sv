@@ -1,8 +1,3 @@
-// `include "src/ram.sv" 
-
-
-`timescale 1ms / 1000ns
-
 module tb_ram();
     logic clk, tb_nRst, tb_write_enable, tb_read_enable;
     logic [4:0] tb_address_DM, tb_address_IM;
@@ -23,7 +18,7 @@ ram DUT(.clk(clk), .nRst(tb_nRst), .write_enable(tb_write_enable), .read_enable(
 .instr_out(tb_instr_out), .pc_enable(tb_pc_enable));
 
 initial begin
-$dumpfile("test.vcd");
+$dumpfile("dump.vcd");
 $dumpvars;
 tb_nRst = 0;
 @(posedge clk);

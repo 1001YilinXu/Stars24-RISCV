@@ -1,5 +1,5 @@
 
-module writeToReg (
+module t02_writeToReg (
     input logic [31:0] memload, pc, aluOut, imm,
     input logic negative,
     input logic [5:0] cuOP,
