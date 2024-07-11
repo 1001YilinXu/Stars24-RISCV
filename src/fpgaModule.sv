@@ -8,7 +8,6 @@ input logic clk, nrst, keyStrobe, enData,
 input logic [31:0] instruction, dataIn, writeData,
 input logic [3:0] buttons,
 input logic [15:0] halfData,
-output logic [7:0] ss1, ss2, ss3, ss4, ss5, ss6, ss7, ss8, right, left, 
 output logic [31:0] address, dataOut,
 output logic [127:0] row1, row2,
 output logic FPGAEnable, writeFPGA, CPUEnable, nrstFPGA
@@ -20,24 +19,15 @@ output logic FPGAEnable, writeFPGA, CPUEnable, nrstFPGA
     logic currFPGAEnable;
     logic currFPGAWrite;
     logic instructionTrue, nextTrue;
-		logic [31:0] one, ten, hun, thou;
-    logic [7:0] data, nextData, hexop, nextHex, dataInTemp, nextdataInTemp;
+		logic [31:0] one, ten, hun, thou, tenthou, hunthou;
+    logic [7:0] hexop, nextHex, nextrt;
+		logic [11:0] data, nextData, dataInTemp, nextdataInTemp;
 		logic [127:0] nextRow1, nextRow2;
     
     
     assign CPUEnable = currCPUEnable;
     assign writeFPGA = currFPGAWrite;
     assign FPGAEnable = currFPGAEnable;
-
-//always ff to change logic to next
-// always_ff@(posedge clk, negedge nrst) begin
-//     if (!nrst) begin
-//         state <= NUM1;
-//     end
-//     else if (en | instructionTrue) begin
-//         state <= nextState;
-//     end
-// end
 
 always_ff@(posedge clk, negedge nrst) begin
     if (!nrst) begin
@@ -53,9 +43,9 @@ end
 
 always_ff@(posedge clk, negedge nrst)begin
     if(!nrst) begin
-        data <= 0;
-    end else if(enData) begin
-        data <= nextData;
+      data <= 0;
+		end else if(enData) begin
+      data <= nextData;
     end
 end
 
@@ -93,15 +83,8 @@ always_comb begin
 end
 
 bcd f2 (.in(data), .out(dataOut));
-bcdOut f11 (.in(dataIn), .ones(one), .tens(ten), .hundred(hun), .thousand(thou));
-ssdec f3 (.in(data[7:4]), .enable(state == NUM2), .out(ss2[6:0]));
-ssdec f4 (.in(data[3:0]), .enable(state == NUM2), .out(ss1[6:0]));
-ssdec f5 (.in(data[7:4]), .enable(state == OPSEL), .out(ss4[6:0]));
-ssdec f6 (.in(data[3:0]), .enable(state == OPSEL), .out(ss3[6:0]));
-ssdec f7 (.in(data[7:4]), .enable(state == NUM1), .out(ss6[6:0]));
-ssdec f8 (.in(data[3:0]), .enable(state == NUM1), .out(ss5[6:0]));
-ssdec f9 (.in(dataIn[7:4]), .enable(state == DISPLAY), .out(ss8[6:0]));
-ssdec f10 (.in(dataIn[3:0]), .enable(state == DISPLAY), .out(ss7[6:0]));
+bcd f12 (.in(data), .out(dataOut));
+bcdOut f11 (.in(dataIn), .ones(one), .tens(ten), .hundred(hun), .thousand(thou), .tenthou(tenthou), .hunthou(hunthou));
 
 always_comb begin
     currCPUEnable = 0;
@@ -114,23 +97,23 @@ always_comb begin
 		nextdataInTemp = 0;
     casez(state)
         NUM1: begin
-            if(|buttons[3:0] && (halfData[7:0] != 8'b00100011 && halfData[7:0] != 8'b00101010)) begin
-                nextData = {data[3:0], halfData[3:0]};
+            if(|buttons[3:0] && (halfData[7:0] != 8'b00100011 && halfData[3:0] != 4'b1010 && halfData[3:0] != 4'b1011 && halfData[3:0] != 4'b1100 && halfData[3:0] != 4'b1101)) begin
+                nextData = {data[7:4], data[3:0], halfData[3:0]};
                 //need to fix
                 address = 32'd220;
-								nextRow1 = {{4'b0011, data[7:4]}, {4'b0011, data[3:0]}, row1[111:0]};
+								nextRow1 = {{4'b0011, data[11:8]}, {4'b0011, data[7:4]}, {4'b0011, data[3:0]}, row1[103:0]};
 						end else if(|buttons[3:0] && (halfData[7:0] == 8'b00101010)) begin
 								nextData = dataInTemp;
                 address = 32'd220;
-								nextRow1 = {{4'b0011, dataInTemp[7:4]}, {4'b0011, dataInTemp[3:0]}, row1[111:0]};
+								nextRow1 = {{4'b0011, dataInTemp[11:8]}, {4'b0011, dataInTemp[7:4]}, {4'b0011, dataInTemp[3:0]}, row1[103:0]};
 						end else begin
                 nextData = data;
                 address = 32'd320;
             end
         end
         OPSEL: begin
-            if(|buttons[3:0] && (halfData[7:0] != 8'b00100011)) begin
-                nextData = {4'b0, halfData[3:0]};
+            if(|buttons[3:0] && (halfData[7:0] != 8'b00100011 && halfData[7:0] != 8'b00101010) && (halfData[3:0] == 4'b1010 || halfData[3:0] == 4'b1011 || halfData[3:0] == 4'b1100 || halfData[3:0] == 4'b1101)) begin
+                nextData = {8'b0, halfData[3:0]};
                 //need to fix
                 address = 32'd260;
 								casez(halfData[7:0])
@@ -147,15 +130,15 @@ always_comb begin
             end
         end
         NUM2: begin
-            if(|buttons[3:0] && (halfData[7:0] != 8'b00100011 && halfData[7:0] != 8'b00101010)) begin
-                nextData = {data[3:0], halfData[3:0]};
+						if(|buttons[3:0] && (halfData[7:0] != 8'b00100011 && halfData[3:0] != 4'b1010 && halfData[3:0] != 4'b1011 && halfData[3:0] != 4'b1100 && halfData[3:0] != 4'b1101)) begin
+                nextData = {data[7:4], data[3:0], halfData[3:0]};
                 //need to fix
                 address = 32'd240;
-								nextRow1 = {row1[127:16], {4'b0011, data[7:4]}, {4'b0011, data[3:0]}};
+								nextRow1 = {row1[127:24], {4'b0011, data[11:8]}, {4'b0011, data[7:4]}, {4'b0011, data[3:0]}};
 						end else if(|buttons[3:0] && (halfData[7:0] == 8'b00101010)) begin
 								nextData = dataInTemp;
                 address = 32'd240;
-								nextRow1 = {{4'b0011, dataInTemp[7:4]}, {4'b0011, dataInTemp[3:0]}, row1[111:0]};
+								nextRow1 = {row1[127:24], {4'b0011, dataInTemp[11:8]}, {4'b0011, dataInTemp[7:4]}, {4'b0011, dataInTemp[3:0]}};
 						end else begin
                 nextData = data;
                 address = 32'd320;
@@ -171,16 +154,16 @@ always_comb begin
         DISPLAY: begin
             //need to fix, result address
             address = 32'd280;
-            nextData = dataIn[7:0];
+            nextData = dataIn[11:0];
             currFPGAWrite = 0;
             nrstFPGA = 0;
-						nextdataInTemp = {ten[3:0], one[3:0]};
+						nextdataInTemp = {hun[3:0], ten[3:0], one[3:0]};
 						if(halfData[7:0] == 8'b00100011) begin
 							nextRow1 = 128'ha0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0;
 							nextRow2 = 128'ha0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0;
 						end else begin
 							nextRow1 = row1;
-							nextRow2 = {row2[127:40], 8'b00111101, {4'b0011, thou[3:0]}, {4'b0011, hun[3:0]}, {4'b0011, ten[3:0]}, {4'b0011, one[3:0]}};
+							nextRow2 = {row2[127:56], 8'b00111101, {4'b0011, hunthou[3:0]}, {4'b0011, tenthou[3:0]}, {4'b0011, thou[3:0]}, {4'b0011, hun[3:0]}, {4'b0011, ten[3:0]}, {4'b0011, one[3:0]}};
 						end
         end
         default: begin
@@ -193,23 +176,27 @@ end
 endmodule
 
 module bcd(
-input logic [7:0] in,
+input logic [11:0] in,
 output logic [31:0] out
 );
-assign out = in[7:4] * 10 + {28'b0, in[3:0]};
+assign out = in[11:8] * 100 + (in[7:4] * 10 + {28'b0, in[3:0]});
 endmodule
 
 module bcdOut(
 	input logic [31:0] in,
-	output logic [31:0] ones, tens, hundred, thousand
+	output logic [31:0] ones, tens, hundred, thousand, tenthou, hunthou
 );
 	logic [31:0] temp;
 	always_comb begin
-	thousand = {in / 1000};
-	temp = in % 1000;
-	hundred = {temp / 100};
-	temp = temp % 100;
-	tens = {temp / 10};
-	ones = {temp % 10};
+hunthou = in / 100000;
+temp = in % 100000;
+tenthou = temp / 10000;
+temp = temp % 10000;
+thousand = temp / 1000;
+temp = temp % 1000;
+hundred = temp / 100;
+temp = temp % 100;
+tens = temp / 10;
+ones = temp % 10;
 	end
 endmodule

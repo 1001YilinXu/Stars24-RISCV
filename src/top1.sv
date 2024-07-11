@@ -48,18 +48,18 @@ assign left[1] = lcd_rs;
 assign read_row = pb[3:0];
 assign right = lcd_data;
 
-fpgaModule a1 (.clk(clk), .nrst(nrst), .instruction(instruction), .dataIn(memload), .buttons(read_row), .ss1(ss0), .ss2(ss1), .ss3(ss2),
-.ss4(ss3), .ss5(ss4), .ss6(ss5), .ss7(ss6), .ss8(ss7), .FPGAEnable(FPGAEnable), .writeFPGA(writeFPGA), .CPUEnable(CPUEnable), .address(FPGAAdress), 
-.dataOut(FPGADataOut), .right(right), .left(left), .writeData(writeData), .nrstFPGA(nrstFPGA), .row1(row1), .row2(row2), .keyStrobe(keyStrobe), 
-.halfData(halfData), .enData(enData));
+// fpgaModule a1 (.clk(clk), .nrst(nrst), .instruction(instruction), .dataIn(memload), .buttons(read_row), .ss1(ss0), .ss2(ss1), .ss3(ss2),
+// .ss4(ss3), .ss5(ss4), .ss6(ss5), .ss7(ss6), .ss8(ss7), .FPGAEnable(FPGAEnable), .writeFPGA(writeFPGA), .CPUEnable(CPUEnable), .address(FPGAAdress), 
+// .dataOut(FPGADataOut), .right(right), .left(left), .writeData(writeData), .nrstFPGA(nrstFPGA), .row1(row1), .row2(row2), .keyStrobe(keyStrobe), 
+// .halfData(halfData), .enData(enData));
 
-logic [31:0] muxxedAddressOut, muxxedDataOut;
-logic [31:0]intermedWriteEnable;
+// logic [31:0] muxxedAddressOut, muxxedDataOut;
+// logic [31:0]intermedWriteEnable;
 
-mux enableWrite(.in1({31'b0, writeFPGA}), .in2({31'b0, memWrite}), .en(FPGAEnable), .out(intermedWriteEnable));
-mux enableFpgaData(.in1(FPGADataOut), .in2(regData2), .en(FPGAEnable), .out(muxxedDataOut));
-mux enableFpgaAddress(.in1(FPGAAdress), .in2(aluOut), .en(FPGAEnable), .out(muxxedAddressOut));
-assign write_enable = intermedWriteEnable[0];
+// mux enableWrite(.in1({31'b0, writeFPGA}), .in2({31'b0, memWrite}), .en(FPGAEnable), .out(intermedWriteEnable));
+// mux enableFpgaData(.in1(FPGADataOut), .in2(regData2), .en(FPGAEnable), .out(muxxedDataOut));
+// mux enableFpgaAddress(.in1(FPGAAdress), .in2(aluOut), .en(FPGAEnable), .out(muxxedAddressOut));
+// assign write_enable = intermedWriteEnable[0];
 
 ////////////////////
 

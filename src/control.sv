@@ -71,7 +71,7 @@ always_comb begin
 	memWrite=0; 
 	memRead=0; 
 	aluSrc=0;
-	aluOP = '0; //
+	aluOP = '0; 
 	casez (instruction[6:0])
 	(LUI): begin
 		cuOP = CU_LUI;
